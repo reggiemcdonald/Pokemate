@@ -27,7 +27,9 @@ export default class PokeDataFetcher {
      }
 
     /**
-     * Returns the type data for the given type by name
+     * Returns type data for the specified type
+     * @param type: type to get data for
+     * @returns {Promise<any> | Promise<*>}
      */
     getTypeData(type) {
         let that = this;

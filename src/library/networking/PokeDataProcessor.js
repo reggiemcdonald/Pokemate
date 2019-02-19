@@ -29,14 +29,19 @@ export default class PokeDataProcessor {
     async processComponentData(name) {
         // TODO
         let data = await this.fetcher.getAllPokemonStats(name);
+        let pokemonName = this._getName(data);
+        let id = this._getId(data);
+        let sprite = this._getSprite(data);
+        let types = this._getTypes(data);
+        let damageRelations = await this._getDamageRelations(types);
         return {
-            name: this._getName(data),
-            id: this._getId(data),
-            types: this._getTypes(data),
-            sprite: this._getSprite(data),
-            strengths: this._getStrengths(data),
-            weaknesses: this._getWeaknesses(data),
-            noEffect: this._getNoEffect(data)
+            name: name,
+            id: id,
+            types: types,
+            sprite: sprite,
+            strengths: damageRelations.strengths,
+            weaknesses: damageRelations.weaknesses,
+            noEffect: damageRelations.noEffect
         };
     }
 
@@ -75,27 +80,44 @@ export default class PokeDataProcessor {
     }
 
     /**
-     * Gets a list of the types that this pokemon is strong against
+     * Returns the damage relations for the types given
+     * @param types
+     * @private
      */
-    _getStrengths(data) {
-        // TODO: Needs processing
-        return [];
-    }
-
-    /**
-     * Gets a list of the types that this pokemon is weak against
-     */
-    _getWeaknesses(data) {
-        // TODO: Needs processing
-        return [];
-    }
-
-    /**
-     * Gets a list of the types that this pokemon type has no effect against
-     */
-    _getNoEffect(data) {
-        // TODO: Needs processing
-        return [];
+    async _getDamageRelations(types) {
+        let damageRelations = {
+            strengths: [],
+            weaknesses: [],
+            noEffect: []
+        };
+        for (type of types) {
+            let typeData = await this.fetcher.getTypeData(type);
+            let doubleDamageTo = typeData.damage_relations.double_damage_to.map((value) => {
+                return value.name
+            });
+            let halfDamageTo = typeData.damage_relations.half_damage_to.map((value) => {
+                return value.name;
+            });
+            let noDamageTo = typeData.damage_relations.no_damage_to.map((value) => {
+                return value.name;
+            });
+            doubleDamageTo.forEach((value) => {
+                if (!damageRelations.strengths.includes(value)) {
+                    damageRelations.strengths.push(value);
+                }
+            });
+            halfDamageTo.forEach((value) => {
+                if (!damageRelations.weaknesses.includes(value)) {
+                    damageRelations.weaknesses.push(value);
+                }
+            });
+            noDamageTo.forEach((value) => {
+                if (!damageRelations.noEffect.includes(value)) {
+                    damageRelations.noEffect.push(value);
+                }
+            });
+        }
+        return damageRelations;
     }
 
 }
