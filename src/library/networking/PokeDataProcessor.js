@@ -36,7 +36,7 @@ export default class PokeDataProcessor {
             sprite: this._getSprite(data),
             strengths: this._getStrengths(data),
             weaknesses: this._getWeaknesses(data),
-            noEffect: this_getNoEffect(data)
+            noEffect: this._getNoEffect(data)
         };
     }
 
@@ -59,8 +59,8 @@ export default class PokeDataProcessor {
      */
     _getTypes(data) {
         let types = []
-        for (let type in data.types) {
-            types.push(type.name);
+        for (let item of data.types) {
+            types.push(item.type.name);
         }
         return types;
     }
@@ -71,7 +71,7 @@ export default class PokeDataProcessor {
      * @private
      */
     _getSprite(data) {
-        return ""
+        return data.sprites.front_default;
     }
 
     /**

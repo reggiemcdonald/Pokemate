@@ -3745,6 +3745,7 @@ const results = {
         name: "pikachu",
         id: 25,
         types: ["electric"],
+        sprite: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/25.png",
         strengths: [
             "water",
             "flying"
@@ -3757,6 +3758,30 @@ const results = {
         noEffect: [
             "ground"
         ]
+    },
+    mockBulbasaurDataStructure: {
+        name: "bulbasaur",
+        id: 1,
+        types: [
+            "poison",
+            "grass"
+        ],
+        sprite: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/1.png",
+        strengths:[
+            "water",
+            "ground",
+            "rock"
+        ],
+        weaknesses: [
+            "fire",
+            "grass",
+            "poison",
+            "flying",
+            "bug",
+            "dragon",
+            "steel"
+        ],
+        noEffect: []
     }
 };
 
