@@ -3740,6 +3740,23 @@ const results = {
         }, {"base_stat": 35, "effort": 0, "stat": {"name": "hp", "url": "https://pokeapi.co/api/v2/stat/1/"}}],
         "types": [{"slot": 1, "type": {"name": "electric", "url": "https://pokeapi.co/api/v2/type/13/"}}],
         "weight": 60
+    },
+    mockPikachuDataStructure: {
+        name: "pikachu",
+        id: 25,
+        types: ["electric"],
+        strengths: [
+            "water",
+            "flying"
+        ],
+        weaknesses: [
+            "electric",
+            "grass",
+            "dragon"
+        ],
+        noEffect: [
+            "ground"
+        ]
     }
 };
 
