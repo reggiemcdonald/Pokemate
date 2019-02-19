@@ -26,4 +26,20 @@ export default class PokeDataFetcher {
         });
      }
 
+    /**
+     * Returns the type data for the given type by name
+     */
+    getTypeData(type) {
+        let that = this;
+        return new Promise(async function (resolve, reject) {
+            let result;
+            try {
+                result = await that.p.getTypeByName(type);
+                return resolve(result);
+            } catch (err) {
+                return reject(err);
+            }
+        });
+    }
+
 }
