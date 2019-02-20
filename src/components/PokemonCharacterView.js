@@ -11,34 +11,43 @@ export default class PokemonCharacterView extends React.Component{
         super(props);
     }
     render() {
+        const {navigation} = this.props;
+        // TODO: make into single method
+        const data = navigation.getParam('data', {});
+        const name = data.name;
+        const type = data.types;
+        const sprite = data.sprite;
         return (
            <View style={styles.container}>
-               <Text style={[styles.genericText, styles.titleText]}>Ditto</Text>
+               <Text style={styles.titleText}>{name}</Text>
                <View style={styles.spriteContainer}>
-                   <Image source={{uri: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/132.png"}}
+                   <Image source={{uri: sprite}}
                           style={styles.sprite}/>
                </View>
                <Text style={styles.headerText}>Type</Text>
-               <Text style={[styles.genericText, styles.subText]}>Ditto is a normal type!</Text>
-               <Text style={styles.headerText}>Types Ditto is Strong Against</Text>
-               <Text style={styles.subText}>Such empty...</Text>
-               <Text style={styles.headerText}>Types Ditto is Weak Against</Text>
-               <FlatList data={[
-                   {key: "Fighting"}
-                   ]}
-                         renderItem={({item}) => <Text style={styles.subText}>{item.key}</Text>}
-               />
-               <Text style={styles.headerText}>Types that have no effect on Ditto</Text>
-               <FlatList data={[{key: "Ghost"}]}
-                         renderItem={({item}) => <Text style={styles.subText}>{item.key}</Text>}
-               />
+               <Text style={styles.subText}>{type}</Text>
+               <Text style={styles.headerText}>Strong Against the Following Types</Text>
+               <Text style={styles.subText}>List String Against Here</Text>
+               <Text style={styles.headerText}>Weak Against the Following Types</Text>
+               <Text style={styles.subText}>List Weak Against Here</Text>
+               <Text style={styles.headerText}>Types With No Effect</Text>
+               <Text style={styles.subText}>List No Effect Types Here</Text>
+               {/*<FlatList data={[*/}
+                   {/*{key: "Fighting"}*/}
+                   {/*]}*/}
+                         {/*renderItem={({item}) => <Text style={styles.subText}>{item.key}</Text>}*/}
+               {/*/>*/}
+               {/*<Text style={styles.headerText}>Types that have no effect on Ditto</Text>*/}
+               {/*<FlatList data={[{key: "Ghost"}]}*/}
+                         {/*renderItem={({item}) => <Text style={styles.subText}>{item.key}</Text>}*/}
+               {/*/>*/}
            </View>
         )
     }
 }
 
 const styles = StyleSheet.create({
-    container: {
+    containerCentered: {
         backgroundColor: "#F5FCFF",
         paddingTop: 50,
         flex: 1,

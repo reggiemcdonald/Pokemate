@@ -93,9 +93,16 @@ export default class PokemonMainList extends React.Component {
      * Move to the detailed view of the pokemon
      * @param cliked
      */
-    handlePress(clicked) {
-        // TODO
-        alert("You clicked "+clicked);
+    async handlePress(clicked) {
+        try {
+            const data = await this.state.processor.processComponentDataByName(clicked);
+            const {navigation} = this.props;
+            navigation.navigate('CharacterView', {
+                data: data
+            });
+        } catch (err) {
+            alert("Oops. Check that your wifi is enabled");
+        }
     }
 
     renderItem(item) {
@@ -110,7 +117,7 @@ export default class PokemonMainList extends React.Component {
 }
 
 const styles = StyleSheet.create({
-    container: {
+    containerCentered: {
         paddingTop: 10,
         flex: 1,
         backgroundColor: '#F5FCFF'

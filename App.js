@@ -36,7 +36,7 @@ class HomeScreen extends React.Component {
   render() {
     console.log("rendering");
     return (
-        <View style={styles.container}>
+        <View style={styles.containerCentered}>
           <Text style={styles.text}>Pokemate</Text>
           <TouchableOpacity onPress={
             () => this.props.navigation.navigate('PokemonList')
@@ -50,7 +50,7 @@ class HomeScreen extends React.Component {
 }
 
 const styles = StyleSheet.create({
-  container: {
+  containerCentered: {
     flex: 1,
     backgroundColor: '#F5FCFF',
     justifyContent: "center",
@@ -64,8 +64,9 @@ const styles = StyleSheet.create({
 
 const AppNavigator = createStackNavigator(
     {
-      Home: HomeScreen,
-      PokemonList: PokemonMainList
+        Home: HomeScreen,
+        PokemonList: PokemonMainList,
+        CharacterView: PokemonCharacterView
     },
     {
       initialRouteName: "Home"
