@@ -9,14 +9,17 @@
 
 import React, {Component} from 'react';
 import {
-    Platform,
     SectionList,
     StyleSheet,
     Text,
     View,
-    TouchableOpacity
+    Button
 } from 'react-native';
-import {createStackNavigator, createAppContainer} from "react-navigation";
+import {
+    createStackNavigator,
+    createBottomTabNavigator,
+    createAppContainer
+} from "react-navigation";
 import PokemonMainList from "./src/components/PokemonMainList";
 import PokeDataProcessor from "./src/library/networking/PokeDataProcessor";
 import PokemonCharacterView from "./src/components/PokemonCharacterView";
@@ -32,11 +35,7 @@ class HomeScreen extends React.Component {
     console.log("rendering");
     return (
         <View style={styles.containerCentered}>
-          <TouchableOpacity onPress={
-            () => this.props.navigation.navigate('PokemonList')
-          }>
-              <Text>Go To PokemonList!</Text>
-          </TouchableOpacity>
+            <Text style={styles.text}>Welcome to Pokemate! More to come!</Text>
         </View>
     );
   }
@@ -51,19 +50,28 @@ const styles = StyleSheet.create({
     alignItems: "center"
   },
   text: {
-    fontSize: 25,
+    fontSize: 30,
     fontWeight: "bold"
-  }
+  },
+    button:{
+      backgroundColor: "#841584"
+    }
 });
 
-const AppNavigator = createStackNavigator(
+const HomeStack = createStackNavigator(
     {
         Home: HomeScreen,
-        PokemonList: PokemonMainList,
-        CharacterView: PokemonCharacterView
+        PokemonList: PokemonMainList
     },
     {
       initialRouteName: "Home"
     });
+const PokemonListStack = createStackNavigator({
+    PokemonList: PokemonMainList,
+    CharacterView: PokemonCharacterView
+});
 
-export default createAppContainer(AppNavigator);
+export default createAppContainer(createBottomTabNavigator({
+    Home: HomeStack,
+    AllPokemon: PokemonListStack
+}));
