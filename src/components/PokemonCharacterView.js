@@ -6,6 +6,7 @@ import {View,
     FlatList,
     ScrollView
 } from 'react-native';
+import styles from "../library/styles";
 /**
  * ************************
  * Detailed view of pokemon
@@ -69,28 +70,3 @@ export default class PokemonCharacterView extends React.Component{
         )
     }
 }
-
-const styles = StyleSheet.create({
-    detailViewTitleText: {
-        fontSize: 30,
-        fontWeight: "bold",
-        paddingLeft: 10
-    },
-    headerText: {
-        fontSize: 20,
-        fontWeight: "bold",
-        paddingLeft: 10
-    },
-    detailViewSubText: {
-        fontSize: 18,
-        paddingLeft: 10
-    },
-    spriteContainer:{
-        justifyContent: 'center',
-        alignItems: 'center'
-    },
-    sprite: {
-        width: 300,
-        height: 300,
-    },
-});

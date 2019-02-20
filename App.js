@@ -7,13 +7,11 @@
  * @lint-ignore-every XPLATJSCOPYRIGHT1
  */
 
-import React, {Component} from 'react';
+import React from 'react';
 import {
-    SectionList,
     StyleSheet,
     Text,
     View,
-    Button
 } from 'react-native';
 import {
     createStackNavigator,
@@ -21,8 +19,9 @@ import {
     createAppContainer
 } from "react-navigation";
 import PokemonMainList from "./src/components/PokemonMainList";
-import PokeDataProcessor from "./src/library/networking/PokeDataProcessor";
 import PokemonCharacterView from "./src/components/PokemonCharacterView";
+import Roster from "./src/components/Roster";
+import styles from "./src/library/styles";
 
 //
 
@@ -35,33 +34,16 @@ class HomeScreen extends React.Component {
     console.log("rendering");
     return (
         <View style={styles.containerCentered}>
-            <Text style={styles.text}>Welcome to Pokemate! More to come!</Text>
+            <Text style={styles.placeholderText}>Welcome to Pokemate!</Text>
         </View>
     );
   }
 
 }
 
-const styles = StyleSheet.create({
-  containerCentered: {
-    flex: 1,
-    backgroundColor: '#F5FCFF',
-    justifyContent: "center",
-    alignItems: "center"
-  },
-  text: {
-    fontSize: 30,
-    fontWeight: "bold"
-  },
-    button:{
-      backgroundColor: "#841584"
-    }
-});
-
 const HomeStack = createStackNavigator(
     {
         Home: HomeScreen,
-        PokemonList: PokemonMainList
     },
     {
       initialRouteName: "Home"
@@ -70,8 +52,12 @@ const PokemonListStack = createStackNavigator({
     PokemonList: PokemonMainList,
     CharacterView: PokemonCharacterView
 });
+const RosterStack = createStackNavigator({
+    Roster: Roster
+});
 
 export default createAppContainer(createBottomTabNavigator({
     Home: HomeStack,
-    AllPokemon: PokemonListStack
+    "All Pokemon": PokemonListStack,
+    Roster: Roster
 }));

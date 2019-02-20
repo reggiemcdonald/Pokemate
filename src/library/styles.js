@@ -24,6 +24,12 @@ const styles = StyleSheet.create({
         height: 300,
     },
     containerCentered: {
+        flex: 1,
+        backgroundColor: '#F5FCFF',
+        justifyContent: "center",
+        alignItems: "center"
+    },
+    containerLeftAligned: {
         paddingTop: 10,
         flex: 1,
         backgroundColor: '#F5FCFF'
@@ -37,10 +43,14 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         backgroundColor: "#F5FCFF"
     },
-    item: {
+    sectionListItem: {
         padding: 10,
         fontSize: 18,
         height: 44,
+    },
+    placeholderText: {
+        fontSize: 30,
+        fontWeight: "bold"
     }
 });
 export default styles;

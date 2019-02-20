@@ -8,7 +8,7 @@ import {
     ActivityIndicator
 } from 'react-native';
 import PokeDataProcessor from "../library/networking/PokeDataProcessor";
-
+import styles from "../library/styles";
 /**
  * ****************************************************
  * A list view of all the pokemon that can be displayed
@@ -69,7 +69,7 @@ export default class PokemonMainList extends React.Component {
         console.log("rendering");
         return(
             // TODO
-            <View style={styles.container}>
+            <View style={styles.containerLeftAligned}>
                 <SectionList sections={this.state.data}
                              renderItem={({item}) => this.renderItem(item)}
                              renderSectionHeader={({section}) => <Text style={styles.sectionHeader}>{section.header}</Text>}
@@ -113,7 +113,7 @@ export default class PokemonMainList extends React.Component {
     renderItem(item) {
         return (
             <TouchableOpacity onPress={() => this.handlePress(item)}>
-                <Text style={styles.item}>
+                <Text style={styles.sectionListItem}>
                     {item}
                 </Text>
             </TouchableOpacity>
@@ -121,24 +121,3 @@ export default class PokemonMainList extends React.Component {
     }
 }
 
-const styles = StyleSheet.create({
-    containerCentered: {
-        paddingTop: 10,
-        flex: 1,
-        backgroundColor: '#F5FCFF'
-    },
-    sectionHeader: {
-        paddingTop: 2,
-        paddingLeft: 10,
-        paddingRight: 10,
-        paddingBottom: 10,
-        fontSize: 25,
-        fontWeight: 'bold',
-        backgroundColor: "#F5FCFF"
-    },
-    item: {
-        padding: 10,
-        fontSize: 18,
-        height: 44,
-    }
-});
