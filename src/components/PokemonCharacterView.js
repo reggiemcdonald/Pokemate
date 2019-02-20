@@ -1,5 +1,11 @@
 import React from 'react';
-import {View, Text, Image, StyleSheet, FlatList} from 'react-native';
+import {View,
+    Text,
+    Image,
+    StyleSheet,
+    FlatList,
+    ScrollView
+} from 'react-native';
 /**
  * ************************
  * Detailed view of pokemon
@@ -17,31 +23,42 @@ export default class PokemonCharacterView extends React.Component{
         const name = data.name;
         const type = data.types;
         const sprite = data.sprite;
+        const strongAgainst = data.strengths;
+        const weakAgainst = data.weaknesses;
+        const noEffect = data.noEffect;
         return (
-           <View style={styles.container}>
+           <ScrollView style={styles.container}>
                <Text style={styles.titleText}>{name}</Text>
                <View style={styles.spriteContainer}>
                    <Image source={{uri: sprite}}
                           style={styles.sprite}/>
                </View>
                <Text style={styles.headerText}>Type</Text>
-               <Text style={styles.subText}>{type}</Text>
+               <FlatList renderItem={({item}) => this.renderItem(item)}
+                         data={type}
+                         keyExtractor={(item, index) => item}
+                         />
                <Text style={styles.headerText}>Strong Against the Following Types</Text>
-               <Text style={styles.subText}>List String Against Here</Text>
+               <FlatList renderItem={({item}) => this.renderItem(item)}
+                         data = {strongAgainst}
+                         keyExtractor={(item, index) => item}
+               />
                <Text style={styles.headerText}>Weak Against the Following Types</Text>
-               <Text style={styles.subText}>List Weak Against Here</Text>
+               <FlatList renderItem={({item}) => this.renderItem(item)}
+                         data={weakAgainst}
+                         keyExtractor={(item, index) => item}
+               />
                <Text style={styles.headerText}>Types With No Effect</Text>
-               <Text style={styles.subText}>List No Effect Types Here</Text>
-               {/*<FlatList data={[*/}
-                   {/*{key: "Fighting"}*/}
-                   {/*]}*/}
-                         {/*renderItem={({item}) => <Text style={styles.subText}>{item.key}</Text>}*/}
-               {/*/>*/}
-               {/*<Text style={styles.headerText}>Types that have no effect on Ditto</Text>*/}
-               {/*<FlatList data={[{key: "Ghost"}]}*/}
-                         {/*renderItem={({item}) => <Text style={styles.subText}>{item.key}</Text>}*/}
-               {/*/>*/}
-           </View>
+               <FlatList renderItem={({item}) => this.renderItem(item)}
+                         data={noEffect}
+                         keyExtractor={(item, index) => item}/>
+           </ScrollView>
+        )
+    }
+
+    renderItem(item) {
+        return(
+            <Text style={styles.subText}>{item}</Text>
         )
     }
 }

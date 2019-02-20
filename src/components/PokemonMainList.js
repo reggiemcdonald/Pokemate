@@ -101,7 +101,7 @@ export default class PokemonMainList extends React.Component {
                 data: data
             });
         } catch (err) {
-            alert("Oops. Check that your wifi is enabled");
+            alert("There was an error. Check that your wifi is enabled");
         }
     }
 
