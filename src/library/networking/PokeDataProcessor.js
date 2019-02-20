@@ -12,10 +12,9 @@ export default class PokeDataProcessor {
      *  - API Identifier
      *  - Type(s)
      *  - Sprite URL
-     *  - Strong Against
-     *  - Weak Against
-     *  - Neutral Against
-     *  - Evolutions
+     *  - Types the pokemon has weak defense against
+     *  - Types the pokemon has strong defense against
+     *  - Types that cant damage this pokemon
      */
     constructor() {
         this.fetcher = new PokeDataFetcher();
