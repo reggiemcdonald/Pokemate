@@ -27,21 +27,29 @@ export default class PokeDataProcessor {
      * @param name: name of pokemon to process
      */
     async processComponentData(name) {
-        let data = await this.fetcher.getAllPokemonStats(name);
-        let pokemonName = this._getName(data);
-        let id = this._getId(data);
-        let sprite = this._getSprite(data);
-        let types = this._getTypes(data);
-        let damageRelations = await this._getDamageRelations(types);
-        return {
-            name: pokemonName,
-            id: id,
-            types: types,
-            sprite: sprite,
-            strengths: damageRelations.strengths,
-            weaknesses: damageRelations.weaknesses,
-            noEffect: damageRelations.noEffect
-        };
+        let that = this;
+        return new Promise(async function (resolve, reject) {
+            try {
+                let data = await that.fetcher.getAllPokemonStats(name);
+                let pokemonName = that._getName(data);
+                let id = that._getId(data);
+                let sprite = that._getSprite(data);
+                let types = that._getTypes(data);
+                let damageRelations = await that._getDamageRelations(types);
+                return resolve({
+                    name: pokemonName,
+                    id: id,
+                    types: types,
+                    sprite: sprite,
+                    strengths: damageRelations.strengths,
+                    weaknesses: damageRelations.weaknesses,
+                    noEffect: damageRelations.noEffect
+                });
+            } catch (err) {
+                reject(err);
+            }
+        });
+
     }
 
     /**
