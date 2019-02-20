@@ -26,7 +26,7 @@ export default class PokeDataProcessor {
      * Returns all the data needed for a pokemon component
      * @param name: name of pokemon to process
      */
-    async processComponentData(name) {
+    async processComponentDataByName(name) {
         let that = this;
         return new Promise(async function (resolve, reject) {
             try {
@@ -49,7 +49,27 @@ export default class PokeDataProcessor {
                 reject(err);
             }
         });
+    }
 
+    /**
+     * Produces a list of pokemon names that can be queried
+     * using processComponentDataByName
+     * @returns Promise<string[]>
+     */
+    getListOfPokemon() {
+        let that = this;
+        return new Promise(async function(resolve,reject) {
+            try {
+                let pokeList = [];
+                let pokemonList = await that.fetcher.getListOfPokemon();
+                pokemonList.results.forEach((value) => {
+                    pokeList.push(value.name);
+                });
+                return resolve(pokeList);
+            } catch (err) {
+                reject(err);
+            }
+        });
     }
 
     /**
