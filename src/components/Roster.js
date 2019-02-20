@@ -4,8 +4,12 @@ import {
     Text
 } from "react-native";
 import styles from "../library/styles";
+import {navigation} from "react-navigation";
 
 export default class Roster extends React.Component {
+    static navigationOptions = {
+        title: "Roster"
+    };
     render() {
         return(
             <View style={styles.containerCentered}>

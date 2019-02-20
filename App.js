@@ -29,9 +29,8 @@ type Props = {};
 class HomeScreen extends React.Component {
   static navigationOptions = {
       title: "Pokemate"
-  }
+  };
   render() {
-    console.log("rendering");
     return (
         <View style={styles.containerCentered}>
             <Text style={styles.placeholderText}>Welcome to Pokemate!</Text>
@@ -59,5 +58,5 @@ const RosterStack = createStackNavigator({
 export default createAppContainer(createBottomTabNavigator({
     Home: HomeStack,
     "All Pokemon": PokemonListStack,
-    Roster: Roster
+    Roster: RosterStack
 }));

@@ -66,7 +66,6 @@ export default class PokemonMainList extends React.Component {
     }
 
     render() {
-        console.log("rendering");
         return(
             // TODO
             <View style={styles.containerLeftAligned}>
