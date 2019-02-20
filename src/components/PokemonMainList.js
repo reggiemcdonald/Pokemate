@@ -1,5 +1,13 @@
 import React from "react";
-import { View, SectionList, Text, StyleSheet} from 'react-native';
+import {
+    View,
+    SectionList,
+    Text,
+    StyleSheet,
+    TouchableOpacity,
+    ActivityIndicator
+} from 'react-native';
+import PokeDataProcessor from "../library/networking/PokeDataProcessor";
 
 /**
  * ****************************************************
@@ -11,7 +19,8 @@ export default class PokemonMainList extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            data: []
+            data: [],
+            processor: new PokeDataProcessor()
         }
     }
 
@@ -58,26 +67,53 @@ export default class PokemonMainList extends React.Component {
             // TODO
             <View style={styles.container}>
                 <SectionList sections={this.state.data}
-                             renderItem={({item}) => <Text style={styles.item}>{item}</Text>}
+                             renderItem={({item}) => this.renderItem(item)}
                              renderSectionHeader={({section}) => <Text style={styles.sectionHeader}>{section.header}</Text>}
                              keyExtractor={(item, index) => index}
+                             ListEmptyComponent = {
+                                 () => <ActivityIndicator size={"large"}/>
+                             }
+                             initialNumToRender={1000}
+                             maxToRenderPerBatch={1000}
                 />
             </View>
         )
     }
 
+
     async componentDidMount() {
-        let pokemonList = await this.props.processor.getListOfPokemon();
+        let pokemonList = await this.state.processor.getListOfPokemon();
         pokemonList = this.makeListWithSectionHeaders(pokemonList);
         this.setState({
             data: pokemonList
         });
     }
+
+    /**
+     * Move to the detailed view of the pokemon
+     * @param cliked
+     */
+    handlePress(clicked) {
+        // TODO
+        alert("You clicked "+clicked);
+    }
+
+    renderItem(item) {
+        return (
+            <TouchableOpacity onPress={() => this.handlePress(item)}>
+                <Text style={styles.item}>
+                    {item}
+                </Text>
+            </TouchableOpacity>
+        )
+    }
 }
 
 const styles = StyleSheet.create({
     container: {
-        paddingTop: 50
+        paddingTop: 10,
+        flex: 1,
+        backgroundColor: '#F5FCFF'
     },
     sectionHeader: {
         paddingTop: 2,

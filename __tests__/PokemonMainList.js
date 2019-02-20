@@ -3,7 +3,6 @@ import React from "react";
 import PokemonMainList from "../src/components/PokemonMainList"
 import PokeDataProcessor from "../src/library/networking/PokeDataProcessor"
 import Adapter from "enzyme-adapter-react-16";
-import ExpectedResults from "../queryResults/ExpectedResults";
 
 Enzyme.configure({adapter: new Adapter()})
 describe("Test creation", () => {
@@ -13,7 +12,7 @@ describe("Test creation", () => {
         expect(wrapper.exists()).toBe(true);
     });
 
-    it("When created, a list should be created containing all the list items and section headers", () => {
+    it("When instantiated, a list should be created containing all the list items and section headers", () => {
 
         const pokemonList = [
             "Abra",

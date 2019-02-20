@@ -13,7 +13,7 @@ export default class PokemonCharacterView extends React.Component{
     render() {
         return (
            <View style={styles.container}>
-               <Text style={[styles.genericText, styles.titleText]}>Pokemon Title</Text>
+               <Text style={[styles.genericText, styles.titleText]}>Ditto</Text>
                <View style={styles.spriteContainer}>
                    <Image source={{uri: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/132.png"}}
                           style={styles.sprite}/>

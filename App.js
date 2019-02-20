@@ -8,20 +8,23 @@
  */
 
 import React, {Component} from 'react';
-import {Platform, SectionList, StyleSheet, Text, View} from 'react-native';
+import {
+    Platform,
+    SectionList,
+    StyleSheet,
+    Text,
+    View,
+    TouchableOpacity
+} from 'react-native';
+import {createStackNavigator, createAppContainer} from "react-navigation";
 import PokemonMainList from "./src/components/PokemonMainList";
 import PokeDataProcessor from "./src/library/networking/PokeDataProcessor";
 import PokemonCharacterView from "./src/components/PokemonCharacterView";
+
 //
-const instructions = Platform.select({
-  ios: 'Press Cmd+R to reload,\n' + 'Cmd+D or shake for dev menu',
-  android:
-    'Double tap R on your keyboard to reload,\n' +
-    'Shake or press menu button for dev menu',
-});
 
 type Props = {};
-export default class App extends Component<Props> {
+class HomeScreen extends React.Component {
   constructor() {
     super();
     this.state = {
@@ -34,10 +37,13 @@ export default class App extends Component<Props> {
     console.log("rendering");
     return (
         <View style={styles.container}>
-          {/*<PokemonMainList processor = {this.state.processor}/>*/}
-          <PokemonCharacterView/>
+          <Text style={styles.text}>Pokemate</Text>
+          <TouchableOpacity onPress={
+            () => this.props.navigation.navigate('PokemonList')
+          }>
+              <Text>Go To PokemonList!</Text>
+          </TouchableOpacity>
         </View>
-
     );
   }
 
@@ -47,5 +53,22 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#F5FCFF',
+    justifyContent: "center",
+    alignItems: "center"
   },
+  text: {
+    fontSize: 25,
+    fontWeight: "bold"
+  }
 });
+
+const AppNavigator = createStackNavigator(
+    {
+      Home: HomeScreen,
+      PokemonList: PokemonMainList
+    },
+    {
+      initialRouteName: "Home"
+    });
+
+export default createAppContainer(AppNavigator);
