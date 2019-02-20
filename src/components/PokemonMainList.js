@@ -1,5 +1,5 @@
 import React from "react";
-import { View, SectionList, Text} from 'react-native';
+import { View, SectionList, Text, StyleSheet} from 'react-native';
 
 /**
  * ****************************************************
@@ -11,11 +11,12 @@ export default class PokemonMainList extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            list: this.makeListWithSectionHeaders(this.props.list)
+            data: []
         }
     }
 
     makeListWithSectionHeaders(list) {
+        console.log("Making");
         let objectWithHeaders = {};
         for (let item of list) {
             let header = item.substr(0,1).toUpperCase();
@@ -52,17 +53,44 @@ export default class PokemonMainList extends React.Component {
     }
 
     render() {
+        console.log("rendering");
         return(
             // TODO
-            <View>
-                <SectionList sections={this.state.list}
-                             renderItem={(item) => <Text>{item}</Text>}
-                             renderSectionHeader={({section}) => <Text>{section.header}</Text>}
+            <View style={styles.container}>
+                <SectionList sections={this.state.data}
+                             renderItem={({item}) => <Text style={styles.item}>{item}</Text>}
+                             renderSectionHeader={({section}) => <Text style={styles.sectionHeader}>{section.header}</Text>}
                              keyExtractor={(item, index) => index}
                 />
             </View>
         )
     }
 
-
+    async componentDidMount() {
+        let pokemonList = await this.props.processor.getListOfPokemon();
+        pokemonList = this.makeListWithSectionHeaders(pokemonList);
+        this.setState({
+            data: pokemonList
+        });
+    }
 }
+
+const styles = StyleSheet.create({
+    container: {
+        paddingTop: 50
+    },
+    sectionHeader: {
+        paddingTop: 2,
+        paddingLeft: 10,
+        paddingRight: 10,
+        paddingBottom: 10,
+        fontSize: 25,
+        fontWeight: 'bold',
+        backgroundColor: "#F5FCFF"
+    },
+    item: {
+        padding: 10,
+        fontSize: 18,
+        height: 44,
+    }
+});
