@@ -26,18 +26,50 @@ export default class PokeDataProcessor {
      * Returns all the data needed for a pokemon component
      * @param name: name of pokemon to process
      */
-    async processComponentData(name) {
-        // TODO
-        let data = await this.fetcher.getAllPokemonStats(name);
-        return {
-            name: this._getName(data),
-            id: this._getId(data),
-            types: this._getTypes(data),
-            sprite: this._getSprite(data),
-            strengths: this._getStrengths(data),
-            weaknesses: this._getWeaknesses(data),
-            noEffect: this_getNoEffect(data)
-        };
+    async processComponentDataByName(name) {
+        let that = this;
+        return new Promise(async function (resolve, reject) {
+            try {
+                let data = await that.fetcher.getAllPokemonStats(name);
+                let pokemonName = that._getName(data);
+                let id = that._getId(data);
+                let sprite = that._getSprite(data);
+                let types = that._getTypes(data);
+                let damageRelations = await that._getDamageRelations(types);
+                return resolve({
+                    name: pokemonName,
+                    id: id,
+                    types: types,
+                    sprite: sprite,
+                    strengths: damageRelations.strengths,
+                    weaknesses: damageRelations.weaknesses,
+                    noEffect: damageRelations.noEffect
+                });
+            } catch (err) {
+                reject(err);
+            }
+        });
+    }
+
+    /**
+     * Produces a list of pokemon names that can be queried
+     * using processComponentDataByName
+     * @returns Promise<string[]>
+     */
+    getListOfPokemon() {
+        let that = this;
+        return new Promise(async function(resolve,reject) {
+            try {
+                let pokeList = [];
+                let pokemonList = await that.fetcher.getListOfPokemon();
+                pokemonList.results.forEach((value) => {
+                    pokeList.push(value.name);
+                });
+                return resolve(pokeList);
+            } catch (err) {
+                reject(err);
+            }
+        });
     }
 
     /**
@@ -59,8 +91,8 @@ export default class PokeDataProcessor {
      */
     _getTypes(data) {
         let types = []
-        for (let type in data.types) {
-            types.push(type.name);
+        for (let item of data.types) {
+            types.push(item.type.name);
         }
         return types;
     }
@@ -71,31 +103,53 @@ export default class PokeDataProcessor {
      * @private
      */
     _getSprite(data) {
-        return ""
+        return data.sprites.front_default;
     }
 
     /**
-     * Gets a list of the types that this pokemon is strong against
+     * Returns the damage relations for the types given
+     * @param types
+     * @private
      */
-    _getStrengths(data) {
-        // TODO: Needs processing
-        return [];
+    async _getDamageRelations(types) {
+        let damageRelations = {
+            strengths: [],
+            weaknesses: [],
+            noEffect: []
+        };
+        let strengths = [];
+        let weaknesses = [];
+        let noEffect = [];
+        for (type of types) {
+            let typeData = await this.fetcher.getTypeData(type);
+            typeData.damage_relations.double_damage_from.forEach((value) => {
+                weaknesses.push(value.name);
+            });
+            typeData.damage_relations.half_damage_from.forEach((value) => {
+                strengths.push(value.name);
+            });
+            typeData.damage_relations.no_damage_from.forEach((value) => {
+                noEffect.push(value.name);
+            });
+        }
+        strengths.forEach((value) => {
+            if (!damageRelations.strengths.includes(value) &&
+                !weaknesses.includes(value)) {
+                damageRelations.strengths.push(value);
+            }
+        });
+        weaknesses.forEach((value) => {
+            if (!damageRelations.weaknesses.includes(value) &&
+                    !strengths.includes(value)) {
+                damageRelations.weaknesses.push(value);
+            }
+        });
+        noEffect.forEach((value) => {
+            if (!damageRelations.noEffect.includes(value) &&
+                !strengths.includes(value) && !weaknesses.includes(value)) {
+                damageRelations.noEffect.push(value);
+            }
+        });
+        return damageRelations;
     }
-
-    /**
-     * Gets a list of the types that this pokemon is weak against
-     */
-    _getWeaknesses(data) {
-        // TODO: Needs processing
-        return [];
-    }
-
-    /**
-     * Gets a list of the types that this pokemon type has no effect against
-     */
-    _getNoEffect(data) {
-        // TODO: Needs processing
-        return [];
-    }
-
 }
