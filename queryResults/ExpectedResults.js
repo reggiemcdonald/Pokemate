@@ -4086,16 +4086,14 @@ const results = {
         types: ["electric"],
         sprite: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/25.png",
         strengths: [
-            "water",
-            "flying"
+            "electric",
+            "flying",
+            "steel"
         ],
         weaknesses: [
-            "electric",
-            "grass",
-            "dragon"
+            "ground"
         ],
         noEffect: [
-            "ground"
         ]
     },
     mockBulbasaurDataStructure: {
@@ -4108,25 +4106,34 @@ const results = {
         sprite: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/1.png",
         strengths:[
             "water",
-            "ground",
-            "rock",
+            "electric",
             "grass",
+            "fighting",
             "fairy"
         ],
         weaknesses: [
             "fire",
-            "grass",
-            "poison",
+            "ice",
             "flying",
-            "bug",
-            "dragon",
-            "steel",
-            "ground",
-            "ghost",
-            "rock"
+            "psychic",
         ],
         noEffect: [
-            "steel"
+        ]
+    },
+    mockPorygonDataStructure: {
+        name: "porygon",
+        id: 137,
+        types: [
+            "normal"
+        ],
+        strengths: [
+
+        ],
+        weaknesses: [
+            "fighting"
+        ],
+        noEffect: [
+            "ghost"
         ]
     }
 };

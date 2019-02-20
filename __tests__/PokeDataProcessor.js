@@ -30,4 +30,16 @@ describe("Should be able to generate the data needed for a pokemon component", (
         expect(bulbasaur.noEffect.length).toEqual(expectedResults.mockBulbasaurDataStructure.noEffect.length);
         expect(bulbasaur.noEffect).toEqual(expect.arrayContaining(expectedResults.mockBulbasaurDataStructure.noEffect));
     })
+    it("Should be able to get the data for a pokemon that has a no effect", async function () {
+        let porygon = await pokeData.processComponentData("porygon");
+        expect(porygon.name).toEqual(expectedResults.mockPorygonDataStructure.name);
+        expect(porygon.id).toEqual(expectedResults.mockPorygonDataStructure.id);
+        expect(porygon.types).toEqual(expectedResults.mockPorygonDataStructure.types);
+        expect(porygon.strengths.length).toEqual(expectedResults.mockPorygonDataStructure.strengths.length);
+        expect(porygon.strengths).toEqual(expect.arrayContaining(expectedResults.mockPorygonDataStructure.strengths));
+        expect(porygon.weaknesses.length).toEqual(expectedResults.mockPorygonDataStructure.weaknesses.length);
+        expect(porygon.weaknesses).toEqual(expect.arrayContaining(expectedResults.mockPorygonDataStructure.weaknesses));
+        expect(porygon.noEffect.length).toEqual(expectedResults.mockPorygonDataStructure.noEffect.length);
+        expect(porygon.noEffect).toEqual(expect.arrayContaining(expectedResults.mockPorygonDataStructure.noEffect));
+    })
 });

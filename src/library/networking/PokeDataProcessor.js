@@ -27,7 +27,6 @@ export default class PokeDataProcessor {
      * @param name: name of pokemon to process
      */
     async processComponentData(name) {
-        // TODO
         let data = await this.fetcher.getAllPokemonStats(name);
         let pokemonName = this._getName(data);
         let id = this._getId(data);
@@ -35,7 +34,7 @@ export default class PokeDataProcessor {
         let types = this._getTypes(data);
         let damageRelations = await this._getDamageRelations(types);
         return {
-            name: name,
+            name: pokemonName,
             id: id,
             types: types,
             sprite: sprite,
@@ -90,34 +89,39 @@ export default class PokeDataProcessor {
             weaknesses: [],
             noEffect: []
         };
+        let strengths = [];
+        let weaknesses = [];
+        let noEffect = [];
         for (type of types) {
             let typeData = await this.fetcher.getTypeData(type);
-            let doubleDamageTo = typeData.damage_relations.double_damage_to.map((value) => {
-                return value.name
+            typeData.damage_relations.double_damage_from.forEach((value) => {
+                weaknesses.push(value.name);
             });
-            let halfDamageTo = typeData.damage_relations.half_damage_to.map((value) => {
-                return value.name;
+            typeData.damage_relations.half_damage_from.forEach((value) => {
+                strengths.push(value.name);
             });
-            let noDamageTo = typeData.damage_relations.no_damage_to.map((value) => {
-                return value.name;
-            });
-            doubleDamageTo.forEach((value) => {
-                if (!damageRelations.strengths.includes(value)) {
-                    damageRelations.strengths.push(value);
-                }
-            });
-            halfDamageTo.forEach((value) => {
-                if (!damageRelations.weaknesses.includes(value)) {
-                    damageRelations.weaknesses.push(value);
-                }
-            });
-            noDamageTo.forEach((value) => {
-                if (!damageRelations.noEffect.includes(value)) {
-                    damageRelations.noEffect.push(value);
-                }
+            typeData.damage_relations.no_damage_from.forEach((value) => {
+                noEffect.push(value.name);
             });
         }
+        strengths.forEach((value) => {
+            if (!damageRelations.strengths.includes(value) &&
+                !weaknesses.includes(value)) {
+                damageRelations.strengths.push(value);
+            }
+        });
+        weaknesses.forEach((value) => {
+            if (!damageRelations.weaknesses.includes(value) &&
+                    !strengths.includes(value)) {
+                damageRelations.weaknesses.push(value);
+            }
+        });
+        noEffect.forEach((value) => {
+            if (!damageRelations.noEffect.includes(value) &&
+                !strengths.includes(value) && !weaknesses.includes(value)) {
+                damageRelations.noEffect.push(value);
+            }
+        });
         return damageRelations;
     }
-
 }
