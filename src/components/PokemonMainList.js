@@ -24,6 +24,10 @@ export default class PokemonMainList extends React.Component {
         }
     }
 
+    static navigationOptions = {
+        title: "All Pokemon"
+    };
+
     makeListWithSectionHeaders(list) {
         console.log("Making");
         let objectWithHeaders = {};
@@ -98,7 +102,8 @@ export default class PokemonMainList extends React.Component {
             const data = await this.state.processor.processComponentDataByName(clicked);
             const {navigation} = this.props;
             navigation.navigate('CharacterView', {
-                data: data
+                data: data,
+                title: data.name
             });
         } catch (err) {
             alert("There was an error. Check that your wifi is enabled");

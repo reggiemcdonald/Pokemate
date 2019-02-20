@@ -25,19 +25,13 @@ import PokemonCharacterView from "./src/components/PokemonCharacterView";
 
 type Props = {};
 class HomeScreen extends React.Component {
-  constructor() {
-    super();
-    this.state = {
-      processor: new PokeDataProcessor(),
-    };
+  static navigationOptions = {
+      title: "Pokemate"
   }
-
-
   render() {
     console.log("rendering");
     return (
         <View style={styles.containerCentered}>
-          <Text style={styles.text}>Pokemate</Text>
           <TouchableOpacity onPress={
             () => this.props.navigation.navigate('PokemonList')
           }>

@@ -16,6 +16,13 @@ export default class PokemonCharacterView extends React.Component{
     constructor(props) {
         super(props);
     }
+
+    static navigationOptions = ({navigation}) => {
+        return {
+            title: navigation.getParam('title',"Pokemon View")
+        }
+    };
+
     render() {
         const {navigation} = this.props;
         // TODO: make into single method
@@ -28,7 +35,7 @@ export default class PokemonCharacterView extends React.Component{
         const noEffect = data.noEffect;
         return (
            <ScrollView style={styles.container}>
-               <Text style={styles.titleText}>{name}</Text>
+               <Text style={styles.detailViewTitleText}>{name}</Text>
                <View style={styles.spriteContainer}>
                    <Image source={{uri: sprite}}
                           style={styles.sprite}/>
@@ -58,18 +65,13 @@ export default class PokemonCharacterView extends React.Component{
 
     renderItem(item) {
         return(
-            <Text style={styles.subText}>{item}</Text>
+            <Text style={styles.detailViewSubText}>{item}</Text>
         )
     }
 }
 
 const styles = StyleSheet.create({
-    containerCentered: {
-        backgroundColor: "#F5FCFF",
-        paddingTop: 50,
-        flex: 1,
-    },
-    titleText: {
+    detailViewTitleText: {
         fontSize: 30,
         fontWeight: "bold",
         paddingLeft: 10
@@ -79,7 +81,7 @@ const styles = StyleSheet.create({
         fontWeight: "bold",
         paddingLeft: 10
     },
-    subText: {
+    detailViewSubText: {
         fontSize: 18,
         paddingLeft: 10
     },
