@@ -50,7 +50,22 @@ export default class PokemonMainList extends React.Component {
             };
             listWithHeaders.push(obj);
         }
-        return this.sortListOnHeaders(listWithHeaders);
+        return this.sortSubLists(this.sortListOnHeaders(listWithHeaders));
+    }
+
+    sortSubLists(sublists) {
+        for (let sublist of sublists) {
+            sublist.data.sort((first, second) => {
+                if (first > second) {
+                    return 1;
+                } else if (first < second) {
+                    return -1;
+                } else {
+                    return 0;
+                }
+            });
+        }
+        return sublists;
     }
 
     sortListOnHeaders(list) {
