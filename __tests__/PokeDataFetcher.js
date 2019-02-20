@@ -17,5 +17,17 @@ describe("Fetches data correctly", () => {
     it("Should be able to get electric type data correctly", async function() {
         let result = await pdf.getTypeData("electric");
         expect(result).toEqual(expectedResults.basicElectricTypeFetch);
+    });
+
+    it("Should be able to fetch data with just the url", async function () {
+        let url = "https://pokeapi.co/api/v2/pokemon/25/";
+        let result = "";
+        try {
+            result = await pdf.getAtEnd(url);
+        } catch (err) {
+            result = err;
+        } finally {
+            expect(result).toEqual(expectedResults.basicPikachuFetch);
+        }
     })
 });
