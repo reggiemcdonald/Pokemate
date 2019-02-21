@@ -29,7 +29,6 @@ export default class PokemonMainList extends React.Component {
     };
 
     makeListWithSectionHeaders(list) {
-        console.log("Making");
         let objectWithHeaders = {};
         for (let item of list) {
             let header = item.substr(0,1).toUpperCase();
@@ -113,7 +112,7 @@ export default class PokemonMainList extends React.Component {
      */
     async handlePress(clicked) {
         try {
-            const data = await this.state.processor.processComponentDataByName(clicked);
+            const data = await this.state.processor.formDefaultSpeciesData(clicked);
             const {navigation} = this.props;
             navigation.navigate('CharacterView', {
                 data: data,

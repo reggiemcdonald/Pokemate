@@ -18,7 +18,9 @@ export default class PokeDataProcessor {
      *  - Evolution Chain
      */
     constructor() {
-        this.pokedex = new Pokedex();
+        this.pokedex = new Pokedex({
+            timeout: 5 * 1000
+        });
     }
 
 
@@ -26,16 +28,20 @@ export default class PokeDataProcessor {
      * Returns all the data needed for a pokemon component
      * @param name: name of pokemon to process
      */
-    async processComponentDataByName(name) {
+    async formDefaultSpeciesData(name) {
         let that = this;
         return new Promise(async function (resolve, reject) {
             try {
-                let data = await that.pokedex.getPokemonByName(name);
-                let pokemonName = that._getName(data);
-                let id = that._getId(data);
-                let sprite = that._getSprite(data);
-                let types = that._getTypes(data);
+                let speciesData = await that.pokedex.getPokemonSpeciesByName(name);
+                let defaultVarietyData = await that.pokedex.getPokemonByName(name);
+                let pokemonName = that._getName(defaultVarietyData);
+                let id = that._getId(defaultVarietyData);
+                let sprite = that._getSprite(defaultVarietyData);
+                let types = that._getTypes(defaultVarietyData);
                 let damageRelations = await that._getDamageRelations(types);
+                let evolutionChain = await that._getEvolutionChain(speciesData);
+                let varieties = that._getNonDefaultVarieties(speciesData);
+
                 return resolve({
                     name: pokemonName,
                     id: id,
@@ -43,17 +49,19 @@ export default class PokeDataProcessor {
                     sprite: sprite,
                     strengths: damageRelations.strengths,
                     weaknesses: damageRelations.weaknesses,
-                    noEffect: damageRelations.noEffect
+                    noEffect: damageRelations.noEffect,
+                    varieties: varieties,
+                    evolutionChain: evolutionChain
                 });
             } catch (err) {
-                reject(err);
+                return reject(err);
             }
         });
     }
 
     /**
-     * Produces a list of pokemon names that can be queried
-     * using processComponentDataByName
+     * Produces a list of pokemon names that are accessible through the PokeAPI
+     * and have been marked as default by the database
      * @returns Promise<string[]>
      */
     getListOfPokemon() {
@@ -61,16 +69,17 @@ export default class PokeDataProcessor {
         return new Promise(async function(resolve,reject) {
             try {
                 let pokeList = [];
-                let pokemonList = await that.pokedex.getPokemonsList();
-                pokemonList.results.forEach((value) => {
+                let pokemonList = await that.pokedex.getPokemonSpeciesList();
+                pokemonList.results.forEach(async function (value) {
                     pokeList.push(value.name);
                 });
                 return resolve(pokeList);
             } catch (err) {
-                reject(err);
+                return reject(err);
             }
         });
     }
+
 
     /**
      * Returns the name of the pokemon
@@ -151,5 +160,26 @@ export default class PokeDataProcessor {
             }
         });
         return damageRelations;
+    }
+
+    /**
+     * Gets non-default varieties of this pokemon
+     */
+    _getNonDefaultVarieties(speciesData) {
+        let varieties = [];
+        for (let variety of speciesData.varieties) {
+            if (!variety.is_default) {
+                varieties.push(variety.pokemon.name);
+            }
+        }
+        return varieties;
+    }
+
+    /**
+     * Builds an evolution chain for the given pokemon
+     */
+    async _getEvolutionChain(speciesData) {
+        let evolutionChain = await this.pokedex.resource(speciesData.evolution_chain.url);
+        return evolutionChain.chain;
     }
 }
