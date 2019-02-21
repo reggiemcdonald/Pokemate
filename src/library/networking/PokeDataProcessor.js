@@ -1,4 +1,4 @@
-import PokeDataFetcher from "./PokeDataFetcher";
+import Pokedex from "pokedex-promise-v2";
 
 export default class PokeDataProcessor {
 
@@ -18,7 +18,7 @@ export default class PokeDataProcessor {
      *  - Evolution Chain
      */
     constructor() {
-        this.fetcher = new PokeDataFetcher();
+        this.pokedex = new Pokedex();
     }
 
 
@@ -30,7 +30,7 @@ export default class PokeDataProcessor {
         let that = this;
         return new Promise(async function (resolve, reject) {
             try {
-                let data = await that.fetcher.getAllPokemonStats(name);
+                let data = await that.pokedex.getPokemonByName(name);
                 let pokemonName = that._getName(data);
                 let id = that._getId(data);
                 let sprite = that._getSprite(data);
@@ -61,7 +61,7 @@ export default class PokeDataProcessor {
         return new Promise(async function(resolve,reject) {
             try {
                 let pokeList = [];
-                let pokemonList = await that.fetcher.getListOfPokemon();
+                let pokemonList = await that.pokedex.getPokemonsList();
                 pokemonList.results.forEach((value) => {
                     pokeList.push(value.name);
                 });
@@ -121,7 +121,7 @@ export default class PokeDataProcessor {
         let weaknesses = [];
         let noEffect = [];
         for (type of types) {
-            let typeData = await this.fetcher.getTypeData(type);
+            let typeData = await this.pokedex.getTypeByName(type);
             typeData.damage_relations.double_damage_from.forEach((value) => {
                 weaknesses.push(value.name);
             });
