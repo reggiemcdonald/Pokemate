@@ -15,6 +15,7 @@ export default class PokeDataProcessor {
      *  - Types the pokemon has weak defense against
      *  - Types the pokemon has strong defense against
      *  - Types that cant damage this pokemon
+     *  - Evolution Chain
      */
     constructor() {
         this.fetcher = new PokeDataFetcher();

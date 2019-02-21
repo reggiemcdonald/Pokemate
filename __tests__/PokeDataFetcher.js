@@ -2,9 +2,10 @@ import "react-native";
 import React from "react";
 import PokemonDataFetcher from "../src/library/networking/PokeDataFetcher";
 import expectedResults from "../queryResults/ExpectedResults.js";
-import Pokedex from "pokedex-promise-v2"
+
 
 describe("Fetches data correctly", () => {
+    jest.setTimeout(10000);
     let pdf;
     beforeEach(() => {
         pdf = new PokemonDataFetcher();
@@ -29,5 +30,6 @@ describe("Fetches data correctly", () => {
         } finally {
             expect(result).toEqual(expectedResults.basicPikachuFetch);
         }
-    })
+    });
+
 });
