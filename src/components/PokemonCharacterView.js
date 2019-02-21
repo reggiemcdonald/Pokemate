@@ -11,7 +11,7 @@ import styles from "../library/styles";
  * ************************
  * Detailed view of pokemon
  * ************************
- * Takes in a prop of the pokemon data processor
+ * Takes in a prop of the pokemon data dataManager
  */
 export default class PokemonCharacterView extends React.Component{
     constructor(props) {

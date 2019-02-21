@@ -17,6 +17,9 @@ describe("Should be able to generate the data needed for a pokemon component", (
         expect(pikachu.weaknesses).toEqual(expect.arrayContaining(expectedResults.mockPikachuDataStructure.weaknesses));
         expect(pikachu.noEffect.length).toEqual(expectedResults.mockPikachuDataStructure.noEffect.length);
         expect(pikachu.noEffect).toEqual(expect.arrayContaining(expectedResults.mockPikachuDataStructure.noEffect));
+        expect(pikachu.varieties.length).toEqual(expectedResults.mockPikachuDataStructure.varieties.length);
+        expect(pikachu.varieties).toEqual(expect.arrayContaining(expectedResults.mockPikachuDataStructure.varieties));
+        expect(pikachu.evolutionChain).toEqual(expectedResults.mockPikachuDataStructure.evolutionChain);
     });
     it("Should be able to get the data for bulbasaur", async function () {
         let bulbasaur = await pokeData.formDefaultSpeciesData("bulbasaur");
@@ -44,9 +47,14 @@ describe("Should be able to generate the data needed for a pokemon component", (
         expect(porygon.weaknesses).toEqual(expect.arrayContaining(expectedResults.mockPorygonDataStructure.weaknesses));
         expect(porygon.noEffect.length).toEqual(expectedResults.mockPorygonDataStructure.noEffect.length);
         expect(porygon.noEffect).toEqual(expect.arrayContaining(expectedResults.mockPorygonDataStructure.noEffect));
-    })
+    });
     it("Should be able to produce a list of pokemon", async function() {
         let list = await pokeData.getListOfPokemon();
         expect(list.length).toBeGreaterThanOrEqual(expectedResults.numberInDatabase);
+    });
+
+    it("Should be able to get species data on aegislash", async function() {
+        let data = await pokeData.formDefaultSpeciesData("aegislash");
+        console.log(data);
     })
 });

@@ -33,7 +33,8 @@ export default class PokeDataProcessor {
         return new Promise(async function (resolve, reject) {
             try {
                 let speciesData = await that.pokedex.getPokemonSpeciesByName(name);
-                let defaultVarietyData = await that.pokedex.getPokemonByName(name);
+                let defaultVariety = that._getDefaultVariety(speciesData);
+                let defaultVarietyData = await that.pokedex.getPokemonByName(defaultVariety);
                 let pokemonName = that._getName(defaultVarietyData);
                 let id = that._getId(defaultVarietyData);
                 let sprite = that._getSprite(defaultVarietyData);
@@ -181,5 +182,17 @@ export default class PokeDataProcessor {
     async _getEvolutionChain(speciesData) {
         let evolutionChain = await this.pokedex.resource(speciesData.evolution_chain.url);
         return evolutionChain.chain;
+    }
+
+    /**
+     * Returns the name of the default variety of this species
+     * @private
+     */
+    _getDefaultVariety(speciesData) {
+        for (variety of speciesData.varieties) {
+            if (variety.is_default) {
+                return variety.pokemon.name;
+            }
+        }
     }
 }
