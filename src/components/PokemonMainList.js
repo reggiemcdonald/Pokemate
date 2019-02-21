@@ -1,6 +1,14 @@
 import React from "react";
-import { View, SectionList, Text, StyleSheet} from 'react-native';
-
+import {
+    View,
+    SectionList,
+    Text,
+    StyleSheet,
+    TouchableOpacity,
+    ActivityIndicator
+} from 'react-native';
+import PokeDataProcessor from "../library/networking/PokeDataProcessor";
+import styles from "../library/styles";
 /**
  * ****************************************************
  * A list view of all the pokemon that can be displayed
@@ -11,9 +19,14 @@ export default class PokemonMainList extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            data: []
+            data: [],
+            processor: new PokeDataProcessor()
         }
     }
+
+    static navigationOptions = {
+        title: "All Pokemon"
+    };
 
     makeListWithSectionHeaders(list) {
         console.log("Making");
@@ -37,7 +50,22 @@ export default class PokemonMainList extends React.Component {
             };
             listWithHeaders.push(obj);
         }
-        return this.sortListOnHeaders(listWithHeaders);
+        return this.sortSubLists(this.sortListOnHeaders(listWithHeaders));
+    }
+
+    sortSubLists(sublists) {
+        for (let sublist of sublists) {
+            sublist.data.sort((first, second) => {
+                if (first > second) {
+                    return 1;
+                } else if (first < second) {
+                    return -1;
+                } else {
+                    return 0;
+                }
+            });
+        }
+        return sublists;
     }
 
     sortListOnHeaders(list) {
@@ -53,44 +81,57 @@ export default class PokemonMainList extends React.Component {
     }
 
     render() {
-        console.log("rendering");
         return(
             // TODO
-            <View style={styles.container}>
+            <View style={styles.containerLeftAligned}>
                 <SectionList sections={this.state.data}
-                             renderItem={({item}) => <Text style={styles.item}>{item}</Text>}
+                             renderItem={({item}) => this.renderItem(item)}
                              renderSectionHeader={({section}) => <Text style={styles.sectionHeader}>{section.header}</Text>}
                              keyExtractor={(item, index) => index}
+                             ListEmptyComponent = {
+                                 () => <ActivityIndicator size={"large"}/>
+                             }
+                             initialNumToRender={1000}
+                             maxToRenderPerBatch={1000}
                 />
             </View>
         )
     }
 
+
     async componentDidMount() {
-        let pokemonList = await this.props.processor.getListOfPokemon();
+        let pokemonList = await this.state.processor.getListOfPokemon();
         pokemonList = this.makeListWithSectionHeaders(pokemonList);
         this.setState({
             data: pokemonList
         });
     }
+
+    /**
+     * Move to the detailed view of the pokemon
+     * @param cliked
+     */
+    async handlePress(clicked) {
+        try {
+            const data = await this.state.processor.processComponentDataByName(clicked);
+            const {navigation} = this.props;
+            navigation.navigate('CharacterView', {
+                data: data,
+                title: data.name
+            });
+        } catch (err) {
+            alert("There was an error. Check that your wifi is enabled");
+        }
+    }
+
+    renderItem(item) {
+        return (
+            <TouchableOpacity onPress={() => this.handlePress(item)}>
+                <Text style={styles.sectionListItem}>
+                    {item}
+                </Text>
+            </TouchableOpacity>
+        )
+    }
 }
 
-const styles = StyleSheet.create({
-    container: {
-        paddingTop: 50
-    },
-    sectionHeader: {
-        paddingTop: 2,
-        paddingLeft: 10,
-        paddingRight: 10,
-        paddingBottom: 10,
-        fontSize: 25,
-        fontWeight: 'bold',
-        backgroundColor: "#F5FCFF"
-    },
-    item: {
-        padding: 10,
-        fontSize: 18,
-        height: 44,
-    }
-});
