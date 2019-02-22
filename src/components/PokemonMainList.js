@@ -128,7 +128,7 @@ export default class PokemonMainList extends React.Component {
         return (
             <TouchableOpacity onPress={() => this.handlePress(item)}>
                 <Text style={styles.sectionListItem}>
-                    {item}
+                    {item.charAt(0).toUpperCase() + item.substr(1)}
                 </Text>
             </TouchableOpacity>
         )
