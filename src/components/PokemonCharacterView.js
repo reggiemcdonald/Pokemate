@@ -6,7 +6,7 @@ import {View,
     ScrollView
 } from 'react-native';
 import styles from "../library/styles";
-import TouchableType from "./TouchableType";
+import TypeContainer from "./TypeContainer";
 /**
  * ************************
  * Detailed view of pokemon
@@ -19,10 +19,8 @@ export default class PokemonCharacterView extends React.Component{
         super(props);
     }
 
-    static navigationOptions = ({navigation}) => {
-        return {
-            title: navigation.getParam('title',"Pokemon View")
-        }
+    static navigationOptions = {
+        title: "Pokemon Stats"
     };
 
     render() {
@@ -39,15 +37,7 @@ export default class PokemonCharacterView extends React.Component{
            <ScrollView style={styles.container}>
                <View style={{padding: 10, flexDirection: 'row', flex:1}}>
                    <Text style={styles.detailViewTitleText}>{name.charAt(0).toUpperCase()+name.substr(1)}</Text>
-                   <TouchableType
-                       dataSource = {
-                           {
-                               data: {
-                                   type: type[0],
-                               }
-                           }
-                       }
-                   />
+                   <TypeContainer types={type}/>
                </View>
 
                <View style={styles.spriteContainer}>

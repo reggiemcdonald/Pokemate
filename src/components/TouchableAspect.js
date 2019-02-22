@@ -72,7 +72,7 @@ export default class TouchableAspect extends React.Component {
     render() {
         return(
             <View style={[this.state.style, styles.touchableAspect]}>
-                <Text style={styles.touchableAspectText}>{this.getAspectName()}</Text>
+                <Text style={styles.touchableAspectText} onPress={()=>this.handlePress()}>{this.getAspectName()}</Text>
             </View>
         )
     }
