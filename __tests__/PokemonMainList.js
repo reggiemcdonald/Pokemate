@@ -3,7 +3,7 @@ import React from "react";
 import PokemonMainList from "../src/components/PokemonMainList"
 import Adapter from "enzyme-adapter-react-16";
 
-Enzyme.configure({adapter: new Adapter()})
+Enzyme.configure({adapter: new Adapter()});
 describe("Test creation", () => {
     const wrapper = shallow(<PokemonMainList/>);
     it("should render", () => {

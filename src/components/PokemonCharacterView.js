@@ -2,16 +2,17 @@ import React from 'react';
 import {View,
     Text,
     Image,
-    StyleSheet,
     FlatList,
     ScrollView
 } from 'react-native';
 import styles from "../library/styles";
+import TouchableType from "./TouchableType";
 /**
  * ************************
  * Detailed view of pokemon
  * ************************
  * Takes in a prop of the pokemon data dataManager
+ * Each pokemon has either one or two types
  */
 export default class PokemonCharacterView extends React.Component{
     constructor(props) {
@@ -36,16 +37,25 @@ export default class PokemonCharacterView extends React.Component{
         const noEffect = data.noEffect;
         return (
            <ScrollView style={styles.container}>
-               <Text style={styles.detailViewTitleText}>{name}</Text>
+               <View style={{padding: 10, flexDirection: 'row', flex:1}}>
+                   <Text style={styles.detailViewTitleText}>{name.charAt(0).toUpperCase()+name.substr(1)}</Text>
+                   <TouchableType
+                       dataSource = {
+                           {
+                               data: {
+                                   type: type[0],
+                               }
+                           }
+                       }
+                   />
+               </View>
+
                <View style={styles.spriteContainer}>
                    <Image source={{uri: sprite}}
                           style={styles.sprite}/>
                </View>
-               <Text style={styles.headerText}>Type</Text>
-               <FlatList renderItem={({item}) => this.renderItem(item)}
-                         data={type}
-                         keyExtractor={(item, index) => item}
-                         />
+
+
                <Text style={styles.headerText}>Strong Against the Following Types</Text>
                <FlatList renderItem={({item}) => this.renderItem(item)}
                          data = {strongAgainst}
