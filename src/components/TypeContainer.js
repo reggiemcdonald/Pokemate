@@ -10,6 +10,8 @@ import TouchableType from "./TouchableType";
  * *******************************
  * A Container Component For Types
  * *******************************
+ * Passed an array of types as props
+ * Used to display the types of the pokemon
  *
  */
 export default class TypeContainer extends React.Component  {

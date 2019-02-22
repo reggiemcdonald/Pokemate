@@ -4,8 +4,7 @@ const styles = StyleSheet.create({
     detailViewTitleText: {
         fontSize: 30,
         fontWeight: "bold",
-        paddingLeft: 10,
-        paddingRight: 10
+        marginRight: 5
     },
     headerText: {
         fontSize: 20,
@@ -33,7 +32,8 @@ const styles = StyleSheet.create({
     containerLeftAligned: {
         paddingTop: 10,
         flex: 1,
-        backgroundColor: '#F5FCFF'
+        backgroundColor: '#F5FCFF',
+        paddingLeft: 10
     },
     sectionHeader: {
         paddingTop: 2,
@@ -59,6 +59,7 @@ const styles = StyleSheet.create({
         width: 90,
         justifyContent: "center",
         alignItems: "center",
+        marginRight: 5,
     },
     defaultTouchableAspectColor: {
         backgroundColor: "#cacbce",
@@ -66,7 +67,7 @@ const styles = StyleSheet.create({
     touchableAspectText: {
         fontSize: 16,
         fontWeight: "bold",
-        marginLeft: 10,
+        marginLeft: 15,
         marginRight: 15,
         color: "white"
     }

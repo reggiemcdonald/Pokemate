@@ -35,7 +35,7 @@ export default class PokemonCharacterView extends React.Component{
         const noEffect = data.noEffect;
         return (
            <ScrollView style={styles.container}>
-               <View style={{padding: 10, flexDirection: 'row', flex:1}}>
+               <View style={{padding: 10, flexDirection: 'row', flexWrap:"wrap", flex:3, alignItems: "flex-start"}}>
                    <Text style={styles.detailViewTitleText}>{name.charAt(0).toUpperCase()+name.substr(1)}</Text>
                    <TypeContainer types={type}/>
                </View>
