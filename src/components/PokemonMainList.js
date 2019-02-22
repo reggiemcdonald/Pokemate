@@ -7,7 +7,7 @@ import {
     TouchableOpacity,
     ActivityIndicator
 } from 'react-native';
-import PokeDataProcessor from "../library/networking/PokeDataProcessor";
+import PokeDataManager from "../library/networking/PokeDataManager";
 import styles from "../library/styles";
 /**
  * ****************************************************
@@ -20,7 +20,7 @@ export default class PokemonMainList extends React.Component {
         super(props);
         this.state = {
             data: [],
-            processor: new PokeDataProcessor()
+            dataManager: new PokeDataManager()
         }
     }
 
@@ -29,7 +29,6 @@ export default class PokemonMainList extends React.Component {
     };
 
     makeListWithSectionHeaders(list) {
-        console.log("Making");
         let objectWithHeaders = {};
         for (let item of list) {
             let header = item.substr(0,1).toUpperCase();
@@ -100,7 +99,7 @@ export default class PokemonMainList extends React.Component {
 
 
     async componentDidMount() {
-        let pokemonList = await this.state.processor.getListOfPokemon();
+        let pokemonList = await this.state.dataManager.getListOfPokemon();
         pokemonList = this.makeListWithSectionHeaders(pokemonList);
         this.setState({
             data: pokemonList
@@ -113,7 +112,8 @@ export default class PokemonMainList extends React.Component {
      */
     async handlePress(clicked) {
         try {
-            const data = await this.state.processor.processComponentDataByName(clicked);
+            let name = clicked;
+            const data = await this.state.dataManager.getPokemonDetails(name);
             const {navigation} = this.props;
             navigation.navigate('CharacterView', {
                 data: data,
