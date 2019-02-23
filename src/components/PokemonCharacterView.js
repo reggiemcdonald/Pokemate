@@ -3,7 +3,7 @@ import {View,
     Text,
     Image,
     ActivityIndicator,
-    ScrollView
+    ScrollView,
 } from 'react-native';
 import styles from "../library/styles";
 import TypeContainer from "./TypeContainer";
@@ -25,7 +25,10 @@ export default class PokemonCharacterView extends React.Component{
     }
 
     static navigationOptions = {
-        title: "Pokemon Stats"
+        title: "Pokemon Stats",
+        headerStyle: {
+            backgroundColor: "#F5FCFF"
+        }
     };
 
     render() {

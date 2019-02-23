@@ -1,4 +1,9 @@
 import React from "react";
+import {
+    View,
+
+} from "react-native"
+import Ionicons from "react-native-vector-icons/Ionicons"
 
 /**
  * *************************
@@ -11,4 +16,23 @@ import React from "react";
  */
 export default class EvolutionChain extends React.Component {
     // TODO: implement
+    constructor(props) {
+        super(props);
+        this.state = {
+            data: props.evolutionData,
+            processor: props.processor
+        }
+    }
+
+    render() {
+        return(
+           <View>
+               // TODO
+           </View>
+        )
+    }
+
+    _getEvolutionChain(data) {
+       // TODO
+    }
 }

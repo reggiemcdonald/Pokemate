@@ -25,7 +25,10 @@ export default class PokemonMainList extends React.Component {
     }
 
     static navigationOptions = {
-        title: "All Pokemon"
+        title: "All Pokemon",
+        headerStyle: {
+            backgroundColor: "#F5FCFF"
+        }
     };
 
     makeListWithSectionHeaders(list) {
@@ -115,16 +118,6 @@ export default class PokemonMainList extends React.Component {
         navigation.navigate("CharacterView", {
             name: clicked
         });
-        // try {
-        //     let name = clicked;
-        //     const data = await this.state.dataManager.getPokemonDetails(name);
-        //     const {navigation} = this.props;
-        //     navigation.navigate('CharacterView', {
-        //         data: data,
-        //     });
-        // } catch (err) {
-        //     alert("There was an error. Check that your wifi is enabled");
-        // }
     }
 
     renderItem(item) {

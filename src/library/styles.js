@@ -56,7 +56,7 @@ const styles = StyleSheet.create({
         fontWeight: "bold"
     },
     touchableAspect: {
-        borderRadius: 3,
+        borderRadius: 20,
         height: 30,
         width: 90,
         justifyContent: "center",
@@ -88,7 +88,8 @@ const styles = StyleSheet.create({
     defenseStatText:{
         fontSize: 18,
         fontWeight: "bold",
-        marginLeft: 5
+        marginLeft: 5,
+        color: "white"
     },
     defenseStatTextView: {
         borderTopRightRadius: 3,
@@ -128,6 +129,7 @@ const TypeColor = StyleSheet.create({
     dragon: {backgroundColor: "#7043F4"},
     dark: {backgroundColor: "#705849"},
     fairy: {backgroundColor: "#EC9AAC"}
-})
+});
+
 export default styles;
-export{TypeColor};
+export{TypeColor, };
