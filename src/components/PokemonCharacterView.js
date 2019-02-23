@@ -35,32 +35,35 @@ export default class PokemonCharacterView extends React.Component{
         const weakAgainst = data.weaknesses;
         const noEffect = data.noEffect;
         return (
-           <ScrollView style={styles.containerLeftAligned}>
-               <View style={{flexDirection: 'row', flexWrap:"wrap", flex:3, alignItems: "flex-start"}}>
-                   <Text style={styles.detailViewTitleText}>{name.charAt(0).toUpperCase()+name.substr(1)}</Text>
-                   <TypeContainer types={type}/>
-               </View>
+            <View style={styles.containerLeftAligned}>
+                <View style={{flexDirection: 'row', flexWrap:"wrap",
+                    alignItems: "flex-start", backgroundColor: "transparent"}}>
+                    <Text style={styles.detailViewTitleText}>{name.charAt(0).toUpperCase()+name.substr(1)}</Text>
+                    <TypeContainer types={type}/>
+                </View>
+               <ScrollView>
 
-               <View style={styles.spriteContainer}>
-                   <Image source={{uri: sprite}}
-                          style={styles.sprite}/>
-               </View>
+                   <View style={styles.spriteContainer}>
+                       <Image source={{uri: sprite}}
+                              style={styles.sprite}/>
+                   </View>
 
-               <DefenseStats types={strongAgainst}
-                             label={"Half Damage From"}
-                             styleMain={styles.defenseGreen}
-                             styleSub={styles.defenseStatTextViewGreen}
-               />
-               <DefenseStats types={weakAgainst}
-                             label={"Double Damage From"}
-                             styleMain={styles.defenseRed}
-                             styleSub={styles.defenseStatTextViewRed}
-               />
-               <DefenseStats types={noEffect}
-                             label={"No Damage From"}
+                   <DefenseStats types={strongAgainst}
+                                 label={"Half Damage From"}
+                                 styleMain={styles.defenseGreen}
+                                 styleSub={styles.defenseStatTextViewGreen}
+                   />
+                   <DefenseStats types={weakAgainst}
+                                 label={"Double Damage From"}
+                                 styleMain={styles.defenseRed}
+                                 styleSub={styles.defenseStatTextViewRed}
+                   />
+                   <DefenseStats types={noEffect}
+                                 label={"No Damage From"}
 
-               />
-           </ScrollView>
+                   />
+               </ScrollView>
+            </View>
         )
     }
 

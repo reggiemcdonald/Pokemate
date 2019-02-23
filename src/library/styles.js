@@ -4,7 +4,8 @@ const styles = StyleSheet.create({
     detailViewTitleText: {
         fontSize: 30,
         fontWeight: "bold",
-        marginRight: 5
+        marginRight: 5,
+        backgroundColor: "transparent"
     },
     headerText: {
         fontSize: 20,
@@ -17,11 +18,12 @@ const styles = StyleSheet.create({
     },
     spriteContainer:{
         justifyContent: 'center',
-        alignItems: 'center'
+        alignItems: 'center',
+        marginRight: 10,
     },
     sprite: {
-        width: 300,
-        height: 300,
+        width: 250,
+        height: 250,
     },
     containerCentered: {
         flex: 1,

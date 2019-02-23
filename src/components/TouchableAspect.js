@@ -61,18 +61,11 @@ export default class TouchableAspect extends React.Component {
         }
     }
 
-    /**
-     * Responds to the press of the aspect
-     */
-    handlePress() {
-        alert("You pressed an aspect!");
-    }
-
 
     render() {
         return(
             <View style={[this.state.style, styles.touchableAspect]}>
-                <Text style={styles.touchableAspectText} onPress={()=>this.handlePress()}>{this.getAspectName()}</Text>
+                <Text style={styles.touchableAspectText} onPress={()=> this.props.handlePress(this.getAspectName())}>{this.getAspectName()}</Text>
             </View>
         )
     }

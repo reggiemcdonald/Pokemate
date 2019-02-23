@@ -1,6 +1,13 @@
 import React from "react";
 import TouchableAspect from "./TouchableAspect";
 import {TypeColor} from "../library/styles";
+import {
+    View,
+    Modal,
+    Text,
+    TouchableOpacity
+} from "react-native";
+import styles from "../library/styles";
 
 /**
  * ************
@@ -16,7 +23,8 @@ export default class TouchableType extends React.Component {
         // TODO
         this.state = {
             data: props.dataSource.data,
-            style: this.generateColor(props.dataSource.data.type)
+            style: this.generateColor(props.dataSource.data.type),
+            modalVisible: false
         }
     }
     /**
@@ -30,18 +38,40 @@ export default class TouchableType extends React.Component {
         }
     }
 
+    handlePress(elem) {
+        let visibility = !this.state.modalVisible;
+        this.setState({
+            modalVisible: visibility
+        });
+    }
+
     render() {
         return(
-            <TouchableAspect
-                dataSource = {
-                    {
-                        data: {
-                            aspectName: this.state.data.type,
-                            style: this.state.style
+            <View>
+                <Modal
+                    transparent={false}
+                    visible={this.state.modalVisible}
+                    animationType={"slide"}
+                >
+                    <View style={styles.containerCentered}>
+                        <Text>This is some text in that cool new modal you've just opened</Text>
+                        <TouchableOpacity onPress={this.handlePress.bind(this)}>
+                                <Text>Close</Text>
+                        </TouchableOpacity>
+                    </View>
+                </Modal>
+                <TouchableAspect
+                    dataSource = {
+                        {
+                            data: {
+                                aspectName: this.state.data.type,
+                                style: this.state.style
+                            }
                         }
                     }
-                }
-            />
+                    handlePress={this.handlePress.bind(this)}
+                />
+            </View>
         )
     }
 }

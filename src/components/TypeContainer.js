@@ -49,5 +49,6 @@ export default class TypeContainer extends React.Component  {
 const linearBox = StyleSheet.create({
     linear: {
         flexDirection: "row",
+        backgroundColor: "transparent"
     }
 })
