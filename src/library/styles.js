@@ -86,9 +86,9 @@ const styles = StyleSheet.create({
         backgroundColor: "#8080ff"
     },
     defenseStatText:{
-        fontSize: 16,
+        fontSize: 18,
         fontWeight: "bold",
-        marginLeft: 5,
+        marginLeft: 5
     },
     defenseStatTextView: {
         borderTopRightRadius: 3,
