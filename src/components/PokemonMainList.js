@@ -110,17 +110,21 @@ export default class PokemonMainList extends React.Component {
      * Move to the detailed view of the pokemon
      * @param cliked
      */
-    async handlePress(clicked) {
-        try {
-            let name = clicked;
-            const data = await this.state.dataManager.getPokemonDetails(name);
-            const {navigation} = this.props;
-            navigation.navigate('CharacterView', {
-                data: data,
-            });
-        } catch (err) {
-            alert("There was an error. Check that your wifi is enabled");
-        }
+     handlePress(clicked) {
+        const {navigation} = this.props;
+        navigation.navigate("CharacterView", {
+            name: clicked
+        });
+        // try {
+        //     let name = clicked;
+        //     const data = await this.state.dataManager.getPokemonDetails(name);
+        //     const {navigation} = this.props;
+        //     navigation.navigate('CharacterView', {
+        //         data: data,
+        //     });
+        // } catch (err) {
+        //     alert("There was an error. Check that your wifi is enabled");
+        // }
     }
 
     renderItem(item) {

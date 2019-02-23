@@ -2,12 +2,13 @@ import React from 'react';
 import {View,
     Text,
     Image,
-    FlatList,
+    ActivityIndicator,
     ScrollView
 } from 'react-native';
 import styles from "../library/styles";
 import TypeContainer from "./TypeContainer";
 import DefenseStats from "./DefenseStats";
+import PokeDataProcessor from "../library/networking/PokeDataProcessor";
 /**
  * ************************
  * Detailed view of pokemon
@@ -18,6 +19,9 @@ import DefenseStats from "./DefenseStats";
 export default class PokemonCharacterView extends React.Component{
     constructor(props) {
         super(props);
+        this.state = {
+            processor: new PokeDataProcessor()
+        }
     }
 
     static navigationOptions = {
@@ -25,15 +29,15 @@ export default class PokemonCharacterView extends React.Component{
     };
 
     render() {
-        const {navigation} = this.props;
-        // TODO: make into single method
-        const data = navigation.getParam('data', {});
-        const name = data.name;
-        const type = data.types;
-        const sprite = data.sprite;
-        const strongAgainst = data.strengths;
-        const weakAgainst = data.weaknesses;
-        const noEffect = data.noEffect;
+        if (this.state.name === undefined) {
+            return(<View style={styles.containerCentered}><ActivityIndicator size={"large"}/></View>);
+        }
+        const name = this.state.data.name;
+        const type = this.state.data.types;
+        const sprite = this.state.data.sprite;
+        const strongAgainst = this.state.data.strengths;
+        const weakAgainst = this.state.data.weaknesses;
+        const noEffect = this.state.data.noEffect;
         return (
             <View style={styles.containerLeftAligned}>
                 <View style={{flexDirection: 'row', flexWrap:"wrap",
@@ -65,6 +69,23 @@ export default class PokemonCharacterView extends React.Component{
                </ScrollView>
             </View>
         )
+    }
+
+    async componentDidMount(): void {
+        const {navigation} = this.props;
+        try {
+            const name = navigation.getParam('name', {});
+            // TODO: Transfer states of the pokedata managers
+            let data = await this.state.processor.formDefaultSpeciesData(name);
+            this.setState({
+                name: name,
+                data: data
+            });
+        } catch (err) {
+            // TODO: Get rid of loose strings
+            alert("There was an error. Please check that your wifi is enabled.");
+            navigation.goBack();
+        }
     }
 
     renderItem(item) {
