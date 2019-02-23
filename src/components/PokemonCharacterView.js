@@ -7,6 +7,7 @@ import {View,
 } from 'react-native';
 import styles from "../library/styles";
 import TypeContainer from "./TypeContainer";
+import DefenseStats from "./DefenseStats";
 /**
  * ************************
  * Detailed view of pokemon
@@ -34,8 +35,8 @@ export default class PokemonCharacterView extends React.Component{
         const weakAgainst = data.weaknesses;
         const noEffect = data.noEffect;
         return (
-           <ScrollView style={styles.container}>
-               <View style={{padding: 10, flexDirection: 'row', flexWrap:"wrap", flex:3, alignItems: "flex-start"}}>
+           <ScrollView style={styles.containerLeftAligned}>
+               <View style={{flexDirection: 'row', flexWrap:"wrap", flex:3, alignItems: "flex-start"}}>
                    <Text style={styles.detailViewTitleText}>{name.charAt(0).toUpperCase()+name.substr(1)}</Text>
                    <TypeContainer types={type}/>
                </View>
@@ -45,21 +46,20 @@ export default class PokemonCharacterView extends React.Component{
                           style={styles.sprite}/>
                </View>
 
+               <DefenseStats types={strongAgainst}
+                             label={"Half Damage From"}
+                             styleMain={styles.defenseGreen}
+                             styleSub={styles.defenseStatTextViewGreen}
+               />
+               <DefenseStats types={weakAgainst}
+                             label={"Double Damage From"}
+                             styleMain={styles.defenseRed}
+                             styleSub={styles.defenseStatTextViewRed}
+               />
+               <DefenseStats types={noEffect}
+                             label={"No Damage From"}
 
-               <Text style={styles.headerText}>Strong Against the Following Types</Text>
-               <FlatList renderItem={({item}) => this.renderItem(item)}
-                         data = {strongAgainst}
-                         keyExtractor={(item, index) => item}
                />
-               <Text style={styles.headerText}>Weak Against the Following Types</Text>
-               <FlatList renderItem={({item}) => this.renderItem(item)}
-                         data={weakAgainst}
-                         keyExtractor={(item, index) => item}
-               />
-               <Text style={styles.headerText}>Types With No Effect</Text>
-               <FlatList renderItem={({item}) => this.renderItem(item)}
-                         data={noEffect}
-                         keyExtractor={(item, index) => item}/>
            </ScrollView>
         )
     }

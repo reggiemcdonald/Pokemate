@@ -9,11 +9,11 @@ const styles = StyleSheet.create({
     headerText: {
         fontSize: 20,
         fontWeight: "bold",
-        paddingLeft: 10
+
     },
     detailViewSubText: {
         fontSize: 18,
-        paddingLeft: 10
+
     },
     spriteContainer:{
         justifyContent: 'center',
@@ -59,7 +59,7 @@ const styles = StyleSheet.create({
         width: 90,
         justifyContent: "center",
         alignItems: "center",
-        marginRight: 5,
+        margin: 5,
     },
     defaultTouchableAspectColor: {
         backgroundColor: "#cacbce",
@@ -70,6 +70,39 @@ const styles = StyleSheet.create({
         marginLeft: 15,
         marginRight: 15,
         color: "white"
+    },
+    defenseStats: {
+        borderRadius: 3,
+        marginRight:10,
+        marginTop: 5,
+        marginBottom: 5
+    },
+    defenseDefault: {
+        backgroundColor: "#ccccff"
+    },
+    defenseStatTextViewDefault: {
+        backgroundColor: "#8080ff"
+    },
+    defenseStatText:{
+        fontSize: 16,
+        fontWeight: "bold",
+        marginLeft: 5,
+    },
+    defenseStatTextView: {
+        borderTopRightRadius: 3,
+        borderTopLeftRadius: 3
+    },
+    defenseGreen: {
+        backgroundColor: "#adebad"
+    },
+    defenseRed: {
+        backgroundColor: "#ffcccc"
+    },
+    defenseStatTextViewRed: {
+        backgroundColor: "#ff6666",
+    },
+    defenseStatTextViewGreen: {
+        backgroundColor: "#6fdc6f"
     }
 });
 

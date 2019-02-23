@@ -117,7 +117,6 @@ export default class PokemonMainList extends React.Component {
             const {navigation} = this.props;
             navigation.navigate('CharacterView', {
                 data: data,
-                title: data.name
             });
         } catch (err) {
             alert("There was an error. Check that your wifi is enabled");
