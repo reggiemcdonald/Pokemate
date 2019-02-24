@@ -70,10 +70,20 @@ export default class PokemonCharacterView extends React.Component{
                                  label={"No Damage From"}
 
                    />
-                   <EvolutionChain data={this.state.data.evolutionChain} dataManager={this.state.processor}/>
+                   <EvolutionChain data={this.state.data.evolutionChain}
+                                   dataManager={this.state.processor}
+                                   handleSpritePress={this.handleSpritePress.bind(this)}
+                   />
                </ScrollView>
             </View>
         )
+    }
+
+    handleSpritePress(clicked) {
+        const { navigation } = this.props;
+        navigation.push("CharacterView", {
+            name: clicked
+        });
     }
 
     async componentDidMount(): void {

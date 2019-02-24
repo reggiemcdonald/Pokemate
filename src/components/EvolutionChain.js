@@ -4,11 +4,13 @@ import {
     Image,
     Text,
     ActivityIndicator,
-    ScrollView
+    ScrollView,
+    TouchableOpacity
 
 } from "react-native"
 import styles from "../library/styles"
 import Ionicons from "react-native-vector-icons/Ionicons"
+
 
 /**
  * *************************
@@ -20,6 +22,7 @@ import Ionicons from "react-native-vector-icons/Ionicons"
  * accessible from the component.
  * TODO: Put styles into style sheet. Add exception handling
  */
+
 export default class EvolutionChain extends React.Component {
     // TODO: implement
     constructor(props) {
@@ -27,7 +30,9 @@ export default class EvolutionChain extends React.Component {
         this.state = {
             data: props.data,
             dataManager: props.dataManager,
-            evolutionChain: []
+            evolutionChain: [],
+            handleSpritePress: this.props.handleSpritePress ?
+                this.props.handleSpritePress : this._defaultHandleSpritePress
         }
     }
 
@@ -44,6 +49,10 @@ export default class EvolutionChain extends React.Component {
         this.setState({
             evolutionChain: evolutionChain
         });
+    }
+
+    _defaultHandleSpritePress(sprite) {
+        alert("You pressed a sprite in the evolution chain");
     }
 
     /**
@@ -92,10 +101,10 @@ export default class EvolutionChain extends React.Component {
         for (let key of keys) {
             if (key === "trigger") {
                 return null;
-            } else if (evolutionDetails[key] !== null) {
+            } else if (evolutionDetails[key] !== null && evolutionDetails[key] !== false) {
                 return {
                     conditional: key,
-                    requirement: evolutionDetails[key]
+                    requirement: (typeof evolutionDetails[key] !== "object") ? evolutionDetails[key] : evolutionDetails[key].name
                 };
             }
         }
@@ -147,20 +156,26 @@ export default class EvolutionChain extends React.Component {
         if (sprite.trigger === null) {
             return (
                 <View key={sprite.name} style={{alignItems: "center", justifyContent: "center", textAlign: "center"}}>
-                    <Image source={{uri: sprite.sprite}} style={{width: 80, height: 90}}/>
+                    <TouchableOpacity onPress={() => this.state.handleSpritePress(sprite.name)}>
+                        <Image source={{uri: sprite.sprite}} style={{width: 80, height: 90}}/>
+                    </TouchableOpacity>
                     <Text>{spriteName}</Text>
                 </View>
             );
         } else {
             let trigger = this._formatTrigger(sprite.trigger);
+            let requirement = this._formatTriggerReq(sprite.triggerConditional);
             return(
                 <View key={sprite.name} style={{flexDirection: 'row', alignItems: "flex-start", backgroundColor: "transparent"}}>
                     <View style={{alignItems: "center", justifyContent: "center", height: 100}}>
+                        <Text>{requirement}</Text>
                         <Ionicons name={"ios-arrow-round-forward"} size={25} tintcolor={"grey"}/>
                         <Text>{trigger}</Text>
                     </View>
                     <View style={{alignItems: "center", justifyContent: "center", textAlign: "center"}}>
-                        <Image source={{uri: sprite.sprite}} style={{width: 80, height: 90}}/>
+                        <TouchableOpacity onPress={() => this.state.handleSpritePress(sprite.name)}>
+                            <Image source={{uri: sprite.sprite}} style={{width: 80, height: 90}}/>
+                        </TouchableOpacity>
                         <Text>{spriteName}</Text>
                     </View>
                 </View>
@@ -188,6 +203,10 @@ export default class EvolutionChain extends React.Component {
         }
     }
 
+    _formatTriggerReq(triggerConditional) {
+        return triggerConditional.requirement;
+    }
+
     _renderOrderOfEvolutionChain(evolutionChain, order) {
         let includedInRender = evolutionChain.filter((value) => {
             return value.order === order;
@@ -198,7 +217,7 @@ export default class EvolutionChain extends React.Component {
             );
         } else {
             return (
-                <View>
+                <View style={{justifyContent: "center", alignItems: "center"}}>
                     {includedInRender.map((value) => {
                         return this._renderSprite(value)
                     })}
