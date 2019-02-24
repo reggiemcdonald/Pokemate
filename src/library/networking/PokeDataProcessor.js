@@ -195,4 +195,11 @@ export default class PokeDataProcessor {
             }
         }
     }
+
+    async getSpriteUrl(name) {
+        let data = await this.pokedex.getPokemonByName(name);
+        return this._getSprite(data);
+    } catch (err) {
+        throw err;
+    }
 }

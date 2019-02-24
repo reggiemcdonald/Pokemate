@@ -4316,7 +4316,81 @@ const results = {
             "ghost"
         ]
     },
-    numberInDatabase: 807
+    numberInDatabase: 807,
+    bulbasaurEvolutionChain: [
+        {
+            name: "bulbasaur",
+            trigger: null,
+            triggerConditional: null,
+            sprite: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/1.png',
+            order: 0
+        },
+        {
+            name: "ivysaur",
+            trigger: "level-up",
+            triggerConditional: {
+                conditional: "min_level",
+                requirement: 16
+            },
+            sprite: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/2.png',
+            order: 1
+        },
+        {
+            name: "venusaur",
+            trigger: "level-up",
+            triggerConditional: {
+                conditional: "min_level",
+                requirement: 32
+            },
+            sprite: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/3.png',
+            order: 2
+        }
+    ],
+    oddishEvolutionChain: [
+        {
+            name: "oddish",
+            trigger: null,
+            triggerConditional: null,
+            sprite: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/43.png",
+            order: 0
+        },
+        {
+            name: 'gloom',
+            trigger: "level-up",
+            triggerConditional: {
+                conditional: "min_level",
+                requirement: 21
+            },
+            sprite: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/44.png",
+            order: 1
+        },
+        {
+            name: "vileplume",
+            trigger: 'use-item',
+            triggerConditional: {
+                conditional: 'item',
+                requirement: {
+                    name: 'leaf-stone',
+                    url: "https://pokeapi.co/api/v2/item/85/"
+                }
+            },
+            sprite: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/45.png",
+            order: 2
+        },
+        {
+            name: "bellossom",
+            trigger: "use-item",
+            triggerConditional: {
+                conditional: 'item',
+                requirement: {
+                    name: 'sun-stone',
+                    url: "https://pokeapi.co/api/v2/item/80/"
+                }
+            },
+            sprite: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/182.png",
+            order: 2
+        }
+    ]
 };
 
 

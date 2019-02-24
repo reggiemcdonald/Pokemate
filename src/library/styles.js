@@ -106,7 +106,28 @@ const styles = StyleSheet.create({
     },
     defenseStatTextViewGreen: {
         backgroundColor: "#6fdc6f"
-    }
+    },
+    evolutionChainSprite: {
+        width: 100,
+        height: 100,
+    },
+    evolutionChainScrollView: {
+        flexGrow: 1,
+        borderRadius: 3,
+        paddingRight: 10,
+        paddingBottom: 10,
+        paddingTop: 10,
+        margin: 5
+    },
+    evolutionChain:{
+        borderRadius: 3,
+        marginRight: 10,
+        marginTop: 5,
+        backgroundColor: "#b3d9ff",
+    },
+    evolutionChainTextView: {
+        backgroundColor: "#4da6ff"
+    },
 });
 
 const TypeColor = StyleSheet.create({

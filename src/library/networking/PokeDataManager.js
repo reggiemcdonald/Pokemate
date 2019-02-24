@@ -62,4 +62,20 @@ export default class PokeDataManager {
              }
          });
     }
+
+    getSpriteUrl(name) {
+        let that = this;
+        return new Promise(async function (resolve, reject) {
+            try {
+                if (that.pokeData.hasOwnProperty(name)) {
+                    return resolve(that.pokeData[name].sprite);
+                }
+                let url = await that.processor.getSpriteUrl(name);
+                return resolve(url);
+            } catch (err) {
+                // TODO: make this return a default image instead
+                throw reject(err);
+            }
+        })
+    }
 }

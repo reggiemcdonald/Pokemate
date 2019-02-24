@@ -9,6 +9,7 @@ import styles from "../library/styles";
 import TypeContainer from "./TypeContainer";
 import DefenseStats from "./DefenseStats";
 import PokeDataProcessor from "../library/networking/PokeDataProcessor";
+import EvolutionChain from "./EvolutionChain";
 /**
  * ************************
  * Detailed view of pokemon
@@ -69,6 +70,7 @@ export default class PokemonCharacterView extends React.Component{
                                  label={"No Damage From"}
 
                    />
+                   <EvolutionChain data={this.state.data.evolutionChain} dataManager={this.state.processor}/>
                </ScrollView>
             </View>
         )
