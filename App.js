@@ -22,13 +22,17 @@ import PokemonMainList from "./src/components/PokemonMainList";
 import PokemonCharacterView from "./src/components/PokemonCharacterView";
 import Roster from "./src/components/Roster";
 import styles from "./src/library/styles";
+import Ionicons from "react-native-vector-icons/Ionicons";
 
 //
 
 type Props = {};
 class HomeScreen extends React.Component {
   static navigationOptions = {
-      title: "Pokemate"
+      title: "Pokemate",
+      headerStyle: {
+          backgroundColor: "#F5FCFF"
+      }
   };
   render() {
     return (
@@ -55,8 +59,30 @@ const RosterStack = createStackNavigator({
     Roster: Roster
 });
 
-export default createAppContainer(createBottomTabNavigator({
+export default createAppContainer(createBottomTabNavigator(
+    {
     Home: HomeStack,
     "All Pokemon": PokemonListStack,
     Roster: RosterStack
-}));
+    },
+    {
+        defaultNavigationOptions: ({navigation}) => ({
+            tabBarIcon: ({focused, horizontal, tintColor}) => {
+                const {routeName} = navigation.state;
+                let iconName;
+                if (routeName === "Home") {
+                    iconName = "ios-home";
+                } else if (routeName === "All Pokemon") {
+                    iconName = "ios-list";
+                } else if (routeName === "Roster") {
+                    iconName = "ios-star"
+                }
+                return <Ionicons name ={iconName} size={25} tintColor={tintColor}/>
+            },
+        }),
+        tabBarOptions: {
+            activeTintColor: 'tomato',
+            inactiveTintColor: 'gray'
+        }
+    },
+));

@@ -67,7 +67,7 @@ export default class PokeDataProcessor {
      */
     getListOfPokemon() {
         let that = this;
-        return new Promise(async function(resolve,reject) {
+        return new Promise(async function (resolve, reject) {
             try {
                 let pokeList = [];
                 let pokemonList = await that.pokedex.getPokemonSpeciesList();
@@ -150,7 +150,7 @@ export default class PokeDataProcessor {
         });
         weaknesses.forEach((value) => {
             if (!damageRelations.weaknesses.includes(value) &&
-                    !strengths.includes(value)) {
+                !strengths.includes(value)) {
                 damageRelations.weaknesses.push(value);
             }
         });
@@ -193,6 +193,17 @@ export default class PokeDataProcessor {
             if (variety.is_default) {
                 return variety.pokemon.name;
             }
+        }
+    }
+
+    async getSpriteUrl(name) {
+        try {
+            let speciesData = await this.pokedex.getPokemonSpeciesByName(name);
+            let defaultSpecies = this._getDefaultVariety(speciesData);
+            let defaultData = await this.pokedex.getPokemonByName(defaultSpecies);
+            return this._getSprite(defaultData);
+        } catch (err) {
+            throw err;
         }
     }
 }

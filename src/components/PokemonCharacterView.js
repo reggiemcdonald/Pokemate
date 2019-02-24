@@ -2,71 +2,112 @@ import React from 'react';
 import {View,
     Text,
     Image,
-    StyleSheet,
-    FlatList,
-    ScrollView
+    ActivityIndicator,
+    ScrollView,
 } from 'react-native';
 import styles from "../library/styles";
+import TypeContainer from "./TypeContainer";
+import DefenseStats from "./DefenseStats";
+import PokeDataProcessor from "../library/networking/PokeDataProcessor";
+import EvolutionChain from "./EvolutionChain";
 /**
  * ************************
  * Detailed view of pokemon
  * ************************
  * Takes in a prop of the pokemon data dataManager
+ * Each pokemon has either one or two types
  */
 export default class PokemonCharacterView extends React.Component{
     constructor(props) {
         super(props);
+        this.state = {
+            processor: new PokeDataProcessor()
+        }
     }
 
-    static navigationOptions = ({navigation}) => {
-        return {
-            title: navigation.getParam('title',"Pokemon View")
+    static navigationOptions = {
+        title: "Pokemon Stats",
+        headerStyle: {
+            backgroundColor: "#F5FCFF"
         }
     };
 
     render() {
-        const {navigation} = this.props;
-        // TODO: make into single method
-        const data = navigation.getParam('data', {});
-        const name = data.name;
-        const type = data.types;
-        const sprite = data.sprite;
-        const strongAgainst = data.strengths;
-        const weakAgainst = data.weaknesses;
-        const noEffect = data.noEffect;
+        if (this.state.name === undefined) {
+            return(<View style={styles.containerCentered}><ActivityIndicator size={"large"}/></View>);
+        }
+        const name = this.state.data.name;
+        const type = this.state.data.types;
+        const sprite = this.state.data.sprite;
+        const strongAgainst = this.state.data.strengths;
+        const weakAgainst = this.state.data.weaknesses;
+        const noEffect = this.state.data.noEffect;
         return (
-           <ScrollView style={styles.container}>
-               <Text style={styles.detailViewTitleText}>{name}</Text>
-               <View style={styles.spriteContainer}>
-                   <Image source={{uri: sprite}}
-                          style={styles.sprite}/>
-               </View>
-               <Text style={styles.headerText}>Type</Text>
-               <FlatList renderItem={({item}) => this.renderItem(item)}
-                         data={type}
-                         keyExtractor={(item, index) => item}
-                         />
-               <Text style={styles.headerText}>Strong Against the Following Types</Text>
-               <FlatList renderItem={({item}) => this.renderItem(item)}
-                         data = {strongAgainst}
-                         keyExtractor={(item, index) => item}
-               />
-               <Text style={styles.headerText}>Weak Against the Following Types</Text>
-               <FlatList renderItem={({item}) => this.renderItem(item)}
-                         data={weakAgainst}
-                         keyExtractor={(item, index) => item}
-               />
-               <Text style={styles.headerText}>Types With No Effect</Text>
-               <FlatList renderItem={({item}) => this.renderItem(item)}
-                         data={noEffect}
-                         keyExtractor={(item, index) => item}/>
-           </ScrollView>
+            <View style={[styles.characterViewContainer]}>
+                <View style={[{flexDirection: 'row', flexWrap:"wrap",
+                    alignItems: "flex-start",}, styles.titleBar]}>
+                    <Text style={styles.detailViewTitleText}>{this._formatName(name)}</Text>
+                    <TypeContainer types={type}/>
+                </View>
+               <ScrollView style={{paddingLeft: 10}}>
+
+                   <View style={styles.spriteContainer}>
+                       <Image source={{uri: sprite}}
+                              style={styles.sprite}/>
+                   </View>
+
+                   <DefenseStats types={strongAgainst}
+                                 label={"Half Damage From"}
+                                 styleMain={styles.defenseGreen}
+                                 styleSub={styles.defenseStatTextViewGreen}
+                   />
+                   <DefenseStats types={weakAgainst}
+                                 label={"Double Damage From"}
+                                 styleMain={styles.defenseRed}
+                                 styleSub={styles.defenseStatTextViewRed}
+                   />
+                   <DefenseStats types={noEffect}
+                                 label={"No Damage From"}
+
+                   />
+                   <EvolutionChain data={this.state.data.evolutionChain}
+                                   dataManager={this.state.processor}
+                                   handleSpritePress={this.handleSpritePress.bind(this)}
+                   />
+               </ScrollView>
+            </View>
         )
     }
 
-    renderItem(item) {
-        return(
-            <Text style={styles.detailViewSubText}>{item}</Text>
-        )
+    handleSpritePress(clicked) {
+        if (clicked.toLowerCase() === this.state.data.name) {
+            return;
+        }
+        const { navigation } = this.props;
+        navigation.push("CharacterView", {
+            name: clicked
+        });
     }
+
+    async componentDidMount(): void {
+        const {navigation} = this.props;
+        try {
+            const name = navigation.getParam('name', {});
+            // TODO: Transfer states of the pokedata managers
+            let data = await this.state.processor.formDefaultSpeciesData(name);
+            this.setState({
+                name: name,
+                data: data
+            });
+        } catch (err) {
+            // TODO: Get rid of loose strings
+            alert("There was an error. Please check that your wifi is enabled.");
+            navigation.goBack();
+        }
+    }
+
+    _formatName(name) {
+        return name.charAt(0).toUpperCase()+name.substr(1)
+    }
+
 }
