@@ -7,7 +7,7 @@ All information is from the [PokeApi](https://pokeapi.co)
 
 `yarn install`
 
-`react-native run-ios [--simulator="<iphone model>]"`
+`react-native run-ios [--simulator="<iphone model>"]`
 
 Check out the demo below! More to come!!
 
