@@ -1,4 +1,4 @@
 ## Pokemate
 ### A Pokemon companion app written using React-Native
 ---
-Using the Pokedex API to gather information
+All information is from the [PokeApi](https://pokeapi.co)
