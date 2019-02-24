@@ -43,13 +43,13 @@ export default class PokemonCharacterView extends React.Component{
         const weakAgainst = this.state.data.weaknesses;
         const noEffect = this.state.data.noEffect;
         return (
-            <View style={styles.containerLeftAligned}>
-                <View style={{flexDirection: 'row', flexWrap:"wrap",
-                    alignItems: "flex-start", backgroundColor: "transparent"}}>
-                    <Text style={styles.detailViewTitleText}>{name.charAt(0).toUpperCase()+name.substr(1)}</Text>
+            <View style={[styles.characterViewContainer]}>
+                <View style={[{flexDirection: 'row', flexWrap:"wrap",
+                    alignItems: "flex-start",}, styles.titleBar]}>
+                    <Text style={styles.detailViewTitleText}>{this._formatName(name)}</Text>
                     <TypeContainer types={type}/>
                 </View>
-               <ScrollView>
+               <ScrollView style={{paddingLeft: 10}}>
 
                    <View style={styles.spriteContainer}>
                        <Image source={{uri: sprite}}
@@ -80,6 +80,9 @@ export default class PokemonCharacterView extends React.Component{
     }
 
     handleSpritePress(clicked) {
+        if (clicked.toLowerCase() === this.state.data.name) {
+            return;
+        }
         const { navigation } = this.props;
         navigation.push("CharacterView", {
             name: clicked
@@ -103,9 +106,8 @@ export default class PokemonCharacterView extends React.Component{
         }
     }
 
-    renderItem(item) {
-        return(
-            <Text style={styles.detailViewSubText}>{item}</Text>
-        )
+    _formatName(name) {
+        return name.charAt(0).toUpperCase()+name.substr(1)
     }
+
 }

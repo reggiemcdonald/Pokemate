@@ -1,6 +1,21 @@
 import {StyleSheet} from "react-native";
 
 const styles = StyleSheet.create({
+    titleBar: {
+        borderStyle: "solid",
+        borderBottomWidth: 1,
+        borderColor: "#e6e6e6",
+        backgroundColor: "#F5FCFF",
+        shadowOffset:{
+            height: 2,
+            width:0
+        },
+        shadowRadius: 3,
+        shadowColor: "#000000",
+        shadowOpacity: 0.1,
+        paddingLeft: 10,
+        paddingRight: 10,
+    },
     detailViewTitleText: {
         fontSize: 30,
         fontWeight: "bold",
@@ -23,7 +38,7 @@ const styles = StyleSheet.create({
     },
     sprite: {
         width: 250,
-        height: 250,
+        height: 200,
     },
     containerCentered: {
         flex: 1,
@@ -36,6 +51,11 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: '#F5FCFF',
         paddingLeft: 10
+    },
+    characterViewContainer: {
+        paddingTop: 10,
+        flex: 1,
+        backgroundColor: '#F5FCFF',
     },
     sectionHeader: {
         paddingTop: 2,
@@ -74,10 +94,17 @@ const styles = StyleSheet.create({
         color: "white"
     },
     defenseStats: {
-        borderRadius: 3,
+        borderRadius: 10,
         marginRight:10,
         marginTop: 5,
-        marginBottom: 5
+        marginBottom: 5,
+        shadowColor: "#000000",
+        shadowRadius: 2,
+        shadowOpacity: 0.1,
+        shadowOffset: {
+            height: 3,
+            width: 0
+        }
     },
     defenseDefault: {
         backgroundColor: "#ccccff"
@@ -92,20 +119,20 @@ const styles = StyleSheet.create({
         color: "white"
     },
     defenseStatTextView: {
-        borderTopRightRadius: 3,
-        borderTopLeftRadius: 3
+        borderTopRightRadius: 10,
+        borderTopLeftRadius: 10
     },
     defenseGreen: {
-        backgroundColor: "#adebad"
+        backgroundColor: "#bcf9bc"
     },
     defenseRed: {
         backgroundColor: "#ffcccc"
     },
     defenseStatTextViewRed: {
-        backgroundColor: "#ff6666",
+        backgroundColor: "#ff5b51",
     },
     defenseStatTextViewGreen: {
-        backgroundColor: "#6fdc6f"
+        backgroundColor: "#1f8d00"
     },
     evolutionChainSprite: {
         width: 100,
@@ -113,21 +140,37 @@ const styles = StyleSheet.create({
     },
     evolutionChainScrollView: {
         flexGrow: 1,
-        borderRadius: 3,
+        borderRadius: 10,
         paddingRight: 10,
         paddingBottom: 10,
         paddingTop: 10,
         margin: 5
     },
     evolutionChain:{
-        borderRadius: 3,
+        borderRadius: 10,
         marginRight: 10,
         marginTop: 5,
         backgroundColor: "#b3d9ff",
+        shadowColor: "#000000",
+        shadowRadius: 2,
+        shadowOpacity: 0.1,
+        shadowOffset: {
+            height: 3,
+            width: 0
+        }
     },
     evolutionChainTextView: {
         backgroundColor: "#4da6ff"
     },
+    evolutionChainItemWithArrow: {
+        flexDirection: 'row',
+        alignItems: "flex-start",
+        backgroundColor: "transparent"
+    },
+    evolutionChainArrowText: {
+        fontSize: 10
+    }
+
 });
 
 const TypeColor = StyleSheet.create({

@@ -38,9 +38,7 @@ export default class EvolutionChain extends React.Component {
 
     render() {
         return(
-           <View>
-               {this._renderEvolutionChain(this.state.evolutionChain)}
-           </View>
+           this._renderEvolutionChain(this.state.evolutionChain)
         )
     }
 
@@ -98,14 +96,15 @@ export default class EvolutionChain extends React.Component {
 
     _getEvolutionTriggerConditional(evolutionDetails) {
         let keys = Object.keys(evolutionDetails);
+        let triggerConditionalArr = [];
         for (let key of keys) {
             if (key === "trigger") {
-                return null;
-            } else if (evolutionDetails[key] !== null && evolutionDetails[key] !== false) {
-                return {
+                return triggerConditionalArr;
+            } else if (evolutionDetails[key] !== null && evolutionDetails[key] !== false && evolutionDetails[key] !== "") {
+                triggerConditionalArr.push({
                     conditional: key,
                     requirement: (typeof evolutionDetails[key] !== "object") ? evolutionDetails[key] : evolutionDetails[key].name
-                };
+                });
             }
         }
         return null;
@@ -155,9 +154,9 @@ export default class EvolutionChain extends React.Component {
         let spriteName = this._formatSpriteName(sprite.name);
         if (sprite.trigger === null) {
             return (
-                <View key={sprite.name} style={{alignItems: "center", justifyContent: "center", textAlign: "center"}}>
+                <View key={sprite.name} style={{alignItems: "center", justifyContent: "center", textAlign: "center",height:100}}>
                     <TouchableOpacity onPress={() => this.state.handleSpritePress(sprite.name)}>
-                        <Image source={{uri: sprite.sprite}} style={{width: 80, height: 90}}/>
+                        <Image source={{uri: sprite.sprite}} style={{width: 80, height: 60}}/>
                     </TouchableOpacity>
                     <Text>{spriteName}</Text>
                 </View>
@@ -166,15 +165,15 @@ export default class EvolutionChain extends React.Component {
             let trigger = this._formatTrigger(sprite.trigger);
             let requirement = this._formatTriggerReq(sprite.triggerConditional);
             return(
-                <View key={sprite.name} style={{flexDirection: 'row', alignItems: "flex-start", backgroundColor: "transparent"}}>
+                <View key={sprite.name} style={styles.evolutionChainItemWithArrow}>
                     <View style={{alignItems: "center", justifyContent: "center", height: 100}}>
-                        <Text>{requirement}</Text>
+                        <Text style={[styles.evolutionChainArrowText, {textAlign: "center"}]}>{requirement}</Text>
                         <Ionicons name={"ios-arrow-round-forward"} size={25} tintcolor={"grey"}/>
-                        <Text>{trigger}</Text>
+                        <Text style={styles.evolutionChainArrowText}>{trigger}</Text>
                     </View>
-                    <View style={{alignItems: "center", justifyContent: "center", textAlign: "center"}}>
+                    <View style={{alignItems: "center", justifyContent: "center", textAlign: "center", height: 100}}>
                         <TouchableOpacity onPress={() => this.state.handleSpritePress(sprite.name)}>
-                            <Image source={{uri: sprite.sprite}} style={{width: 80, height: 90}}/>
+                            <Image source={{uri: sprite.sprite}} style={{width: 80, height: 60}}/>
                         </TouchableOpacity>
                         <Text>{spriteName}</Text>
                     </View>
@@ -204,7 +203,32 @@ export default class EvolutionChain extends React.Component {
     }
 
     _formatTriggerReq(triggerConditional) {
-        return triggerConditional.requirement;
+        if (triggerConditional.length === 0) {
+            return "";
+        } else {
+            let conditionals = triggerConditional.map((value) => {
+                return this._formatTriggerConditional(value.conditional) + " " +
+                    this._formatTriggerConditionalRequirement(value.requirement);
+            });
+            return conditionals.join("\n");
+        }
+
+    }
+
+    _formatTriggerConditional(triggerConditional) {
+        if (triggerConditionalFormattingKey.hasOwnProperty(triggerConditional)) {
+            return triggerConditionalFormattingKey[triggerConditional];
+        } else {
+            return triggerConditional.replace(/_/g, " ");
+        }
+    }
+
+    _formatTriggerConditionalRequirement(triggerConditionalRequirement) {
+        if (triggerConditionalRequirement === null) {return ""}
+        else {
+            triggerConditionalRequirement = triggerConditionalRequirement+"";
+            return triggerConditionalRequirement.replace(/-/g, " ");
+        }
     }
 
     _renderOrderOfEvolutionChain(evolutionChain, order) {
@@ -229,7 +253,12 @@ export default class EvolutionChain extends React.Component {
     _renderEvolutionChain(evolutionChain) {
         if (evolutionChain.length === 0) {
             return(
-                <ActivityIndicator size={"large"}/>
+                <View style={styles.evolutionChain}>
+                    <View style={[styles.evolutionChainTextView, styles.defenseStatTextView]}>
+                        <Text style={styles.defenseStatText}>Evolution Chain</Text>
+                    </View>
+                    <ActivityIndicator size={"small"}/>
+                </View>
             )
         }
         const range = [];
@@ -253,3 +282,22 @@ export default class EvolutionChain extends React.Component {
         );
     }
 }
+
+const triggerConditionalFormattingKey = {
+    gender: "Gender",
+    held_item: "Holding",
+    item: "",
+    known_move: "Learn Move",
+    known_move_type: "Learn Move of Type",
+    location: "Location",
+    min_affection: "Affection",
+    min_beauty: "Beauty",
+    min_happiness: "Happiness",
+    min_level: "Level",
+    needs_overworld_rain: "Raining",
+    party_species: "Species in Party",
+    party_type: "Type in Party",
+    relative_physical_stats: "Relative Physical Stats",
+    time_of_day: "During",
+    trade_species: ""
+};
