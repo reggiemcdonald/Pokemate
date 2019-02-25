@@ -19,7 +19,8 @@ export default class PokeDataProcessor {
      */
     constructor() {
         this.pokedex = new Pokedex({
-            timeout: 5 * 1000
+            timeout: 5 * 1000,
+            caching: 0
         });
     }
 
@@ -29,35 +30,33 @@ export default class PokeDataProcessor {
      * @param name: name of pokemon to process
      */
     async formDefaultSpeciesData(name) {
-        let that = this;
-        return new Promise(async function (resolve, reject) {
-            try {
-                let speciesData = await that.pokedex.getPokemonSpeciesByName(name);
-                let defaultVariety = that._getDefaultVariety(speciesData);
-                let defaultVarietyData = await that.pokedex.getPokemonByName(defaultVariety);
-                let pokemonName = that._getName(defaultVarietyData);
-                let id = that._getId(defaultVarietyData);
-                let sprite = that._getSprite(defaultVarietyData);
-                let types = that._getTypes(defaultVarietyData);
-                let damageRelations = await that._getDamageRelations(types);
-                let evolutionChain = await that._getEvolutionChain(speciesData);
-                let varieties = that._getNonDefaultVarieties(speciesData);
+        // let that = this;
+        try {
+            let speciesData = await this.pokedex.getPokemonSpeciesByName(name);
+            let defaultVariety = this._getDefaultVariety(speciesData);
+            let defaultVarietyData = await this.pokedex.getPokemonByName(defaultVariety);
+            let pokemonName = this._getName(defaultVarietyData);
+            let id = this._getId(defaultVarietyData);
+            let sprite = this._getSprite(defaultVarietyData);
+            let types = this._getTypes(defaultVarietyData);
+            let damageRelations = await this._getDamageRelations(types);
+            let evolutionChain = await this._getEvolutionChain(speciesData);
+            let varieties = this._getNonDefaultVarieties(speciesData);
 
-                return resolve({
-                    name: pokemonName,
-                    id: id,
-                    types: types,
-                    sprite: sprite,
-                    strengths: damageRelations.strengths,
-                    weaknesses: damageRelations.weaknesses,
-                    noEffect: damageRelations.noEffect,
-                    varieties: varieties,
-                    evolutionChain: evolutionChain
-                });
-            } catch (err) {
-                return reject(err);
-            }
-        });
+            return {
+                name: pokemonName,
+                id: id,
+                types: types,
+                sprite: sprite,
+                strengths: damageRelations.strengths,
+                weaknesses: damageRelations.weaknesses,
+                noEffect: damageRelations.noEffect,
+                varieties: varieties,
+                evolutionChain: evolutionChain
+            };
+        } catch (err) {
+            return err;
+        }
     }
 
     /**
@@ -65,20 +64,17 @@ export default class PokeDataProcessor {
      * and have been marked as default by the database
      * @returns Promise<string[]>
      */
-    getListOfPokemon() {
-        let that = this;
-        return new Promise(async function (resolve, reject) {
-            try {
-                let pokeList = [];
-                let pokemonList = await that.pokedex.getPokemonSpeciesList();
-                pokemonList.results.forEach(async function (value) {
-                    pokeList.push(value.name);
-                });
-                resolve(pokeList);
-            } catch (err) {
-                reject(err);
-            }
-        });
+    async getListOfPokemon() {
+        try {
+            let pokeList = [];
+            let pokemonList = await this.pokedex.getPokemonSpeciesList();
+            pokemonList.results.forEach( function (value) {
+                pokeList.push(value.name);
+            });
+            return pokeList;
+        } catch (err) {
+            return err;
+        }
     }
 
 
@@ -197,7 +193,7 @@ export default class PokeDataProcessor {
      * @private
      */
     _getDefaultVariety(speciesData) {
-        for (variety of speciesData.varieties) {
+        for (let variety of speciesData.varieties) {
             if (variety.is_default) {
                 return variety.pokemon.name;
             }

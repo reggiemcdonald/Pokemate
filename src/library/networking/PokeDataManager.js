@@ -9,6 +9,7 @@ export default class PokeDataManager {
     constructor(existingData?) {
         this.processor = new PokeDataProcessor();
         this.pokeData = {};
+        this.orderedEvolutionTree = {};
         this._restoreData(existingData);
     }
 
@@ -20,7 +21,8 @@ export default class PokeDataManager {
      */
     _restoreData(existingData) {
         if (existingData) {
-            this.pokeData = existingData.pokeData;
+            this.pokeData = existingData.pokeData ? existingData.pokeData : {};
+            this.orderedEvolutionTree = existingData.orderedEvolutionTree ? existingData.orderedEvolutionTree : {}
         }
     }
 
@@ -42,55 +44,49 @@ export default class PokeDataManager {
      * @param name
      * @returns {Promise<any>}
      */
-     getPokemonDetails(name) {
-        let that = this;
-        return new Promise( async function(resolve, reject) {
-            try {
-                if (that.pokeData.hasOwnProperty(name)) {
-                    resolve(that.pokeData[name]);
-                } else {
-                    let pokemon = await that.processor.formDefaultSpeciesData(name);
-                    that.pokeData[name] = pokemon;
-                    resolve(pokemon);
-                }
-            } catch (err) {
-                reject(err);
+     async getPokemonDetails(name) {
+        try {
+            if (this.pokeData.hasOwnProperty(name)) {
+                return this.pokeData[name];
+            } else {
+                let pokemon = await this.processor.formDefaultSpeciesData(name);
+                this.pokeData[name] = pokemon;
+                return pokemon;
             }
-        });
+        } catch (err) {
+            return err;
+        }
     }
 
     /**
      * Returns the list of pokemon species
      * @returns {Promise<any> | Promise<*>}
      */
-    getListOfPokemon() {
-         let that = this;
-         return new Promise(async function (resolve, reject) {
-             try {
-                 let pokemonList = await that.processor.getListOfPokemon();
-                 return resolve(pokemonList);
-             } catch (err) {
-                 return reject(err);
-             }
-         });
+    async getListOfPokemon() {
+         try {
+             let pokemonList = await this.processor.getListOfPokemon();
+             return pokemonList;
+         } catch (err) {
+             return err;
+         }
     }
 
-    getSpriteUrl(name) {
+    async getSpriteUrl(name) {
         let that = this;
-        return new Promise(async function (resolve, reject) {
-            try {
-                if (that.pokeData.hasOwnProperty(name)) {
-                    return resolve(that.pokeData[name].sprite);
-                }
-                let url = await that.processor.getSpriteUrl(name);
-                return resolve(url);
-            } catch (err) {
-                // TODO: make this return a default image instead
-                throw reject(err);
+        try {
+            if (that.pokeData.hasOwnProperty(name)) {
+                return that.pokeData[name].sprite;
             }
-        })
+            let url = await that.processor.getSpriteUrl(name);
+            return url;
+        } catch (err) {
+            return err;
+        }
     }
 
+    async getOrderedEvolutionChain(evolutionData) {
+        // TODO
+    }
 
     /**
      * Generate an array of evolution objects
