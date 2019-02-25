@@ -8,8 +8,8 @@ import {View,
 import styles from "../library/styles";
 import TypeContainer from "./TypeContainer";
 import DefenseStats from "./DefenseStats";
-import PokeDataProcessor from "../library/networking/PokeDataProcessor";
 import EvolutionChain from "./EvolutionChain";
+import PokeDataManager from "../library/networking/PokeDataManager";
 /**
  * ************************
  * Detailed view of pokemon
@@ -21,7 +21,7 @@ export default class PokemonCharacterView extends React.Component{
     constructor(props) {
         super(props);
         this.state = {
-            processor: new PokeDataProcessor()
+            processor: new PokeDataManager()
         }
     }
 
@@ -94,7 +94,7 @@ export default class PokemonCharacterView extends React.Component{
         try {
             const name = navigation.getParam('name', {});
             // TODO: Transfer states of the pokedata managers
-            let data = await this.state.processor.formDefaultSpeciesData(name);
+            let data = await this.state.processor.getPokemonDetails(name);
             this.setState({
                 name: name,
                 data: data

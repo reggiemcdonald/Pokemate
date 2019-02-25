@@ -74,9 +74,9 @@ export default class PokeDataProcessor {
                 pokemonList.results.forEach(async function (value) {
                     pokeList.push(value.name);
                 });
-                return resolve(pokeList);
+                resolve(pokeList);
             } catch (err) {
-                return reject(err);
+                reject(err);
             }
         });
     }
@@ -122,45 +122,49 @@ export default class PokeDataProcessor {
      * @private
      */
     async _getDamageRelations(types) {
-        let damageRelations = {
-            strengths: [],
-            weaknesses: [],
-            noEffect: []
-        };
-        let strengths = [];
-        let weaknesses = [];
-        let noEffect = [];
-        for (type of types) {
-            let typeData = await this.pokedex.getTypeByName(type);
-            typeData.damage_relations.double_damage_from.forEach((value) => {
-                weaknesses.push(value.name);
+        try {
+            let damageRelations = {
+                strengths: [],
+                weaknesses: [],
+                noEffect: []
+            };
+            let strengths = [];
+            let weaknesses = [];
+            let noEffect = [];
+            for (type of types) {
+                let typeData = await this.pokedex.getTypeByName(type);
+                typeData.damage_relations.double_damage_from.forEach((value) => {
+                    weaknesses.push(value.name);
+                });
+                typeData.damage_relations.half_damage_from.forEach((value) => {
+                    strengths.push(value.name);
+                });
+                typeData.damage_relations.no_damage_from.forEach((value) => {
+                    noEffect.push(value.name);
+                });
+            }
+            strengths.forEach((value) => {
+                if (!damageRelations.strengths.includes(value) &&
+                    !weaknesses.includes(value)) {
+                    damageRelations.strengths.push(value);
+                }
             });
-            typeData.damage_relations.half_damage_from.forEach((value) => {
-                strengths.push(value.name);
+            weaknesses.forEach((value) => {
+                if (!damageRelations.weaknesses.includes(value) &&
+                    !strengths.includes(value)) {
+                    damageRelations.weaknesses.push(value);
+                }
             });
-            typeData.damage_relations.no_damage_from.forEach((value) => {
-                noEffect.push(value.name);
+            noEffect.forEach((value) => {
+                if (!damageRelations.noEffect.includes(value) &&
+                    !strengths.includes(value) && !weaknesses.includes(value)) {
+                    damageRelations.noEffect.push(value);
+                }
             });
+            return damageRelations;
+        } catch (err) {
+            return err;
         }
-        strengths.forEach((value) => {
-            if (!damageRelations.strengths.includes(value) &&
-                !weaknesses.includes(value)) {
-                damageRelations.strengths.push(value);
-            }
-        });
-        weaknesses.forEach((value) => {
-            if (!damageRelations.weaknesses.includes(value) &&
-                !strengths.includes(value)) {
-                damageRelations.weaknesses.push(value);
-            }
-        });
-        noEffect.forEach((value) => {
-            if (!damageRelations.noEffect.includes(value) &&
-                !strengths.includes(value) && !weaknesses.includes(value)) {
-                damageRelations.noEffect.push(value);
-            }
-        });
-        return damageRelations;
     }
 
     /**
@@ -180,8 +184,12 @@ export default class PokeDataProcessor {
      * Builds an evolution chain for the given pokemon
      */
     async _getEvolutionChain(speciesData) {
-        let evolutionChain = await this.pokedex.resource(speciesData.evolution_chain.url);
-        return evolutionChain.chain;
+        try {
+            let evolutionChain = await this.pokedex.resource(speciesData.evolution_chain.url);
+            return evolutionChain.chain;
+        } catch (err) {
+            return null;
+        }
     }
 
     /**

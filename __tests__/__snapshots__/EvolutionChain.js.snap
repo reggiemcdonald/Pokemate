@@ -1,0 +1,54 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Evolution Chain: Component Evolution Chain should render without crashing 1`] = `
+<View
+  style={
+    Object {
+      "backgroundColor": "#b3d9ff",
+      "borderRadius": 10,
+      "marginRight": 10,
+      "marginTop": 5,
+      "shadowColor": "#000000",
+      "shadowOffset": Object {
+        "height": 3,
+        "width": 0,
+      },
+      "shadowOpacity": 0.1,
+      "shadowRadius": 2,
+    }
+  }
+>
+  <View
+    style={
+      Array [
+        Object {
+          "backgroundColor": "#4da6ff",
+        },
+        Object {
+          "borderTopLeftRadius": 10,
+          "borderTopRightRadius": 10,
+        },
+      ]
+    }
+  >
+    <Text
+      style={
+        Object {
+          "color": "white",
+          "fontSize": 18,
+          "fontWeight": "bold",
+          "marginLeft": 5,
+        }
+      }
+    >
+      Evolution Chain
+    </Text>
+  </View>
+  <ActivityIndicator
+    animating={true}
+    color="#999999"
+    hidesWhenStopped={true}
+    size="small"
+  />
+</View>
+`;
