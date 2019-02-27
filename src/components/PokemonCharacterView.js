@@ -10,6 +10,7 @@ import TypeContainer from "./TypeContainer";
 import DefenseStats from "./DefenseStats";
 import EvolutionChain from "./EvolutionChain";
 import PokeDataManager from "../library/networking/PokeDataManager";
+import ErrorBoundary from "./ErrorBoundary";
 /**
  * ************************
  * Detailed view of pokemon
@@ -70,10 +71,12 @@ export default class PokemonCharacterView extends React.Component{
                                  label={"No Damage From"}
 
                    />
-                   <EvolutionChain data={this.state.data.evolutionChain}
-                                   dataManager={this.state.processor}
-                                   handleSpritePress={this.handleSpritePress.bind(this)}
-                   />
+                   <ErrorBoundary>
+                       <EvolutionChain data={this.state.data.evolutionChain}
+                                       dataManager={this.state.processor}
+                                       handleSpritePress={this.handleSpritePress.bind(this)}
+                       />
+                   </ErrorBoundary>
                </ScrollView>
             </View>
         )

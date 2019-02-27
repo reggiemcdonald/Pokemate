@@ -32,7 +32,7 @@ export default class EvolutionChain extends React.Component {
             dataManager: props.dataManager,
             evolutionChain: [],
             handleSpritePress: this.props.handleSpritePress ?
-                this.props.handleSpritePress : this._defaultHandleSpritePress
+                this.props.handleSpritePress : this._defaultHandleSpritePress,
         }
     }
 
@@ -43,10 +43,14 @@ export default class EvolutionChain extends React.Component {
     }
 
     async componentDidMount(): void {
-        let evolutionChain = await this.state.dataManager.buildEvolutionChain(this.state.data);
-        this.setState({
-            evolutionChain: evolutionChain
-        });
+        try {
+            let evolutionChain = await this.state.dataManager.buildEvolutionChain(this.state.data);
+            this.setState({
+                evolutionChain: evolutionChain
+            });
+        } catch (err) {
+            throw err;
+        }
     }
 
     _defaultHandleSpritePress(sprite) {

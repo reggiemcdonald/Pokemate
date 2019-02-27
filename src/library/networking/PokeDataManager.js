@@ -84,10 +84,6 @@ export default class PokeDataManager {
         }
     }
 
-    async getOrderedEvolutionChain(evolutionData) {
-        // TODO
-    }
-
     /**
      * Generate an array of evolution objects
      * [{
@@ -98,17 +94,17 @@ export default class PokeDataManager {
      * @param data
      */
     async buildEvolutionChain(evolutionData) {
-        let that = this;
-        return new Promise(async function (resolve, reject) {
-            try {
-                let evolutionChain = await that._buildEvolutionChainHelp(evolutionData, 0);
-                // TODO: Add to data structure
-                resolve(evolutionChain);
-            } catch (err) {
-                // TODO: Error Messages and Handling
-                reject(new Error("There was an error completing this request"))
+        try {
+            if (this.orderedEvolutionTree[evolutionData.species.name]) {
+                return this.orderedEvolutionTree[evolutionData.species.name];
+            } else {
+                let evolutionChain = await this._buildEvolutionChainHelp(evolutionData, 0);
+                this.orderedEvolutionTree[evolutionData.species.name] = evolutionChain;
+                return evolutionChain;
             }
-        });
+        } catch (err) {
+            return err;
+        }
     }
 
     async _buildEvolutionChainHelp(evolution, order) {
