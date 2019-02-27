@@ -1,4 +1,5 @@
 import Pokedex from "pokedex-promise-v2";
+import PromiseInterrupt from "../errors/PromiseInterrupt";
 
 export default class PokeDataProcessor {
 
@@ -22,6 +23,7 @@ export default class PokeDataProcessor {
             timeout: 5 * 1000,
             caching: 0
         });
+        this.promiseInterrupted = false;
     }
 
 
@@ -32,14 +34,18 @@ export default class PokeDataProcessor {
     async formDefaultSpeciesData(name) {
         // let that = this;
         try {
+            this.isPromiseCanceled()
             let speciesData = await this.pokedex.getPokemonSpeciesByName(name);
             let defaultVariety = this._getDefaultVariety(speciesData);
+            this.isPromiseCanceled();
             let defaultVarietyData = await this.pokedex.getPokemonByName(defaultVariety);
             let pokemonName = this._getName(defaultVarietyData);
             let id = this._getId(defaultVarietyData);
             let sprite = this._getSprite(defaultVarietyData);
             let types = this._getTypes(defaultVarietyData);
+            this.isPromiseCanceled();
             let damageRelations = await this._getDamageRelations(types);
+            this.isPromiseCanceled();
             let evolutionChain = await this._getEvolutionChain(speciesData);
             let varieties = this._getNonDefaultVarieties(speciesData);
 
@@ -67,6 +73,7 @@ export default class PokeDataProcessor {
     async getListOfPokemon() {
         try {
             let pokeList = [];
+            this.isPromiseCanceled();
             let pokemonList = await this.pokedex.getPokemonSpeciesList();
             pokemonList.results.forEach( function (value) {
                 pokeList.push(value.name);
@@ -181,6 +188,7 @@ export default class PokeDataProcessor {
      */
     async _getEvolutionChain(speciesData) {
         try {
+            this.isPromiseCanceled();
             let evolutionChain = await this.pokedex.resource(speciesData.evolution_chain.url);
             return evolutionChain.chain;
         } catch (err) {
@@ -202,8 +210,10 @@ export default class PokeDataProcessor {
 
     async getSpriteUrl(name) {
         try {
+            this.isPromiseCanceled();
             let speciesData = await this.pokedex.getPokemonSpeciesByName(name);
             let defaultSpecies = this._getDefaultVariety(speciesData);
+            this.isPromiseCanceled();
             let defaultData = await this.pokedex.getPokemonByName(defaultSpecies);
             return this._getSprite(defaultData);
         } catch (err) {
@@ -211,5 +221,15 @@ export default class PokeDataProcessor {
         }
     }
 
+    cancelPromise() {
+        this.promiseInterrupted = true;
+    }
+
+    isPromiseCanceled() {
+        if (this.promiseInterrupted) {
+            this.promiseInterrupted = false;
+            throw new PromiseInterrupt();
+        }
+    }
 
 }

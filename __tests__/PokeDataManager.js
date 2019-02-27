@@ -1,5 +1,6 @@
 import PokeDataManager from "../src/library/networking/PokeDataManager";
 import ExpectedResults from "../queryResults/ExpectedResults";
+import PromiseInterrupt from "../src/library/errors/PromiseInterrupt";
 
 describe("PokeDataManager: Build Evolution Chain", () => {
 
@@ -79,5 +80,16 @@ describe("PokeDataManager: getPokemonDetails", () => {
             expect(pikachu.varieties).toEqual(expect.arrayContaining(ExpectedResults.mockPikachuDataStructure.varieties));
             expect(pikachu.evolutionChain).toEqual(ExpectedResults.mockPikachuDataStructure.evolutionChain);
         }
+    });
+});
+
+describe("Data Manager: Promise Rejection", () => {
+    let dataManager;
+    beforeEach(() => {
+        dataManager = new PokeDataManager();
+    });
+    it("Should be able to cancel a promise", async () => {
+        dataManager.cancelPromise();
+        expect(dataManager.getPokemonDetails("pikachu")).rejects.toThrow(PromiseInterrupt);
     });
 });

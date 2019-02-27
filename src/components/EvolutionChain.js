@@ -10,6 +10,7 @@ import {
 } from "react-native"
 import styles from "../library/styles"
 import Ionicons from "react-native-vector-icons/Ionicons"
+import PromiseInterrupt from "../library/errors/PromiseInterrupt";
 
 
 /**
@@ -33,7 +34,7 @@ export default class EvolutionChain extends React.Component {
             evolutionChain: [],
             handleSpritePress: this.props.handleSpritePress ?
                 this.props.handleSpritePress : this._defaultHandleSpritePress,
-        }
+        };
     }
 
     render() {
@@ -49,7 +50,9 @@ export default class EvolutionChain extends React.Component {
                 evolutionChain: evolutionChain
             });
         } catch (err) {
-            throw err;
+            if (!(err instanceof PromiseInterrupt)) {
+                throw err;
+            }
         }
     }
 
@@ -57,7 +60,9 @@ export default class EvolutionChain extends React.Component {
         alert("You pressed a sprite in the evolution chain");
     }
 
-
+    componentWillUnmount(): void {
+        this.state.dataManager.cancelPromise();
+    }
 
 
     /**

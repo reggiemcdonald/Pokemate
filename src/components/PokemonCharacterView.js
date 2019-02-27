@@ -11,6 +11,7 @@ import DefenseStats from "./DefenseStats";
 import EvolutionChain from "./EvolutionChain";
 import PokeDataManager from "../library/networking/PokeDataManager";
 import ErrorBoundary from "./ErrorBoundary";
+import PromiseInterrupt from "../library/errors/PromiseInterrupt";
 /**
  * ************************
  * Detailed view of pokemon
@@ -104,9 +105,18 @@ export default class PokemonCharacterView extends React.Component{
             });
         } catch (err) {
             // TODO: Get rid of loose strings
-            alert("There was an error. Please check that your wifi is enabled.");
-            navigation.goBack();
+            if (!(err instanceof PromiseInterrupt)) {
+                alert("There was an error. Please check that your wifi is enabled.");
+                navigation.goBack();
+            }
         }
+    }
+
+    /**
+     * Perform a promise cancellation on component unmount
+     */
+    componentWillUnmount(): void {
+        this.state.processor.cancelPromise();
     }
 
     _formatName(name) {
