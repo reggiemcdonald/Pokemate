@@ -13,6 +13,14 @@ import PokeDataManager from "../library/networking/PokeDataManager";
 import ErrorBoundary from "./ErrorBoundary";
 import PromiseInterrupt from "../library/errors/PromiseInterrupt";
 import ErrorMessages from "../library/ErrorMessages";
+
+/**
+ * Container labels
+ * @type {string}
+ */
+const DOUBLE_DAMAGE_LABEL = "Double Damage From";
+const HALF_DAMAGE_LABEL = "Half Damage From";
+const IMMUNE_TO = "Immune To";
 /**
  * ************************
  * Detailed view of pokemon
@@ -51,18 +59,13 @@ export default class PokemonCharacterView extends React.Component{
                <ScrollView style={{paddingLeft: 10}}>
 
                    {this._renderSpriteContainer(sprite)}
-                   {this._renderDefenseStat(strongAgainst, "Half Damage From",
+                   {this._renderDefenseStat(strongAgainst, HALF_DAMAGE_LABEL,
                        styles.defenseGreen, styles.defenseStatTextViewGreen)}
-                   {this._renderDefenseStat(weakAgainst, "Double Damage From",
+                   {this._renderDefenseStat(weakAgainst, DOUBLE_DAMAGE_LABEL,
                         styles.defenseRed, styles.defenseStatTextViewRed)}
-                   {this._renderDefenseStat(noEffect, "No Damage From")}
+                   {this._renderDefenseStat(noEffect, IMMUNE_TO)}
 
-                   <ErrorBoundary>
-                       <EvolutionChain data={this.state.data.evolutionChain}
-                                       dataManager={this.state.processor}
-                                       handleSpritePress={this.handleSpritePress.bind(this)}
-                       />
-                   </ErrorBoundary>
+                   {this._renderEvolutionChain()}
 
                </ScrollView>
             </View>
@@ -179,6 +182,22 @@ export default class PokemonCharacterView extends React.Component{
                        style={styles.sprite}/>
             </View>
         );
+    }
+
+    /**
+     * Renders the evolution chain
+     * @returns {*}
+     * @private
+     */
+    _renderEvolutionChain() {
+        return(
+            <ErrorBoundary>
+                <EvolutionChain data={this.state.data.evolutionChain}
+                                dataManager={this.state.processor}
+                                handleSpritePress={this.handleSpritePress.bind(this)}
+                />
+            </ErrorBoundary>
+        )
     }
     /**
      * Returns true if the error is a promise interrupt

@@ -6,7 +6,6 @@ import {
 } from "react-native";
 import TouchableType from "./TouchableType";
 import styles from "../library/styles";
-import ErrorBoundary from "./ErrorBoundary";
 /**
  * A stylized container for showing a collection of types with a message
  */

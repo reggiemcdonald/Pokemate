@@ -146,22 +146,21 @@ export default class PokeDataProcessor {
                     noEffect.push(value.name);
                 });
             }
+            noEffect.forEach((value) => {
+                if (!damageRelations.noEffect.includes(value)) {
+                    damageRelations.noEffect.push(value);
+                }
+            });
             strengths.forEach((value) => {
                 if (!damageRelations.strengths.includes(value) &&
-                    !weaknesses.includes(value)) {
+                    !weaknesses.includes(value) && !noEffect.includes(value)) {
                     damageRelations.strengths.push(value);
                 }
             });
             weaknesses.forEach((value) => {
                 if (!damageRelations.weaknesses.includes(value) &&
-                    !strengths.includes(value)) {
+                    !strengths.includes(value) && !noEffect.includes(value)) {
                     damageRelations.weaknesses.push(value);
-                }
-            });
-            noEffect.forEach((value) => {
-                if (!damageRelations.noEffect.includes(value) &&
-                    !strengths.includes(value) && !weaknesses.includes(value)) {
-                    damageRelations.noEffect.push(value);
                 }
             });
             return damageRelations;
