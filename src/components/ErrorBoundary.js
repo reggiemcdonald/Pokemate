@@ -1,7 +1,10 @@
 import React from "react";
 import {
-    Text
+    Text,
+    View,
 } from "react-native";
+import Ionicons from "react-native-vector-icons/Ionicons";
+import styles from "../library/styles";
 
 /**
  * **************************
@@ -14,13 +17,16 @@ export default class ErrorBoundary extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            hasError: false
+            hasError: false,
+            displayIcon: this.props.displayIcon ? this.props.displayIcon : <Ionicons name={"ios-alert"}/>,
+            message: this.props.message ? this.props.message : "Oops! Something happened :("
         }
     }
 
     static getDerivedStateFromError(error) {
         return {
-            hasError: true
+            hasError: true,
+            error: error
         }
     }
 
@@ -31,13 +37,20 @@ export default class ErrorBoundary extends React.Component {
      * @param errorInfo
      */
     componentDidCatch(error: Error, errorInfo: React.ErrorInfo): void {
-        // TODO: Create error reporting
+        this.setState({
+            hasError: true,
+            error: error,
+            errorInfo: errorInfo
+        });
     }
 
     render() {
         if (this.state.hasError) {
             return(
-                <Text>Oops. Something went wrong.</Text>
+                <View style={styles.containerCentered}>
+                    {this.state.displayIcon}
+                    <Text>{this.state.message}</Text>
+                </View>
             )
         } else {
             return this.props.children;

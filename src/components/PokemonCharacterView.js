@@ -12,6 +12,7 @@ import EvolutionChain from "./EvolutionChain";
 import PokeDataManager from "../library/networking/PokeDataManager";
 import ErrorBoundary from "./ErrorBoundary";
 import PromiseInterrupt from "../library/errors/PromiseInterrupt";
+import ErrorMessages from "../library/ErrorMessages";
 /**
  * ************************
  * Detailed view of pokemon
@@ -46,38 +47,23 @@ export default class PokemonCharacterView extends React.Component{
         const noEffect = this.state.data.noEffect;
         return (
             <View style={[styles.characterViewContainer]}>
-                <View style={[{flexDirection: 'row', flexWrap:"wrap",
-                    alignItems: "flex-start",}, styles.titleBar]}>
-                    <Text style={styles.detailViewTitleText}>{this._formatName(name)}</Text>
-                    <TypeContainer types={type}/>
-                </View>
+                {this._renderTitleBar(name, type)}
                <ScrollView style={{paddingLeft: 10}}>
 
-                   <View style={styles.spriteContainer}>
-                       <Image source={{uri: sprite}}
-                              style={styles.sprite}/>
-                   </View>
+                   {this._renderSpriteContainer(sprite)}
+                   {this._renderDefenseStat(strongAgainst, "Half Damage From",
+                       styles.defenseGreen, styles.defenseStatTextViewGreen)}
+                   {this._renderDefenseStat(weakAgainst, "Double Damage From",
+                        styles.defenseRed, styles.defenseStatTextViewRed)}
+                   {this._renderDefenseStat(noEffect, "No Damage From")}
 
-                   <DefenseStats types={strongAgainst}
-                                 label={"Half Damage From"}
-                                 styleMain={styles.defenseGreen}
-                                 styleSub={styles.defenseStatTextViewGreen}
-                   />
-                   <DefenseStats types={weakAgainst}
-                                 label={"Double Damage From"}
-                                 styleMain={styles.defenseRed}
-                                 styleSub={styles.defenseStatTextViewRed}
-                   />
-                   <DefenseStats types={noEffect}
-                                 label={"No Damage From"}
-
-                   />
                    <ErrorBoundary>
                        <EvolutionChain data={this.state.data.evolutionChain}
                                        dataManager={this.state.processor}
                                        handleSpritePress={this.handleSpritePress.bind(this)}
                        />
                    </ErrorBoundary>
+
                </ScrollView>
             </View>
         )
@@ -104,9 +90,8 @@ export default class PokemonCharacterView extends React.Component{
                 data: data
             });
         } catch (err) {
-            // TODO: Get rid of loose strings
-            if (!(err instanceof PromiseInterrupt)) {
-                alert("There was an error. Please check that your wifi is enabled.");
+            if (!this.isPromiseInterrupt(err)) {
+                alert(ErrorMessages.PokemonMainViewError);
                 navigation.goBack();
             }
         }
@@ -119,8 +104,89 @@ export default class PokemonCharacterView extends React.Component{
         this.state.processor.cancelPromise();
     }
 
+    /**
+     * Formats the name so that it starts with a capital
+     * @param name
+     * @returns {string}
+     * @private
+     */
     _formatName(name) {
         return name.charAt(0).toUpperCase()+name.substr(1)
+    }
+
+    /**
+     * Renders the title bar for the main view of this pokemon
+     * @param name
+     * @param type
+     * @returns {*}
+     * @private
+     */
+    _renderTitleBar(name, type) {
+
+        return (
+            <View style={[{flexDirection: 'row', flexWrap:"wrap",
+                alignItems: "flex-start",}, styles.titleBar]}>
+                <Text style={styles.detailViewTitleText}>{this._formatName(name)}</Text>
+                <ErrorBoundary>
+                    <TypeContainer types={type}/>
+                </ErrorBoundary>
+            </View>
+        )
+    }
+
+    /**
+     * Renders the defense stats for a given pokemon
+     * @param data
+     * @param title
+     * @param styleMain
+     * @param styleSub
+     * @returns {*}
+     * @private
+     */
+    _renderDefenseStat(data, title, styleMain?, styleSub?) {
+        if (styleMain && styleSub) {
+            return (
+                <ErrorBoundary>
+                    <DefenseStats types={data}
+                                  label={title}
+                                  styleMain={styleMain}
+                                  styleSub={styleSub}
+                    />
+                </ErrorBoundary>
+            )
+        } else {
+            return (
+                <ErrorBoundary>
+                    <DefenseStats
+                        types={data}
+                        label={title}
+                    />
+                </ErrorBoundary>
+            )
+        }
+    }
+
+    /**
+     * Renders the sprite container
+     * @param sprite
+     * @returns {*}
+     * @private
+     */
+    _renderSpriteContainer(sprite) {
+        return (
+            <View style={styles.spriteContainer}>
+                <Image source={{uri: sprite}}
+                       style={styles.sprite}/>
+            </View>
+        );
+    }
+    /**
+     * Returns true if the error is a promise interrupt
+     * @param err
+     * @returns {boolean}
+     */
+    isPromiseInterrupt(err) {
+        return (err instanceof PromiseInterrupt);
     }
 
 }

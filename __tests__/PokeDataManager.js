@@ -8,12 +8,7 @@ describe("PokeDataManager: Build Evolution Chain", () => {
         try {
             let pokeDataManager = new PokeDataManager();
             let pokeData = await pokeDataManager.getPokemonDetails("bulbasaur");
-            // let evolutionChain = new EvolutionChain({
-            //     data: pokeData,
-            //     dataManager: pokeDataManager
-            // });
             let evoChain = await pokeDataManager.buildEvolutionChain(pokeData.evolutionChain);
-            console.log(evoChain);
             expect(evoChain).toEqual(ExpectedResults.bulbasaurEvolutionChain);
         } catch (err){
             expect(err).toBe(false);
@@ -25,7 +20,6 @@ describe("PokeDataManager: Build Evolution Chain", () => {
             let pokeDataManager = new PokeDataManager();
             let pokeData = await pokeDataManager.getPokemonDetails("oddish");
             let evoChain = await pokeDataManager.buildEvolutionChain(pokeData.evolutionChain);
-            console.log(evoChain);
             expect(evoChain).toEqual(ExpectedResults.oddishEvolutionChain);
         } catch (err){
             expect(err).toBe(false);
