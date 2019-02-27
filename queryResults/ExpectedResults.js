@@ -4384,7 +4384,23 @@ const results = {
             sprite: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/182.png",
             order: 2
         }
-    ]
+    ],
+    zapdosTypeRelations: {
+        strongAgainst: [
+            "fighting",
+            "flying",
+            "bug",
+            "steel",
+            "grass"
+        ],
+        weakAgainst: [
+            "rock",
+            "ice"
+        ],
+        immuneTo: [
+            "ground"
+        ]
+    }
 };
 
 

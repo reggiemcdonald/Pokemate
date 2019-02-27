@@ -58,6 +58,15 @@ describe("Should be able to generate the data needed for a pokemon component", (
         let data = await pokeData.formDefaultSpeciesData("aegislash");
         expect(data.name).toEqual("aegislash-shield");
     });
+    it("Should be able to generate a complex type tree", async () => {
+        let data = await pokeData.formDefaultSpeciesData("zapdos");
+        expect(data.strengths.length).toEqual(expectedResults.zapdosTypeRelations.strongAgainst.length);
+        expect(data.strengths).toEqual(expect.arrayContaining(expectedResults.zapdosTypeRelations.strongAgainst));
+        expect(data.weaknesses.length).toEqual(expectedResults.zapdosTypeRelations.weakAgainst.length);
+        expect(data.weaknesses).toEqual(expect.arrayContaining(expectedResults.zapdosTypeRelations.weakAgainst));
+        expect(data.noEffect.length).toEqual(expectedResults.zapdosTypeRelations.immuneTo.length);
+        expect(data.noEffect).toEqual(expect.arrayContaining(expectedResults.zapdosTypeRelations.immuneTo));
+    });
     afterAll((done) => {
         return done();
     });
