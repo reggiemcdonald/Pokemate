@@ -22,7 +22,10 @@ export default class TouchableType extends React.Component {
         super(props);
         // TODO
         this.state = {
-            data: props.dataSource.data,
+            data: props.dataSource.data ? props.dataSource.data : {
+                aspectName: "Aspect Name",
+                style: undefined
+            },
             style: this.generateColor(props.dataSource.data.type),
             modalVisible: false
         }

@@ -1,4 +1,5 @@
 import Pokedex from "pokedex-promise-v2";
+import PromiseInterrupt from "../errors/PromiseInterrupt";
 
 export default class PokeDataProcessor {
 
@@ -19,8 +20,10 @@ export default class PokeDataProcessor {
      */
     constructor() {
         this.pokedex = new Pokedex({
-            timeout: 5 * 1000
+            timeout: 5 * 1000,
+            caching: 0
         });
+        this.promiseInterrupted = false;
     }
 
 
@@ -29,35 +32,37 @@ export default class PokeDataProcessor {
      * @param name: name of pokemon to process
      */
     async formDefaultSpeciesData(name) {
-        let that = this;
-        return new Promise(async function (resolve, reject) {
-            try {
-                let speciesData = await that.pokedex.getPokemonSpeciesByName(name);
-                let defaultVariety = that._getDefaultVariety(speciesData);
-                let defaultVarietyData = await that.pokedex.getPokemonByName(defaultVariety);
-                let pokemonName = that._getName(defaultVarietyData);
-                let id = that._getId(defaultVarietyData);
-                let sprite = that._getSprite(defaultVarietyData);
-                let types = that._getTypes(defaultVarietyData);
-                let damageRelations = await that._getDamageRelations(types);
-                let evolutionChain = await that._getEvolutionChain(speciesData);
-                let varieties = that._getNonDefaultVarieties(speciesData);
+        // let that = this;
+        try {
+            this.isPromiseCanceled()
+            let speciesData = await this.pokedex.getPokemonSpeciesByName(name);
+            let defaultVariety = this._getDefaultVariety(speciesData);
+            this.isPromiseCanceled();
+            let defaultVarietyData = await this.pokedex.getPokemonByName(defaultVariety);
+            let pokemonName = this._getName(defaultVarietyData);
+            let id = this._getId(defaultVarietyData);
+            let sprite = this._getSprite(defaultVarietyData);
+            let types = this._getTypes(defaultVarietyData);
+            this.isPromiseCanceled();
+            let damageRelations = await this._getDamageRelations(types);
+            this.isPromiseCanceled();
+            let evolutionChain = await this._getEvolutionChain(speciesData);
+            let varieties = this._getNonDefaultVarieties(speciesData);
 
-                return resolve({
-                    name: pokemonName,
-                    id: id,
-                    types: types,
-                    sprite: sprite,
-                    strengths: damageRelations.strengths,
-                    weaknesses: damageRelations.weaknesses,
-                    noEffect: damageRelations.noEffect,
-                    varieties: varieties,
-                    evolutionChain: evolutionChain
-                });
-            } catch (err) {
-                return reject(err);
-            }
-        });
+            return {
+                name: pokemonName,
+                id: id,
+                types: types,
+                sprite: sprite,
+                strengths: damageRelations.strengths,
+                weaknesses: damageRelations.weaknesses,
+                noEffect: damageRelations.noEffect,
+                varieties: varieties,
+                evolutionChain: evolutionChain
+            };
+        } catch (err) {
+            return err;
+        }
     }
 
     /**
@@ -65,20 +70,18 @@ export default class PokeDataProcessor {
      * and have been marked as default by the database
      * @returns Promise<string[]>
      */
-    getListOfPokemon() {
-        let that = this;
-        return new Promise(async function (resolve, reject) {
-            try {
-                let pokeList = [];
-                let pokemonList = await that.pokedex.getPokemonSpeciesList();
-                pokemonList.results.forEach(async function (value) {
-                    pokeList.push(value.name);
-                });
-                return resolve(pokeList);
-            } catch (err) {
-                return reject(err);
-            }
-        });
+    async getListOfPokemon() {
+        try {
+            let pokeList = [];
+            this.isPromiseCanceled();
+            let pokemonList = await this.pokedex.getPokemonSpeciesList();
+            pokemonList.results.forEach( function (value) {
+                pokeList.push(value.name);
+            });
+            return pokeList;
+        } catch (err) {
+            return err;
+        }
     }
 
 
@@ -122,45 +125,48 @@ export default class PokeDataProcessor {
      * @private
      */
     async _getDamageRelations(types) {
-        let damageRelations = {
-            strengths: [],
-            weaknesses: [],
-            noEffect: []
-        };
-        let strengths = [];
-        let weaknesses = [];
-        let noEffect = [];
-        for (type of types) {
-            let typeData = await this.pokedex.getTypeByName(type);
-            typeData.damage_relations.double_damage_from.forEach((value) => {
-                weaknesses.push(value.name);
+        try {
+            let damageRelations = {
+                strengths: [],
+                weaknesses: [],
+                noEffect: []
+            };
+            let strengths = [];
+            let weaknesses = [];
+            let noEffect = [];
+            for (type of types) {
+                let typeData = await this.pokedex.getTypeByName(type);
+                typeData.damage_relations.double_damage_from.forEach((value) => {
+                    weaknesses.push(value.name);
+                });
+                typeData.damage_relations.half_damage_from.forEach((value) => {
+                    strengths.push(value.name);
+                });
+                typeData.damage_relations.no_damage_from.forEach((value) => {
+                    noEffect.push(value.name);
+                });
+            }
+            noEffect.forEach((value) => {
+                if (!damageRelations.noEffect.includes(value)) {
+                    damageRelations.noEffect.push(value);
+                }
             });
-            typeData.damage_relations.half_damage_from.forEach((value) => {
-                strengths.push(value.name);
+            strengths.forEach((value) => {
+                if (!damageRelations.strengths.includes(value) &&
+                    !weaknesses.includes(value) && !noEffect.includes(value)) {
+                    damageRelations.strengths.push(value);
+                }
             });
-            typeData.damage_relations.no_damage_from.forEach((value) => {
-                noEffect.push(value.name);
+            weaknesses.forEach((value) => {
+                if (!damageRelations.weaknesses.includes(value) &&
+                    !strengths.includes(value) && !noEffect.includes(value)) {
+                    damageRelations.weaknesses.push(value);
+                }
             });
+            return damageRelations;
+        } catch (err) {
+            return err;
         }
-        strengths.forEach((value) => {
-            if (!damageRelations.strengths.includes(value) &&
-                !weaknesses.includes(value)) {
-                damageRelations.strengths.push(value);
-            }
-        });
-        weaknesses.forEach((value) => {
-            if (!damageRelations.weaknesses.includes(value) &&
-                !strengths.includes(value)) {
-                damageRelations.weaknesses.push(value);
-            }
-        });
-        noEffect.forEach((value) => {
-            if (!damageRelations.noEffect.includes(value) &&
-                !strengths.includes(value) && !weaknesses.includes(value)) {
-                damageRelations.noEffect.push(value);
-            }
-        });
-        return damageRelations;
     }
 
     /**
@@ -180,8 +186,13 @@ export default class PokeDataProcessor {
      * Builds an evolution chain for the given pokemon
      */
     async _getEvolutionChain(speciesData) {
-        let evolutionChain = await this.pokedex.resource(speciesData.evolution_chain.url);
-        return evolutionChain.chain;
+        try {
+            this.isPromiseCanceled();
+            let evolutionChain = await this.pokedex.resource(speciesData.evolution_chain.url);
+            return evolutionChain.chain;
+        } catch (err) {
+            return null;
+        }
     }
 
     /**
@@ -189,7 +200,7 @@ export default class PokeDataProcessor {
      * @private
      */
     _getDefaultVariety(speciesData) {
-        for (variety of speciesData.varieties) {
+        for (let variety of speciesData.varieties) {
             if (variety.is_default) {
                 return variety.pokemon.name;
             }
@@ -198,12 +209,26 @@ export default class PokeDataProcessor {
 
     async getSpriteUrl(name) {
         try {
+            this.isPromiseCanceled();
             let speciesData = await this.pokedex.getPokemonSpeciesByName(name);
             let defaultSpecies = this._getDefaultVariety(speciesData);
+            this.isPromiseCanceled();
             let defaultData = await this.pokedex.getPokemonByName(defaultSpecies);
             return this._getSprite(defaultData);
         } catch (err) {
             throw err;
         }
     }
+
+    cancelPromise() {
+        this.promiseInterrupted = true;
+    }
+
+    isPromiseCanceled() {
+        if (this.promiseInterrupted) {
+            this.promiseInterrupted = false;
+            throw new PromiseInterrupt();
+        }
+    }
+
 }

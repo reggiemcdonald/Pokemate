@@ -4328,20 +4328,20 @@ const results = {
         {
             name: "ivysaur",
             trigger: "level-up",
-            triggerConditional: {
+            triggerConditional: [{
                 conditional: "min_level",
                 requirement: 16
-            },
+            }],
             sprite: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/2.png',
             order: 1
         },
         {
             name: "venusaur",
             trigger: "level-up",
-            triggerConditional: {
+            triggerConditional: [{
                 conditional: "min_level",
                 requirement: 32
-            },
+            }],
             sprite: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/3.png',
             order: 2
         }
@@ -4357,40 +4357,50 @@ const results = {
         {
             name: 'gloom',
             trigger: "level-up",
-            triggerConditional: {
+            triggerConditional: [{
                 conditional: "min_level",
                 requirement: 21
-            },
+            }],
             sprite: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/44.png",
             order: 1
         },
         {
             name: "vileplume",
             trigger: 'use-item',
-            triggerConditional: {
+            triggerConditional: [{
                 conditional: 'item',
-                requirement: {
-                    name: 'leaf-stone',
-                    url: "https://pokeapi.co/api/v2/item/85/"
-                }
-            },
+                requirement: "leaf-stone"
+            }],
             sprite: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/45.png",
             order: 2
         },
         {
             name: "bellossom",
             trigger: "use-item",
-            triggerConditional: {
+            triggerConditional: [{
                 conditional: 'item',
-                requirement: {
-                    name: 'sun-stone',
-                    url: "https://pokeapi.co/api/v2/item/80/"
-                }
-            },
+                requirement: "sun-stone"
+            }],
             sprite: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/182.png",
             order: 2
         }
-    ]
+    ],
+    zapdosTypeRelations: {
+        strongAgainst: [
+            "fighting",
+            "flying",
+            "bug",
+            "steel",
+            "grass"
+        ],
+        weakAgainst: [
+            "rock",
+            "ice"
+        ],
+        immuneTo: [
+            "ground"
+        ]
+    }
 };
 
 
