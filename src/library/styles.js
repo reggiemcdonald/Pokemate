@@ -201,6 +201,15 @@ const TypeColor = StyleSheet.create({
     dark: {backgroundColor: "#705849"},
     fairy: {backgroundColor: "#EC9AAC"}
 });
+const StatColor = StyleSheet.create({
+    default: {backgroundColor: "#cacbce"},
+    hp: {backgroundColor:"#BE312D"},
+    attack: {backgroundColor:"#EE803B"},
+    defense: {backgroundColor: "#F7CE43"},
+    "special-attack": {backgroundColor: "#6A92ED"},
+    "special-defense": {backgroundColor: "#7BC657"},
+    speed: {backgroundColor: "#F55B89"}
+})
 const BaseStatBarLow = {
     progressTint: "#ff3333",
     trackTint: "#ff9999"
@@ -215,4 +224,4 @@ const BaseStatBarHigh = {
 };
 
 export default styles;
-export{TypeColor, BaseStatBarHigh, BaseStatBarMed, BaseStatBarLow,};
+export{TypeColor, StatColor, BaseStatBarHigh, BaseStatBarMed, BaseStatBarLow,};

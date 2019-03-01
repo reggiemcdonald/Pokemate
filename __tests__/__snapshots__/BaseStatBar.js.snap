@@ -39,7 +39,9 @@ exports[`Base Stat Bar Render BaseStatBar should render ErrorBoundary with inval
 
 exports[`Base Stat Bar Render BaseStatBar should render without error when using default style 1`] = `
 <View>
-  <Text>
+  <Text
+    testID="statName"
+  >
     HP
   </Text>
   <RCTProgressView
@@ -55,5 +57,10 @@ exports[`Base Stat Bar Render BaseStatBar should render without error when using
     }
     trackTintColor="#66ff99"
   />
+  <Text
+    testID="statValue"
+  >
+    45
+  </Text>
 </View>
 `;

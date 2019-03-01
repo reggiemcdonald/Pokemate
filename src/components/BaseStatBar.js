@@ -5,7 +5,11 @@ import {
     ProgressViewIOS,
     Text
 } from "react-native";
-import styles, {BaseStatBarLow, BaseStatBarMed, BaseStatBarHigh} from "../library/styles";
+import styles, {
+    StatColor,
+    BaseStatBarLow,
+    BaseStatBarMed,
+    BaseStatBarHigh} from "../library/styles";
 import InvalidValue from "../library/errors/InvalidValue";
 
 const MAX_STAT_VALUE = 255;
@@ -29,41 +33,44 @@ const MAX_STAT_VALUE = 255;
 export default class BaseStatBar extends React.Component {
     constructor(props) {
         super(props);
+        this._validateProps();
         this.state = {
-            statStyle: this._getStyle()
+            statBarStyle: this._getStatBarStyle(),
+            statTypeStyle: StatColor[this.props.statName]
         }
     }
 
-    // TODO: add the progress bar
     render() {
         return (
             <View>
-                <Text>{this.props.statName}</Text>
+                <Text testID={"statName"}>{StatNameFormats[this.props.statName]}</Text>
                 {this._renderProgressBar()}
+                <Text testID={"statValue"}>{this.props.statValue.toString()}</Text>
             </View>
         );
     }
 
+    /**
+     * Renders the progress bar for this
+     * @returns {*}
+     * @private
+     */
     _renderProgressBar() {
-        if (this.props.statValue > 255) {
-            throw new InvalidValue("Pokemon stat "+this.props.statValue);
-        } else {
-            const progress = this.props.statValue / MAX_STAT_VALUE;
-            return(
-                <ProgressViewIOS
-                    progress={progress}
-                    progressTintColor={this.state.statStyle.progressTint}
-                    trackTintColor={this.state.statStyle.trackTint}
-                />
-            )
-        }
+        const progress = this.props.statValue / MAX_STAT_VALUE;
+        return(
+            <ProgressViewIOS
+                progress={progress}
+                progressTintColor={this.state.statBarStyle.progressTint}
+                trackTintColor={this.state.statBarStyle.trackTint}
+            />
+        )
     }
 
     /**
      * Returns the appropriate style according to the statValue
      * @private
      */
-    _getStyle() {
+    _getStatBarStyle() {
         if (this.props.statValue <= 20) {
             return BaseStatBarLow;
         } else if (this.props.statValue > 20 && this.props.statValue < 40) {
@@ -72,4 +79,29 @@ export default class BaseStatBar extends React.Component {
             return BaseStatBarHigh;
         }
     }
+
+    /**
+     * Checks to ensure that the stat name and value are valid
+     * Throws an InvalidValue error if they are not
+     * @returns {boolean}
+     * @private
+     */
+    _validateProps() {
+        if (!StatNameFormats.hasOwnProperty(this.props.statName)) {
+            throw new InvalidValue(this.props.statName+" is not a valid Base Stat");
+        }
+        if (this.props.statValue < 1 || this.props.statValue > 255) {
+            throw new InvalidValue(this.props.statValue+" is not a valid value for a Base Pokemon Stat");
+        }
+        return true;
+    }
 }
+
+const StatNameFormats = {
+    speed: "Speed",
+    "special-defense": "Special Defense",
+    "special-attack": "Special Attack",
+    defense: "Defense",
+    attack: "Attack",
+    hp: "HP",
+};
