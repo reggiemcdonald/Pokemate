@@ -14,6 +14,7 @@ import ErrorBoundary from "./ErrorBoundary";
 import PromiseInterrupt from "../library/errors/PromiseInterrupt";
 import ErrorMessages from "../library/ErrorMessages";
 import BaseStatBar from "./BaseStatBar";
+import BaseStats from "./BaseStats";
 
 /**
  * Container labels
@@ -65,7 +66,7 @@ export default class PokemonCharacterView extends React.Component{
                    {this._renderDefenseStat(weakAgainst, DOUBLE_DAMAGE_LABEL,
                         styles.defenseRed, styles.defenseStatTextViewRed)}
                    {this._renderDefenseStat(noEffect, IMMUNE_TO)}
-
+                    <BaseStats data={this.state.data.baseStats}/>
                    {this._renderEvolutionChain()}
                </ScrollView>
             </View>

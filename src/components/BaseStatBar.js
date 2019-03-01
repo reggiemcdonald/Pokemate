@@ -14,6 +14,8 @@ import InvalidValue from "../library/errors/InvalidValue";
 import TouchableBaseStat from "./TouchableBaseStat";
 
 const MAX_STAT_VALUE = 255;
+const THRESHOLD_MED = 21;
+const THRESHOLD_HIGH = 100;
 /**
  * ********************
  * Base Stat Component
@@ -74,9 +76,9 @@ export default class BaseStatBar extends React.Component {
      * @private
      */
     _getStatBarStyle() {
-        if (this.props.statValue <= 20) {
+        if (this.props.statValue <= THRESHOLD_MED) {
             return BaseStatBarLow;
-        } else if (this.props.statValue > 20 && this.props.statValue < 60) {
+        } else if (this.props.statValue > THRESHOLD_MED && this.props.statValue < THRESHOLD_HIGH) {
             return BaseStatBarMed;
         } else {
             return BaseStatBarHigh;
@@ -93,7 +95,7 @@ export default class BaseStatBar extends React.Component {
         if (!StatNameFormats.hasOwnProperty(this.props.statName)) {
             throw new InvalidValue(this.props.statName+" is not a valid Base Stat");
         }
-        if (this.props.statValue < 1 || this.props.statValue > 255) {
+        if (this.props.statValue < 1 || this.props.statValue > MAX_STAT_VALUE) {
             throw new InvalidValue(this.props.statValue+" is not a valid value for a Base Pokemon Stat");
         }
         return true;

@@ -78,7 +78,7 @@ const styles = StyleSheet.create({
     touchableAspect: {
         borderRadius: 20,
         height: 30,
-        width: 90,
+        width: 100,
         justifyContent: "center",
         alignItems: "center",
         margin: 5,
@@ -176,13 +176,14 @@ const styles = StyleSheet.create({
         paddingRight:10,
         backgroundColor: "#ceeaff",
         borderRadius: 10,
-        marginRight:10,
         marginTop: 5
     },
     baseStatBarText: {
         paddingTop: 10,
         fontSize: 16,
-        fontWeight: "bold"
+        fontWeight: "bold",
+        width: 30,
+        textAlign: "right"
     },
     baseStatProgressIndicator: {
         transform:[
@@ -195,6 +196,21 @@ const styles = StyleSheet.create({
         marginRight:5,
         marginTop: 5
     },
+    baseStatsColor: {
+        backgroundColor:"#b1e2ff",
+        borderRadius: 10,
+
+    },
+    baseStatsTextView: {
+        // borderTopRightRadius: 10,
+        // borderTopLeftRadius: 10,
+        backgroundColor: "#7c9eff"
+    },
+    baseStatsView: {
+        paddingLeft: 5,
+        paddingRight: 5,
+        paddingBottom: 5
+    }
 
 });
 

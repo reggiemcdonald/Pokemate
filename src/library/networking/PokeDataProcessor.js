@@ -17,6 +17,7 @@ export default class PokeDataProcessor {
      *  - Types the pokemon has strong defense against
      *  - Types that cant damage this pokemon
      *  - Evolution Chain
+     *  - BaseStats
      */
     constructor() {
         this.pokedex = new Pokedex({
@@ -48,7 +49,7 @@ export default class PokeDataProcessor {
             this.isPromiseCanceled();
             let evolutionChain = await this._getEvolutionChain(speciesData);
             let varieties = this._getNonDefaultVarieties(speciesData);
-
+            let baseStats = this._structureBaseStats(defaultVarietyData.stats);
             return {
                 name: pokemonName,
                 id: id,
@@ -58,7 +59,8 @@ export default class PokeDataProcessor {
                 weaknesses: damageRelations.weaknesses,
                 noEffect: damageRelations.noEffect,
                 varieties: varieties,
-                evolutionChain: evolutionChain
+                evolutionChain: evolutionChain,
+                baseStats: baseStats
             };
         } catch (err) {
             return err;
@@ -205,6 +207,27 @@ export default class PokeDataProcessor {
                 return variety.pokemon.name;
             }
         }
+    }
+
+    /**
+     * Put the base stats into an easily accessible structure
+     * @param rawStats
+     * @returns {{"special-attack": {}, defense: {}, attack: {}, hp: {}, "special-defense": {}, speed: {}}}
+     * @private
+     */
+    _structureBaseStats(rawStats) {
+        let baseStats = {
+            hp: {},
+            attack: {},
+            defense: {},
+            "special-attack": {},
+            "special-defense": {},
+            speed: {}
+        };
+        for (let stat of rawStats) {
+            baseStats[stat.stat.name] = stat;
+        }
+        return baseStats;
     }
 
     async getSpriteUrl(name) {

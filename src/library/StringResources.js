@@ -1,7 +1,7 @@
 export const StatNameFormats = {
     speed: "Speed",
-    "special-defense": "Special Defense",
-    "special-attack": "Special Attack",
+    "special-defense": "Sp.Def",
+    "special-attack": "Sp.Atk",
     defense: "Defense",
     attack: "Attack",
     hp: "HP",
