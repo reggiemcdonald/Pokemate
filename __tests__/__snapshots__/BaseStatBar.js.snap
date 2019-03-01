@@ -42,22 +42,47 @@ exports[`Base Stat Bar Render BaseStatBar should render without error when using
   style={
     Object {
       "alignItems": "flex-start",
+      "backgroundColor": "#ceeaff",
+      "borderRadius": 10,
       "flexDirection": "row",
+      "marginRight": 10,
+      "marginTop": 5,
       "paddingRight": 10,
-      "paddingTop": 10,
     }
   }
 >
-  <Text
+  <View
     style={
-      Object {
-        "paddingTop": 5,
-      }
+      Array [
+        Object {
+          "backgroundColor": "#BE312D",
+        },
+        Object {
+          "alignItems": "center",
+          "borderRadius": 20,
+          "height": 30,
+          "justifyContent": "center",
+          "margin": 5,
+          "width": 90,
+        },
+      ]
     }
-    testID="statName"
   >
-    HP
-  </Text>
+    <Text
+      onPress={[Function]}
+      style={
+        Object {
+          "color": "white",
+          "fontSize": 16,
+          "fontWeight": "bold",
+          "marginLeft": 15,
+          "marginRight": 15,
+        }
+      }
+    >
+      HP
+    </Text>
+  </View>
   <RCTProgressView
     progress={0.17647058823529413}
     progressTintColor="#ff751a"
@@ -71,6 +96,7 @@ exports[`Base Stat Bar Render BaseStatBar should render without error when using
           "height": 30,
           "marginLeft": 5,
           "marginRight": 5,
+          "marginTop": 5,
           "transform": Array [
             Object {
               "scaleX": 1,
@@ -87,7 +113,9 @@ exports[`Base Stat Bar Render BaseStatBar should render without error when using
   <Text
     style={
       Object {
-        "paddingTop": 5,
+        "fontSize": 16,
+        "fontWeight": "bold",
+        "paddingTop": 10,
       }
     }
     testID="statValue"

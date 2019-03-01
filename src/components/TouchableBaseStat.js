@@ -29,7 +29,8 @@ export default class TouchableBaseStat extends React.Component {
      * @param stat
      */
     defaultHandleTouch(stat) {
-        alert("You touched"+stat);
+        // TODO: Implement
+        alert("You touched "+stat);
     }
 
     /**

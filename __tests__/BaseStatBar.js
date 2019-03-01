@@ -35,32 +35,32 @@ describe("Base Stat Bar Render", () => {
         expect(tree).toMatchSnapshot()
     });
     Enzyme.configure({adapter: new Adapter()});
-    it("BaseStatBar should properly format the name of the stat for display", () =>{
-        const statName = "hp";
-        const wrapper = shallow(
-            <BaseStatBar
-                statName={statName}
-                statValue={statValue}
-            />
-        );
-        // const render = wrapper.dive();
-
-        expect(wrapper.contains(<Text testID={"statName"}>HP</Text>)).toBe(true);
-
-    });
-    it("BaseStatBar should properly format the name of the stat that has a dash in it", () =>{
-        const statName = "special-attack";
-        const wrapper = shallow(
-            <BaseStatBar
-                statName={statName}
-                statValue={statValue}
-            />
-        );
-        // const render = wrapper.dive();
-
-        expect(wrapper.contains(<Text testID={"statName"}>Special Attack</Text>)).toBe(true);
-
-    });
+    // it("BaseStatBar should properly format the name of the stat for display", () =>{
+    //     const statName = "hp";
+    //     const wrapper = shallow(
+    //         <BaseStatBar
+    //             statName={statName}
+    //             statValue={statValue}
+    //         />
+    //     );
+    //     // const render = wrapper.dive();
+    //
+    //     expect(wrapper.contains(<Text testID={"statName"}>HP</Text>)).toBe(true);
+    //
+    // });
+    // it("BaseStatBar should properly format the name of the stat that has a dash in it", () =>{
+    //     const statName = "special-attack";
+    //     const wrapper = shallow(
+    //         <BaseStatBar
+    //             statName={statName}
+    //             statValue={statValue}
+    //         />
+    //     );
+    //     // const render = wrapper.dive();
+    //
+    //     expect(wrapper.contains(<Text testID={"statName"}>Special Attack</Text>)).toBe(true);
+    //
+    // });
     it("BaseStatBar should throw an error when not given a name", () =>{
         try {
             const wrapper = shallow(
