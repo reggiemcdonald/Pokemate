@@ -1,5 +1,5 @@
 import React from "react";
-import ErrorBoundary from "./ErrorBoundary";
+import {StatNameFormats} from "../library/StringResources";
 import {
     View,
     ProgressViewIOS,
@@ -11,6 +11,7 @@ import styles, {
     BaseStatBarMed,
     BaseStatBarHigh} from "../library/styles";
 import InvalidValue from "../library/errors/InvalidValue";
+import TouchableBaseStat from "./TouchableBaseStat";
 
 const MAX_STAT_VALUE = 255;
 /**
@@ -43,7 +44,8 @@ export default class BaseStatBar extends React.Component {
     render() {
         return (
             <View style={styles.baseStatBar}>
-                <Text testID={"statName"} style={styles.baseStatBarText}>{StatNameFormats[this.props.statName]}</Text>
+                {/*<Text testID={"statName"} style={styles.baseStatBarText}>{StatNameFormats[this.props.statName]}</Text>*/}
+                <TouchableBaseStat statName={this.props.statName}/>
                 {this._renderProgressBar()}
                 <Text testID={"statValue"} style={styles.baseStatBarText}>{this.props.statValue.toString()}</Text>
             </View>
@@ -98,12 +100,4 @@ export default class BaseStatBar extends React.Component {
     }
 }
 
-const StatNameFormats = {
-    speed: "Speed",
-    "special-defense": "Special Defense",
-    "special-attack": "Special Attack",
-    defense: "Defense",
-    attack: "Attack",
-    hp: "HP",
-};
 

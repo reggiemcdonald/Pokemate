@@ -65,9 +65,8 @@ export default class PokemonCharacterView extends React.Component{
                    {this._renderDefenseStat(weakAgainst, DOUBLE_DAMAGE_LABEL,
                         styles.defenseRed, styles.defenseStatTextViewRed)}
                    {this._renderDefenseStat(noEffect, IMMUNE_TO)}
-
+                   <BaseStatBar statName={"hp"} statValue={10}/>
                    {this._renderEvolutionChain()}
-                    <BaseStatBar statName={"hp"} statValue={45}/>
                </ScrollView>
             </View>
         )

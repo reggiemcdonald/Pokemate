@@ -38,26 +38,58 @@ exports[`Base Stat Bar Render BaseStatBar should render ErrorBoundary with inval
 `;
 
 exports[`Base Stat Bar Render BaseStatBar should render without error when using default style 1`] = `
-<View>
+<View
+  style={
+    Object {
+      "alignItems": "flex-start",
+      "flexDirection": "row",
+      "paddingRight": 10,
+      "paddingTop": 10,
+    }
+  }
+>
   <Text
+    style={
+      Object {
+        "paddingTop": 5,
+      }
+    }
     testID="statName"
   >
     HP
   </Text>
   <RCTProgressView
     progress={0.17647058823529413}
-    progressTintColor="#00b33c"
+    progressTintColor="#ff751a"
     style={
       Array [
         Object {
           "height": 2,
         },
-        undefined,
+        Object {
+          "flex": 1,
+          "height": 30,
+          "marginLeft": 5,
+          "marginRight": 5,
+          "transform": Array [
+            Object {
+              "scaleX": 1,
+            },
+            Object {
+              "scaleY": 7,
+            },
+          ],
+        },
       ]
     }
-    trackTintColor="#66ff99"
+    trackTintColor="#ffc299"
   />
   <Text
+    style={
+      Object {
+        "paddingTop": 5,
+      }
+    }
     testID="statValue"
   >
     45

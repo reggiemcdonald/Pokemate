@@ -174,10 +174,15 @@ const styles = StyleSheet.create({
         flexDirection: "row",
         alignItems:"flex-start",
         paddingRight:10,
-        paddingTop: 10,
+        backgroundColor: "#ceeaff",
+        borderRadius: 10,
+        marginRight:10,
+        marginTop: 5
     },
     baseStatBarText: {
-        paddingTop: 5
+        paddingTop: 10,
+        fontSize: 16,
+        fontWeight: "bold"
     },
     baseStatProgressIndicator: {
         transform:[
@@ -187,7 +192,8 @@ const styles = StyleSheet.create({
         height:30,
         flex: 1,
         marginLeft:5,
-        marginRight:5
+        marginRight:5,
+        marginTop: 5
     },
 
 });
@@ -231,8 +237,8 @@ const BaseStatBarMed = {
     trackTint: "#ffc299"
 };
 const BaseStatBarHigh = {
-    progressTint: "#00b33c",
-    trackTint: "#66ff99"
+    progressTint: "#33cc33",
+    trackTint: "#99e699"
 };
 
 export default styles;
