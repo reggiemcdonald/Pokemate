@@ -3,7 +3,7 @@ import ErrorBoundary from "./ErrorBoundary";
 import {
     View,
     ProgressViewIOS,
-    Text
+    Text, StyleSheet
 } from "react-native";
 import styles, {
     StatColor,
@@ -42,10 +42,10 @@ export default class BaseStatBar extends React.Component {
 
     render() {
         return (
-            <View>
-                <Text testID={"statName"}>{StatNameFormats[this.props.statName]}</Text>
+            <View style={styles.baseStatBar}>
+                <Text testID={"statName"} style={styles.baseStatBarText}>{StatNameFormats[this.props.statName]}</Text>
                 {this._renderProgressBar()}
-                <Text testID={"statValue"}>{this.props.statValue.toString()}</Text>
+                <Text testID={"statValue"} style={styles.baseStatBarText}>{this.props.statValue.toString()}</Text>
             </View>
         );
     }
@@ -62,6 +62,7 @@ export default class BaseStatBar extends React.Component {
                 progress={progress}
                 progressTintColor={this.state.statBarStyle.progressTint}
                 trackTintColor={this.state.statBarStyle.trackTint}
+                style={styles.baseStatProgressIndicator}
             />
         )
     }
@@ -73,7 +74,7 @@ export default class BaseStatBar extends React.Component {
     _getStatBarStyle() {
         if (this.props.statValue <= 20) {
             return BaseStatBarLow;
-        } else if (this.props.statValue > 20 && this.props.statValue < 40) {
+        } else if (this.props.statValue > 20 && this.props.statValue < 60) {
             return BaseStatBarMed;
         } else {
             return BaseStatBarHigh;
@@ -105,3 +106,4 @@ const StatNameFormats = {
     attack: "Attack",
     hp: "HP",
 };
+

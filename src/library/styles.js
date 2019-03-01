@@ -172,11 +172,23 @@ const styles = StyleSheet.create({
     },
     baseStatBar: {
         flexDirection: "row",
-        alignItems: "flex-start",
+        alignItems:"flex-start",
+        paddingRight:10,
+        paddingTop: 10,
     },
-    sta: {
-        backgroundColor: "#cacbce"
-    }
+    baseStatBarText: {
+        paddingTop: 5
+    },
+    baseStatProgressIndicator: {
+        transform:[
+            {scaleX:1.0},
+            {scaleY:7.0}
+        ],
+        height:30,
+        flex: 1,
+        marginLeft:5,
+        marginRight:5
+    },
 
 });
 
