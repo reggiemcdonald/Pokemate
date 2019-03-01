@@ -24,7 +24,7 @@ describe("PokeDataManager: Build Evolution Chain", () => {
         } catch (err){
             expect(err).toBe(false);
         }
-    });
+    },10000);
 });
 
 describe("PokeDataManager: getPokemonDetails", () => {

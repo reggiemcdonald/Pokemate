@@ -43,6 +43,10 @@ export default class EvolutionChain extends React.Component {
         )
     }
 
+    /**
+     * Makes the async call to get the ordered evolution chain
+     * @returns {Promise<void>}
+     */
     async componentDidMount(): void {
         try {
             let evolutionChain = await this.state.dataManager.buildEvolutionChain(this.state.data);
