@@ -169,6 +169,13 @@ const styles = StyleSheet.create({
     },
     evolutionChainArrowText: {
         fontSize: 10
+    },
+    baseStatBar: {
+        flexDirection: "row",
+        alignItems: "flex-start",
+    },
+    sta: {
+        backgroundColor: "#cacbce"
     }
 
 });
@@ -194,6 +201,18 @@ const TypeColor = StyleSheet.create({
     dark: {backgroundColor: "#705849"},
     fairy: {backgroundColor: "#EC9AAC"}
 });
+const BaseStatBarLow = {
+    progressTint: "#ff3333",
+    trackTint: "#ff9999"
+};
+const BaseStatBarMed = {
+    progressTint: "#ff751a",
+    trackTint: "#ffc299"
+};
+const BaseStatBarHigh = {
+    progressTint: "#00b33c",
+    trackTint: "#66ff99"
+};
 
 export default styles;
-export{TypeColor, };
+export{TypeColor, BaseStatBarHigh, BaseStatBarMed, BaseStatBarLow,};

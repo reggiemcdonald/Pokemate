@@ -1,0 +1,59 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Base Stat Bar Render BaseStatBar should render ErrorBoundary with invalid value 1`] = `
+<View
+  style={
+    Object {
+      "alignItems": "center",
+      "backgroundColor": "#F5FCFF",
+      "flex": 1,
+      "justifyContent": "center",
+    }
+  }
+>
+  <Text
+    allowFontScaling={false}
+    style={
+      Array [
+        Object {
+          "color": undefined,
+          "fontSize": 12,
+        },
+        undefined,
+        Object {
+          "fontFamily": "Ionicons",
+          "fontStyle": "normal",
+          "fontWeight": "normal",
+        },
+        Object {},
+      ]
+    }
+  >
+    
+  </Text>
+  <Text>
+    Oops! Something happened :(
+  </Text>
+</View>
+`;
+
+exports[`Base Stat Bar Render BaseStatBar should render without error when using default style 1`] = `
+<View>
+  <Text>
+    HP
+  </Text>
+  <RCTProgressView
+    progress={0.17647058823529413}
+    progressTintColor="#00b33c"
+    style={
+      Array [
+        Object {
+          "height": 2,
+        },
+        undefined,
+      ]
+    }
+    trackTintColor="#66ff99"
+  />
+</View>
+`;
