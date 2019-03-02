@@ -182,7 +182,7 @@ const styles = StyleSheet.create({
         paddingTop: 10,
         fontSize: 16,
         fontWeight: "bold",
-        width: 30,
+        width: 35,
         textAlign: "right"
     },
     baseStatProgressIndicator: {
