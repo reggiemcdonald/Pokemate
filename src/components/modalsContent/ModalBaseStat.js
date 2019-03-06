@@ -19,9 +19,34 @@ export default class ModalBaseStat extends React.Component {
 
     render() {
         this._validateData();
-        return(<View>
-            <Text testID={"testIdName"}>{StatNameFormats[this.props.data.name]}</Text>
-        </View>);
+        let affectingMoves = this.props.data.affectingMoves.positive.concat(
+            this.props.data.affectingMoves.negative
+        );
+        let affectingNatures = this.props.data.affectingNatures.positive.concat(
+            this.props.data.affectingNatures.negative
+        );
+        return(
+            <View>
+                <View>
+                    <Text testID={"testIdName"}>{StatNameFormats[this.props.data.name]}</Text>
+                </View>
+                <FlatList
+                    testId={"testIdMoves"}
+                    data={affectingMoves}
+                    renderItem={(item) => this._renderFlatListItem(item)}
+                />
+                <FlatList
+                    testId={"testIdNatures"}
+                    data={affectingNatures}
+                    renderItem={(item) => this._renderFlatListItem(item)}
+                />
+                <FlatList
+                    testId={"testIdCharacteristics"}
+                    data={this.props.data.characteristics}
+                    renderItem={(item) => this._renderFlatListItem(item)}
+                />
+            </View>
+        );
     }
 
     /**
@@ -105,6 +130,29 @@ export default class ModalBaseStat extends React.Component {
                 // TODO: Update error messages
                 throw new InvalidValue("value given as a base stat affecting characteristic");
             }
+        }
+    }
+
+    /**
+     * Renders an item for the flat lists of this component
+     * @param item
+     * @returns {*}
+     * @private
+     */
+    _renderFlatListItem(item) {
+        if (item.hasOwnProperty("change")) {
+            return (
+                <View>
+                    <Text>{item.name}</Text>
+                    <Text>{item.change}</Text>
+                </View>
+            );
+        } else {
+            return (
+                <View>
+                    <Text>{item.name}</Text>
+                </View>
+            );
         }
     }
 

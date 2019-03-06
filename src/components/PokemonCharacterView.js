@@ -66,7 +66,7 @@ export default class PokemonCharacterView extends React.Component{
                    {this._renderDefenseStat(weakAgainst, DOUBLE_DAMAGE_LABEL,
                         styles.defenseRed, styles.defenseStatTextViewRed)}
                    {this._renderDefenseStat(noEffect, IMMUNE_TO)}
-                    <BaseStats data={this.state.data.baseStats}/>
+                   {this._renderBaseStats()}
                    {this._renderEvolutionChain()}
                </ScrollView>
             </View>
@@ -200,6 +200,28 @@ export default class PokemonCharacterView extends React.Component{
             </ErrorBoundary>
         )
     }
+
+    /**
+     * Renders the base stats container
+     * @private
+     */
+    _renderBaseStats() {
+        return (
+            <BaseStats
+                data={this.state.data.baseStats}
+                handleTouch={this.handleBaseStatTouchPress.bind(this)}
+            />
+        )
+    }
+
+    /**
+     * Open the modal when the base stat is pressed?
+     * @param baseStat
+     */
+    handleBaseStatTouchPress(baseStat) {
+        // TODO: Get this working. Should this be here?
+    }
+
     /**
      * Returns true if the error is a promise interrupt
      * @param err

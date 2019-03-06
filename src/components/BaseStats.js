@@ -3,6 +3,7 @@ import BaseStatBar from "./BaseStatBar";
 import {
     View,
     Text,
+    Modal
 } from "react-native";
 import styles from "../library/styles";
 import ErrorBoundary from "./ErrorBoundary";
@@ -28,11 +29,16 @@ import ErrorBoundary from "./ErrorBoundary";
  *     stat:{
  *         name: string,
  *         url: string
- *     }
+ *     },
  * }
  */
 export default class BaseStats extends React.Component {
-
+    constructor(props) {
+        super(props);
+        this.state = {
+            modalVisible: false,
+        }
+    }
     /**
      * Renders a single stat
      * @param stat
@@ -41,7 +47,7 @@ export default class BaseStats extends React.Component {
      */
     _renderStat(stat) {
         return(
-            <BaseStatBar statName={stat.stat.name} statValue={stat.base_stat}/>
+            <BaseStatBar handleTouch={this.props.handleTouch} statName={stat.stat.name} statValue={stat.base_stat}/>
         )
     }
 
@@ -65,4 +71,5 @@ export default class BaseStats extends React.Component {
            </ErrorBoundary>
        )
     }
+
 }

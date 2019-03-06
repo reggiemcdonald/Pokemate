@@ -39,7 +39,7 @@ export default class BaseStatBar extends React.Component {
         this._validateProps();
         this.state = {
             statBarStyle: this._getStatBarStyle(),
-            statTypeStyle: StatColor[this.props.statName]
+            statTypeStyle: StatColor[this.props.statName],
         }
     }
 
@@ -47,7 +47,10 @@ export default class BaseStatBar extends React.Component {
         return (
             <View style={styles.baseStatBar}>
                 {/*<Text testID={"statName"} style={styles.baseStatBarText}>{StatNameFormats[this.props.statName]}</Text>*/}
-                <TouchableBaseStat statName={this.props.statName}/>
+                <TouchableBaseStat
+                    statName={this.props.statName}
+                    handleTouch = {this.props.handleTouch}
+                />
                 {this._renderProgressBar()}
                 <Text testID={"statValue"} style={styles.baseStatBarText}>{this.props.statValue.toString()}</Text>
             </View>
