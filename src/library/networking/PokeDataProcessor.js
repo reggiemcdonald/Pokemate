@@ -243,6 +243,50 @@ export default class PokeDataProcessor {
         }
     }
 
+    /**
+     * Returns the information for base stat statName in a useable form
+     * @param statName
+     * @returns {
+     *    {
+     *      characteristics: Array,
+     *      affectingMoves: {negative: Array, positive: Array},
+     *      affectingNatures: {negative: Array, positive: Array},
+     *      isBattleOnly: boolean
+     *    }
+     * }
+     */
+    async getBaseStatData(statName) {
+        try {
+            let statData = await this.pokedex.getStatByName(statName);
+            let statObject = {};
+            statObject = this._composeStatDataObject(statData.affecting_moves, statObject, "affectingMoves");
+            statObject = this._composeStatDataObject(statData.affecting_natures, statObject, "affectingNatures");
+            statObject.characteristics = [];
+            for (let element of statData.characteristics) {
+                statObject.characteristics.push(element.url);
+            }
+            statObject.isBattleOnly = statData.is_battle_only;
+            return statObject;
+        } catch (err) {
+            // TODO: error handling
+            throw err;
+        }
+    }
+
+    _composeStatDataObject(statData, statDataObject, name) {
+        statDataObject[name] = {
+            positive: [],
+            negative: []
+        };
+        for (let element of statData.increase) {
+            statDataObject[name].positive.push(element.move.name);
+        }
+        for (let element of statData.decrease) {
+            statDataObject[name].negative.push(element.move.name);
+        }
+        return statDataObject;
+    }
+
     cancelPromise() {
         this.promiseInterrupted = true;
     }

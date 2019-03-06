@@ -13,6 +13,7 @@ export default class PokeDataManager {
         this.processor = new PokeDataProcessor();
         this.pokeData = {};
         this.orderedEvolutionTree = {};
+        this.statData = {};
         this._restoreData(existingData);
     }
 
@@ -25,7 +26,8 @@ export default class PokeDataManager {
     _restoreData(existingData) {
         if (existingData) {
             this.pokeData = existingData.pokeData ? existingData.pokeData : {};
-            this.orderedEvolutionTree = existingData.orderedEvolutionTree ? existingData.orderedEvolutionTree : {}
+            this.orderedEvolutionTree = existingData.orderedEvolutionTree ? existingData.orderedEvolutionTree : {};
+            this.statData = existingData.statData ? existingData.statData : {};
         }
     }
 
@@ -180,6 +182,31 @@ export default class PokeDataManager {
                     sprite: sprite,
                     order: order
                 });
+            }
+        } catch (err) {
+            throw err;
+        }
+    }
+
+    /**
+     * Returns the information on the base stat statName
+     * @param statName
+     * @returns object
+     * {
+     *     affectingMoves: {moves},
+     *     affectingNatures: {natures},
+     *     characteristics: [characteristics],
+     *     isBattleOnly: boolean
+     * }
+     */
+    async getBaseStat(statName) {
+        try {
+            if (this.statData.hasOwnProperty(statName)) {
+                return this.statData[statName];
+            } else {
+                let newStatData = await this.processor.getBaseStatData(statName);
+                this.statData[statName] = newStatData;
+                return newStatData;
             }
         } catch (err) {
             throw err;

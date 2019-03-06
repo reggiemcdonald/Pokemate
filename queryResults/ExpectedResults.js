@@ -4450,6 +4450,28 @@ const results = {
         immuneTo: [
             "ground"
         ]
+    },
+    baseStatsHp: {
+        affectingMoves: {
+            positive: [
+                "ancient-power",
+                "silver-wind",
+                "ominous-wind"
+            ],
+            negative: []
+        },
+        affectingNatures: {
+            positive: [],
+            negative: []
+        },
+        characteristics: [
+            "https://pokeapi.co/api/v2/characteristic/1/",
+            "https://pokeapi.co/api/v2/characteristic/7/",
+            "https://pokeapi.co/api/v2/characteristic/13/",
+            "https://pokeapi.co/api/v2/characteristic/19/",
+            "https://pokeapi.co/api/v2/characteristic/25/"
+        ],
+        isBattleOnly: false
     }
 };
 

@@ -45,7 +45,6 @@ exports[`Base Stat Bar Render BaseStatBar should render without error when using
       "backgroundColor": "#ceeaff",
       "borderRadius": 10,
       "flexDirection": "row",
-      "marginRight": 10,
       "marginTop": 5,
       "paddingRight": 10,
     }
@@ -63,7 +62,7 @@ exports[`Base Stat Bar Render BaseStatBar should render without error when using
           "height": 30,
           "justifyContent": "center",
           "margin": 5,
-          "width": 90,
+          "width": 100,
         },
       ]
     }
@@ -116,6 +115,8 @@ exports[`Base Stat Bar Render BaseStatBar should render without error when using
         "fontSize": 16,
         "fontWeight": "bold",
         "paddingTop": 10,
+        "textAlign": "right",
+        "width": 35,
       }
     }
     testID="statValue"

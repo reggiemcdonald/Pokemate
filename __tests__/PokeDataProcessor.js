@@ -83,3 +83,21 @@ describe("PokeDataProcessor: getSpirteUrl", ()=> {
         done();
     });
 });
+
+describe("PokeDataProcessor: getBaseStatData", () => {
+    let pokeData;
+    beforeEach(() => {
+        pokeData = new PokeDataProcessor();
+    });
+
+    it("Should be able to get the base stats of HP", async () => {
+        let result;
+        try {
+            result = await pokeData.getBaseStatData("hp");
+        } catch (err) {
+            result = err;
+        } finally {
+            expect(result).toEqual(expectedResults.baseStatsHp);
+        }
+    })
+})

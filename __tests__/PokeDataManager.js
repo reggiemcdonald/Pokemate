@@ -87,3 +87,22 @@ describe("Data Manager: Promise Rejection", () => {
         expect(dataManager.getPokemonDetails("pikachu")).rejects.toThrow(PromiseInterrupt);
     });
 });
+
+describe("PokeDataManager: getBaseStats", () => {
+    let dataManager;
+
+    beforeEach(() => {
+        dataManager = new PokeDataManager();
+    });
+
+    it("Should be able to get the base stats for HP", async () => {
+        let result;
+        try {
+            result = await dataManager.getBaseStat("hp");
+        } catch (err) {
+            result = err;
+        } finally {
+            expect(result).toEqual(ExpectedResults.baseStatsHp);
+        }
+    });
+});
