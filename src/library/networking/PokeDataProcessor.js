@@ -249,8 +249,8 @@ export default class PokeDataProcessor {
      * @returns {
      *    {
      *      characteristics: Array,
-     *      affectingMoves: {negative: Array, positive: Array},
-     *      affectingNatures: {negative: Array, positive: Array},
+     *      affectingMoves: {negative: object[], positive: object[]},
+     *      affectingNatures: {negative: string[], positive: string[]},
      *      isBattleOnly: boolean
      *    }
      * }
@@ -279,10 +279,16 @@ export default class PokeDataProcessor {
             negative: []
         };
         for (let element of statData.increase) {
-            statDataObject[name].positive.push(element.move.name);
+            statDataObject[name].positive.push({
+                name: element.move.name,
+                change: element.change
+            });
         }
         for (let element of statData.decrease) {
-            statDataObject[name].negative.push(element.move.name);
+            statDataObject[name].negative.push({
+                name: element.move.name,
+                change: element.change
+            });
         }
         return statDataObject;
     }

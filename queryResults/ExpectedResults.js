@@ -4454,9 +4454,18 @@ const results = {
     baseStatsHp: {
         affectingMoves: {
             positive: [
-                "ancient-power",
-                "silver-wind",
-                "ominous-wind"
+                {
+                    name: "ancient-power",
+                    change: 1
+                },
+                {
+                    name: "silver-wind",
+                    change: 1
+                },
+                {
+                    name: "ominous-wind",
+                    change: 1
+                }
             ],
             negative: []
         },
