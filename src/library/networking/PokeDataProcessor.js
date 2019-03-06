@@ -262,8 +262,8 @@ export default class PokeDataProcessor {
             let statObject = {
                 name: statName
             };
-            statObject = this._composeStatDataObject(statData.affecting_moves, statObject, "affectingMoves");
-            statObject = this._composeStatDataObject(statData.affecting_natures, statObject, "affectingNatures");
+            statObject = this._composeAffectingMoves(statData.affecting_moves, statObject);
+            statObject = this._composeAffectingNatures(statData.affecting_natures, statObject);
             statObject.characteristics = [];
             for (let element of statData.characteristics) {
                 statObject.characteristics.push(element.url);
@@ -277,21 +277,39 @@ export default class PokeDataProcessor {
         }
     }
 
-    _composeStatDataObject(statData, statDataObject, name) {
-        statDataObject[name] = {
+    _composeAffectingMoves(statData, statDataObject) {
+        statDataObject.affectingMoves = {
             positive: [],
             negative: []
         };
         for (let element of statData.increase) {
-            statDataObject[name].positive.push({
+            statDataObject.affectingMoves.positive.push({
                 name: element.move.name,
                 change: element.change
             });
         }
         for (let element of statData.decrease) {
-            statDataObject[name].negative.push({
+            statDataObject.affectingMoves.negative.push({
                 name: element.move.name,
                 change: element.change
+            });
+        }
+        return statDataObject;
+    }
+
+    _composeAffectingNatures(statData, statDataObject) {
+        statDataObject.affectingNatures = {
+            positive: [],
+            negative: []
+        };
+        for (let element of statData.increase) {
+            statDataObject.affectingNatures.positive.push({
+                name: element.name
+            });
+        }
+        for (let element of statData.decrease) {
+            statDataObject.affectingNatures.negative.push({
+                name: element.name
             });
         }
         return statDataObject;

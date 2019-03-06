@@ -35,12 +35,16 @@ export default class PokeDataManager {
      * Creates a JSON serializable object to handoff data between instances of PokeDataManager
      * return {
      *     pokeData: this.pokeData
+     *     orderedEvolutionTree: this.orderedEvolutionTree,
+     *     statData: this.statData
      * }
      */
     createHandoff() {
         // TODO: implement the handoff
         return {
-            pokeData: this.pokeData
+            pokeData: this.pokeData,
+            orderedEvolutionTree: this.orderedEvolutionTree,
+            statData: this.statData
         }
     }
 
