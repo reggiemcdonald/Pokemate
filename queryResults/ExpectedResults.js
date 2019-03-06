@@ -4452,6 +4452,7 @@ const results = {
         ]
     },
     baseStatsHp: {
+        name: "hp",
         affectingMoves: {
             positive: [
                 {

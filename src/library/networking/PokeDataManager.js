@@ -202,10 +202,13 @@ export default class PokeDataManager {
     async getBaseStat(statName) {
         try {
             if (this.statData.hasOwnProperty(statName)) {
+                this.checkForCancellation();
                 return this.statData[statName];
             } else {
+                this.checkForCancellation()
                 let newStatData = await this.processor.getBaseStatData(statName);
                 this.statData[statName] = newStatData;
+                this.checkForCancellation();
                 return newStatData;
             }
         } catch (err) {

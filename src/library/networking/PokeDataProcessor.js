@@ -257,8 +257,11 @@ export default class PokeDataProcessor {
      */
     async getBaseStatData(statName) {
         try {
+            this.isPromiseCanceled();
             let statData = await this.pokedex.getStatByName(statName);
-            let statObject = {};
+            let statObject = {
+                name: statName
+            };
             statObject = this._composeStatDataObject(statData.affecting_moves, statObject, "affectingMoves");
             statObject = this._composeStatDataObject(statData.affecting_natures, statObject, "affectingNatures");
             statObject.characteristics = [];
@@ -266,6 +269,7 @@ export default class PokeDataProcessor {
                 statObject.characteristics.push(element.url);
             }
             statObject.isBattleOnly = statData.is_battle_only;
+            this.isPromiseCanceled();
             return statObject;
         } catch (err) {
             // TODO: error handling
