@@ -8,13 +8,18 @@ import PokeDataManager from "../src/library/networking/PokeDataManager";
 import {Text} from "react-native";
 
 describe("ModalBaseStat: render", () => {
-    const manager = new PokeDataManager();
+    let manager;
+    beforeAll(async () => {
+        manager = new PokeDataManager();
+        await manager.buildBaseStatTree();
+    });
     it("Should render without error when given a valid base stats data structure", () => {
         const tree =
             renderer.create(<ModalBaseStat data={ExpectedResults.baseStatsHp}/>).toJSON();
         expect(tree).toMatchSnapshot();
     });
     it("Should render a novel base stats data structure without error", async () => {
+        await manager.buildBaseStatTree();
         const data = await manager.getBaseStat("defense");
         const tree =
             renderer.create(<ModalBaseStat data={data}/>).toJSON();

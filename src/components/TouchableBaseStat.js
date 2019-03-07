@@ -19,7 +19,7 @@ export default class TouchableBaseStat extends React.Component {
         super(props);
         this._validateProp();
         this.state = {
-            handleTouch: this.props.handleTouch ? this.props.handleTouch : this.defaultHandleTouch,
+            handleTouch: this.props.handleTouch ? this.props.handleTouch : this.defaultHandleTouch.bind(this),
             style: this._generateStyle()
         }
     }
@@ -63,7 +63,7 @@ export default class TouchableBaseStat extends React.Component {
                         style: this.state.style
                     }
                 }}
-                handlePress={this.defaultHandleTouch.bind(this)}
+                handlePress={this.state.handleTouch}
             />
         )
     }

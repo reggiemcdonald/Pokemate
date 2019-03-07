@@ -4,49 +4,67 @@ import {
     Text,
     ScrollView,
     FlatList,
+    TouchableOpacity
 } from "react-native";
 import {StatNameFormats} from "../../library/StringResources";
 import InvalidValue from "../../library/errors/InvalidValue";
+import Styles from "../../library/styles";
 
 /**
  * **************************
  * Base Stat Modal Component
  * *************************
  * Displays base stat information
- * Consumes a prop of base stats
+ * Consumes a prop of PokeDataManager and a callback to subscribe to changes in the instantiating parent
  */
 export default class ModalBaseStat extends React.Component {
 
+    /**
+     * Render the component
+     **/
     render() {
-        this._validateData();
-        let affectingMoves = this.props.data.affectingMoves.positive.concat(
-            this.props.data.affectingMoves.negative
-        );
-        let affectingNatures = this.props.data.affectingNatures.positive.concat(
-            this.props.data.affectingNatures.negative
-        );
-        return(
-            <View>
-                <View>
-                    <Text testID={"testIdName"}>{StatNameFormats[this.props.data.name]}</Text>
+        if (this.props.data === undefined) {
+            return(
+                <View style={Styles.containerCentered}>
+                    <TouchableOpacity onPress={this.props.closeFunction}>
+                        <Text style={{textAlign: "center"}}>Close</Text>
+                    </TouchableOpacity>
                 </View>
-                <FlatList
-                    testId={"testIdMoves"}
-                    data={affectingMoves}
-                    renderItem={(item) => this._renderFlatListItem(item)}
-                />
-                <FlatList
-                    testId={"testIdNatures"}
-                    data={affectingNatures}
-                    renderItem={(item) => this._renderFlatListItem(item)}
-                />
-                <FlatList
-                    testId={"testIdCharacteristics"}
-                    data={this.props.data.characteristics}
-                    renderItem={(item) => this._renderFlatListItem(item)}
-                />
-            </View>
-        );
+            );
+        } else {
+            this._validateData();
+            let affectingMoves = this.props.data.affectingMoves.positive.concat(
+                this.props.data.affectingMoves.negative
+            );
+            let affectingNatures = this.props.data.affectingNatures.positive.concat(
+                this.props.data.affectingNatures.negative
+            );
+            return (
+                <View>
+                    <View>
+                        <Text testID={"testIdName"}>{StatNameFormats[this.props.data.name]}</Text>
+                    </View>
+                    <FlatList
+                        testId={"testIdMoves"}
+                        data={affectingMoves}
+                        renderItem={({item}) => this._renderFlatListItem(item)}
+                        keyExtractor={(item,index)=>(item.name)}
+                        style={{height: 100}}
+                    />
+                    <FlatList
+                        testId={"testIdNatures"}
+                        data={affectingNatures}
+                        renderItem={({item}) => this._renderFlatListItem(item)}
+                        keyExtractor={(item,index)=>(item.name)}
+                        style={{height: 100}}
+                    />
+                    {/*TODO: Must add affecting characteristics*/}
+                    <TouchableOpacity onPress={this.props.closeFunction}>
+                        <Text>Close</Text>
+                    </TouchableOpacity>
+                </View>
+            );
+        }
     }
 
     /**
@@ -154,6 +172,6 @@ export default class ModalBaseStat extends React.Component {
                 </View>
             );
         }
-    }
 
+    }
 }

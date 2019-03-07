@@ -39,7 +39,7 @@ export default class BaseStatBar extends React.Component {
         this._validateProps();
         this.state = {
             statBarStyle: this._getStatBarStyle(),
-            statTypeStyle: StatColor[this.props.statName],
+            statTypeStyle: StatColor[this.props.statName]
         }
     }
 

@@ -5,6 +5,8 @@
  */
 import PokeDataProcessor from "./PokeDataProcessor";
 import PromiseInterrupt from "../errors/PromiseInterrupt";
+import {StatNameFormats} from "../StringResources";
+import InvalidValue from "../errors/InvalidValue";
 
 export default class PokeDataManager {
     constructor(existingData?) {
@@ -203,18 +205,32 @@ export default class PokeDataManager {
      *     isBattleOnly: boolean
      * }
      */
-    async getBaseStat(statName) {
+    getBaseStat(statName) {
+        if (StatNameFormats.hasOwnProperty(statName)) {
+            this.checkForCancellation();
+            return this.statData[statName];
+        } else {
+            throw new InvalidValue(statName+" is not a valid base stat");
+        }
+    }
+
+
+    /**
+     * Generates the entire base stat tree if no other base stat tree has been generated
+     * @returns {Promise<void>}
+     */
+    async buildBaseStatTree() {
+        let baseStats = Object.keys(StatNameFormats);
+        let baseStatCollection = {};
         try {
-            if (this.statData.hasOwnProperty(statName)) {
+            for (let baseStat of baseStats) {
                 this.checkForCancellation();
-                return this.statData[statName];
-            } else {
-                this.checkForCancellation()
-                let newStatData = await this.processor.getBaseStatData(statName);
-                this.statData[statName] = newStatData;
-                this.checkForCancellation();
-                return newStatData;
+                let generatedBaseStat = await this.processor.getBaseStatData(baseStat);
+                baseStatCollection[baseStat] = generatedBaseStat;
             }
+            this.checkForCancellation();
+            this.statData = baseStatCollection;
+            return baseStatCollection;
         } catch (err) {
             throw err;
         }

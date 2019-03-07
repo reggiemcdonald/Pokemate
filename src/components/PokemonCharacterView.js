@@ -89,6 +89,7 @@ export default class PokemonCharacterView extends React.Component{
             const name = navigation.getParam('name', {});
             // TODO: Transfer states of the pokedata managers
             let data = await this.state.processor.getPokemonDetails(name);
+            await this.state.processor.buildBaseStatTree();
             this.setState({
                 name: name,
                 data: data
@@ -209,7 +210,7 @@ export default class PokemonCharacterView extends React.Component{
         return (
             <BaseStats
                 data={this.state.data.baseStats}
-                handleTouch={this.handleBaseStatTouchPress.bind(this)}
+                processor={this.state.processor}
             />
         )
     }
