@@ -4,11 +4,11 @@ import {
     Text,
     ScrollView,
     FlatList,
-    TouchableOpacity
+    TouchableOpacity,
+    StyleSheet
 } from "react-native";
 import {StatNameFormats} from "../../library/StringResources";
 import InvalidValue from "../../library/errors/InvalidValue";
-import Styles from "../../library/styles";
 
 /**
  * **************************
@@ -25,43 +25,43 @@ export default class ModalBaseStat extends React.Component {
     render() {
         if (this.props.data === undefined) {
             return(
-                <View style={Styles.containerCentered}>
+                <View style={modalStyleSheet}>
                     <TouchableOpacity onPress={this.props.closeFunction}>
                         <Text style={{textAlign: "center"}}>Close</Text>
                     </TouchableOpacity>
                 </View>
             );
         } else {
-            this._validateData();
-            let affectingMoves = this.props.data.affectingMoves.positive.concat(
-                this.props.data.affectingMoves.negative
-            );
-            let affectingNatures = this.props.data.affectingNatures.positive.concat(
-                this.props.data.affectingNatures.negative
-            );
+            let positivelyAffectingMovesTitle = "Moves: Positive";
+            const negativelyAffectingMovesTitle = "Moves: Negative";
+            const positivelyAffectingNaturesTitle = "Natures: Positive";
+            const negativelyAffectingNaturesTitle = "Natures: Negative";
             return (
                 <View>
-                    <View>
-                        <Text testID={"testIdName"}>{StatNameFormats[this.props.data.name]}</Text>
+                    <View style={modalStyleSheet.modalTitleBar}>
+                        <Text testID={"testIdName"}
+                              style={[modalStyleSheet.modalTitleText, modalStyleSheet.textGreedy]}>
+                            {StatNameFormats[this.props.data.name]}
+                        </Text>
+                        <TouchableOpacity onPress={this.props.closeFunction}>
+                            <Text style={modalStyleSheet.closeButton}>Close</Text>
+                        </TouchableOpacity>
                     </View>
-                    <FlatList
-                        testId={"testIdMoves"}
-                        data={affectingMoves}
-                        renderItem={({item}) => this._renderFlatListItem(item)}
-                        keyExtractor={(item,index)=>(item.name)}
-                        style={{height: 100}}
-                    />
-                    <FlatList
-                        testId={"testIdNatures"}
-                        data={affectingNatures}
-                        renderItem={({item}) => this._renderFlatListItem(item)}
-                        keyExtractor={(item,index)=>(item.name)}
-                        style={{height: 100}}
-                    />
-                    {/*TODO: Must add affecting characteristics*/}
-                    <TouchableOpacity onPress={this.props.closeFunction}>
-                        <Text>Close</Text>
-                    </TouchableOpacity>
+                    <ScrollView style={modalStyleSheet.modalViewContainer}>
+                        <View style={{flexDirection: "row", alignItems: "flex-start"}}>
+                            {this._renderFlatList(this.props.data.affectingMoves.positive,
+                                "testIdMovesPositive,", positivelyAffectingMovesTitle)}
+                            {this._renderFlatList(this.props.data.affectingMoves.negative,
+                            "testIdMovesNegative", negativelyAffectingMovesTitle)}
+                        </View>
+                        <View style={{flexDirection: "row", alignItems: "flex-start"}}>
+                            {this._renderFlatList(this.props.data.affectingNatures.positive,
+                            "testIdNaturesPositive", positivelyAffectingNaturesTitle)}
+                            {this._renderFlatList(this.props.data.affectingNatures.negative,
+                            "testIdNaturesNegative", negativelyAffectingNaturesTitle)}
+                        </View>
+                        {/*TODO: Must add affecting characteristics*/}
+                    </ScrollView>
                 </View>
             );
         }
@@ -152,26 +152,109 @@ export default class ModalBaseStat extends React.Component {
     }
 
     /**
+     * Renders a flat list with the given data and title
+     * @param data: [{name: string, change?: string}], the data to be inserted into the flat list
+     * @param testingId: string, the ID for testing purposes
+     * @param title: string, The title to be given to this flat list
+     * @private
+     */
+    _renderFlatList(data, testingId, title) {
+        return (
+            <View style={modalStyleSheet.flatListContainer}>
+                <Text style={modalStyleSheet.flatListTitleText}>
+                    {title}
+                </Text>
+                <FlatList
+                    testId={testingId}
+                    data={data}
+                    renderItem={({item,index}) => this._renderFlatListItem(item,index)}
+                    keyExtractor={(item,index)=>(item.name)}
+                    style={modalStyleSheet.modalBaseStatFlatList}
+                />
+            </View>
+        )
+    }
+
+    /**
      * Renders an item for the flat lists of this component
      * @param item
      * @returns {*}
      * @private
      */
-    _renderFlatListItem(item) {
+    _renderFlatListItem(item, index) {
         if (item.hasOwnProperty("change")) {
             return (
-                <View>
-                    <Text>{item.name}</Text>
-                    <Text>{item.change}</Text>
+                <View style={[modalStyleSheet.flatListTextContainer, {backgroundColor: flatListColors[index % 2]}]}>
+                    <Text style={[modalStyleSheet.textGreedy, modalStyleSheet.flatListText]}>{item.name}</Text>
+                    <Text style={modalStyleSheet.flatListText}>{item.change}</Text>
                 </View>
             );
         } else {
             return (
-                <View>
-                    <Text>{item.name}</Text>
+                <View style={[
+                    modalStyleSheet.flatListTextContainer,
+                    {backgroundColor: flatListColors[index % 2]}
+                ]}>
+                    <Text style={modalStyleSheet.flatListText}>{item.name}</Text>
                 </View>
             );
         }
 
     }
 }
+
+const modalStyleSheet = StyleSheet.create({
+    modalViewContainer: {
+        padding: 5,
+    },
+    modalTitleBar: {
+        paddingLeft: 5,
+        paddingRight: 5,
+        marginTop: 30,
+        flexDirection: "row",
+        alignItems: "flex-start",
+        borderStyle: "solid",
+        borderBottomColor: "#929292",
+        borderBottomWidth: 1,
+    },
+    modalTitleText: {
+        fontSize: 23,
+        fontWeight: "bold",
+    },
+    flatListContainer: {
+        flex:1,
+        marginLeft: 5,
+        marginRight: 5,
+    },
+    flatListTitleText: {
+        fontSize: 18,
+        marginTop: 10,
+        marginBottom: 5
+    },
+    modalBaseStatFlatList: {
+        maxHeight: 300,
+        borderColor: "black",
+        borderWidth: 2,
+        borderRadius: 5,
+    },
+    flatListTextContainer: {
+        flexDirection: "row",
+        alignItems: "flex-start",
+    },
+    flatListText: {
+        fontSize: 16,
+        margin: 5
+    },
+    textGreedy: {
+        flex: 1,
+    },
+    closeButton: {
+        fontSize: 18,
+        color: "#007aff"
+    }
+});
+
+const flatListColors = [
+    "transparent",
+    "#e6f2ff",
+];

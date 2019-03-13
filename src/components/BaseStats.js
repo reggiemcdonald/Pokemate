@@ -41,7 +41,7 @@ export default class BaseStats extends React.Component {
         this.state = {
             modalVisible: false,
             baseStatData: {}
-        }
+        };
         this.updateBaseStatModal = undefined;
     }
     /**
