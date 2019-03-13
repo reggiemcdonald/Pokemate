@@ -5,10 +5,12 @@ import {
     ScrollView,
     FlatList,
     TouchableOpacity,
-    StyleSheet
+    StyleSheet,
+    ActivityIndicator
 } from "react-native";
 import {StatNameFormats} from "../../library/StringResources";
 import InvalidValue from "../../library/errors/InvalidValue";
+
 
 /**
  * **************************
@@ -32,22 +34,23 @@ export default class ModalBaseStat extends React.Component {
                 </View>
             );
         } else {
-            let positivelyAffectingMovesTitle = "Moves: Positive";
+            this._validateData();
+            const positivelyAffectingMovesTitle = "Moves: Positive";
             const negativelyAffectingMovesTitle = "Moves: Negative";
             const positivelyAffectingNaturesTitle = "Natures: Positive";
             const negativelyAffectingNaturesTitle = "Natures: Negative";
             return (
-                <View>
+                <View style={{flex:1}}>
                     <View style={modalStyleSheet.modalTitleBar}>
                         <Text testID={"testIdName"}
                               style={[modalStyleSheet.modalTitleText, modalStyleSheet.textGreedy]}>
-                            {StatNameFormats[this.props.data.name]}
+                            {StatNameFormats[this.props.data.name]+this._printIsBattleOnly()}
                         </Text>
                         <TouchableOpacity onPress={this.props.closeFunction}>
                             <Text style={modalStyleSheet.closeButton}>Close</Text>
                         </TouchableOpacity>
                     </View>
-                    <ScrollView style={modalStyleSheet.modalViewContainer}>
+                    <View style={modalStyleSheet.modalViewContainer}>
                         <View style={{flexDirection: "row", alignItems: "flex-start"}}>
                             {this._renderFlatList(this.props.data.affectingMoves.positive,
                                 "testIdMovesPositive,", positivelyAffectingMovesTitle)}
@@ -61,7 +64,7 @@ export default class ModalBaseStat extends React.Component {
                             "testIdNaturesNegative", negativelyAffectingNaturesTitle)}
                         </View>
                         {/*TODO: Must add affecting characteristics*/}
-                    </ScrollView>
+                    </View>
                 </View>
             );
         }
@@ -159,20 +162,28 @@ export default class ModalBaseStat extends React.Component {
      * @private
      */
     _renderFlatList(data, testingId, title) {
-        return (
-            <View style={modalStyleSheet.flatListContainer}>
-                <Text style={modalStyleSheet.flatListTitleText}>
-                    {title}
-                </Text>
-                <FlatList
-                    testId={testingId}
-                    data={data}
-                    renderItem={({item,index}) => this._renderFlatListItem(item,index)}
-                    keyExtractor={(item,index)=>(item.name)}
-                    style={modalStyleSheet.modalBaseStatFlatList}
-                />
-            </View>
-        )
+        if (data.length === 0) {
+            return (
+                <View></View>
+            )
+        } else {
+            data = this._sortData(data);
+            return (
+                <View style={modalStyleSheet.flatListContainer}>
+                    <Text style={modalStyleSheet.flatListTitleText}>
+                        {title}
+                    </Text>
+                    <FlatList
+                        testId={testingId}
+                        data={data}
+                        renderItem={({item, index}) => this._renderFlatListItem(item, index)}
+                        keyExtractor={(item, index) => (item.name)}
+                        style={modalStyleSheet.modalBaseStatFlatList}
+                        initialNumToRender={15}
+                    />
+                </View>
+            )
+        }
     }
 
     /**
@@ -185,8 +196,10 @@ export default class ModalBaseStat extends React.Component {
         if (item.hasOwnProperty("change")) {
             return (
                 <View style={[modalStyleSheet.flatListTextContainer, {backgroundColor: flatListColors[index % 2]}]}>
-                    <Text style={[modalStyleSheet.textGreedy, modalStyleSheet.flatListText]}>{item.name}</Text>
-                    <Text style={modalStyleSheet.flatListText}>{item.change}</Text>
+                    <Text style={[modalStyleSheet.textGreedy, modalStyleSheet.flatListText]}>
+                        {this._formatText(item.name)}
+                    </Text>
+                    <Text style={modalStyleSheet.flatListText}>{this._formatNumericText(item.change.toString())}</Text>
                 </View>
             );
         } else {
@@ -195,11 +208,74 @@ export default class ModalBaseStat extends React.Component {
                     modalStyleSheet.flatListTextContainer,
                     {backgroundColor: flatListColors[index % 2]}
                 ]}>
-                    <Text style={modalStyleSheet.flatListText}>{item.name}</Text>
+                    <Text style={modalStyleSheet.flatListText}>
+                        {this._formatText(item.name)}
+                    </Text>
                 </View>
             );
         }
 
+    }
+
+    /**
+     * Given the raw text from the data structure,
+     * replace dashes with spaces and convert the first letter in each word to capital
+     * @param text: string, the text to be formatted
+     * @private
+     */
+    _formatText(text) {
+        if (text.indexOf("-") !== -1) {
+            text = text.replace(/-/g," ");
+        }
+        text = text.charAt(0).toUpperCase() + text.substr(1);
+        for (let i = 0; i < text.length; i++) {
+            if (text.charAt(i) === " " && i+2 < text.length) {
+                text = text.substr(0,i+1) +
+                    text.charAt(i+1).toUpperCase() + text.substr(i+2);
+            }
+        }
+        return text;
+    }
+
+    /**
+     * Given a stringified number, append + to it for improved readability
+     * @param numericText
+     * @returns {*}
+     * @private
+     */
+    _formatNumericText(numericText) {
+        if (numericText.indexOf("-") === -1) {
+            return "+"+numericText;
+        } else {
+            return numericText;
+        }
+    }
+
+    /**
+     * Consumes an object array as data and sorts it by key
+     * @param data
+     * @returns {any[]}
+     * @private
+     */
+    _sortData(data) {
+        let sortedData = data.sort((first, second) => {
+            if (first.name > second.name) {
+                return 1;
+            } else if (first.name < second.name) {
+                return -1;
+            } else {
+                return 0;
+            }
+        });
+        return sortedData;
+    }
+
+    _printIsBattleOnly() {
+        if (this.props.data.isBattleOnly) {
+            return " (Battle Only)";
+        } else {
+            return "";
+        }
     }
 }
 
@@ -208,34 +284,36 @@ const modalStyleSheet = StyleSheet.create({
         padding: 5,
     },
     modalTitleBar: {
-        paddingLeft: 5,
-        paddingRight: 5,
+        paddingLeft: 10,
+        paddingRight: 10,
         marginTop: 30,
         flexDirection: "row",
         alignItems: "flex-start",
         borderStyle: "solid",
-        borderBottomColor: "#929292",
+        borderBottomColor: "#c4c4c4",
         borderBottomWidth: 1,
     },
     modalTitleText: {
-        fontSize: 23,
+        fontSize: 30,
         fontWeight: "bold",
     },
     flatListContainer: {
         flex:1,
-        marginLeft: 5,
         marginRight: 5,
+        marginLeft: 5,
+        marginBottom: 10
     },
     flatListTitleText: {
-        fontSize: 18,
+        fontSize: 16,
         marginTop: 10,
-        marginBottom: 5
+        textAlign: "center",
+        fontWeight: "bold"
     },
     modalBaseStatFlatList: {
         maxHeight: 300,
         borderColor: "black",
         borderWidth: 2,
-        borderRadius: 5,
+        borderRadius: 10,
     },
     flatListTextContainer: {
         flexDirection: "row",
@@ -243,7 +321,9 @@ const modalStyleSheet = StyleSheet.create({
     },
     flatListText: {
         fontSize: 16,
-        margin: 5
+        marginTop: 5,
+        marginLeft: 5,
+        marginRight: 5
     },
     textGreedy: {
         flex: 1,
@@ -255,6 +335,7 @@ const modalStyleSheet = StyleSheet.create({
 });
 
 const flatListColors = [
-    "transparent",
+
+    "#ffffff",
     "#e6f2ff",
 ];
