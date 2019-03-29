@@ -8,7 +8,7 @@ import {
     StyleSheet,
     ActivityIndicator
 } from "react-native";
-import {StatNameFormats} from "../../library/StringResources";
+import {StatNameFormats, baseStatDescriptions} from "../../library/StringResources";
 import InvalidValue from "../../library/errors/InvalidValue";
 
 
@@ -51,6 +51,10 @@ export default class ModalBaseStat extends React.Component {
                         </TouchableOpacity>
                     </View>
                     <View style={modalStyleSheet.modalViewContainer}>
+                        <Text style={modalStyleSheet.descriptionText}>
+                            {baseStatDescriptions[this.props.data.name]}
+                        </Text>
+                        <Text style={modalStyleSheet.descriptionCitation}>{"Adapted from Bulbapedia"}</Text>
                         <View style={{flexDirection: "row", alignItems: "flex-start"}}>
                             {this._renderFlatList(this.props.data.affectingMoves.positive,
                                 "testIdMovesPositive,", positivelyAffectingMovesTitle)}
@@ -331,11 +335,20 @@ const modalStyleSheet = StyleSheet.create({
     closeButton: {
         fontSize: 18,
         color: "#007aff"
-    }
+    },
+    descriptionText: {
+        fontSize: 16,
+        fontStyle: "italic",
+        margin: 5
+    },
+    descriptionCitation: {
+        fontSize: 10,
+        color: "#929292",
+        textAlign: "right"
+    },
 });
 
 const flatListColors = [
-
     "#ffffff",
     "#e6f2ff",
 ];
