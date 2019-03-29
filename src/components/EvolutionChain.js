@@ -10,6 +10,7 @@ import {
 } from "react-native"
 import styles from "../library/styles"
 import Ionicons from "react-native-vector-icons/Ionicons"
+import PromiseInterrupt from "../library/errors/PromiseInterrupt";
 
 
 /**
@@ -32,8 +33,8 @@ export default class EvolutionChain extends React.Component {
             dataManager: props.dataManager,
             evolutionChain: [],
             handleSpritePress: this.props.handleSpritePress ?
-                this.props.handleSpritePress : this._defaultHandleSpritePress
-        }
+                this.props.handleSpritePress : this._defaultHandleSpritePress,
+        };
     }
 
     render() {
@@ -42,95 +43,29 @@ export default class EvolutionChain extends React.Component {
         )
     }
 
+    /**
+     * Makes the async call to get the ordered evolution chain
+     * @returns {Promise<void>}
+     */
     async componentDidMount(): void {
-        let evolutionChain = await this._buildEvolutionChain(this.state.data);
-        this.setState({
-            evolutionChain: evolutionChain
-        });
+        try {
+            let evolutionChain = await this.state.dataManager.buildEvolutionChain(this.state.data);
+            this.setState({
+                evolutionChain: evolutionChain
+            });
+        } catch (err) {
+            if (!(err instanceof PromiseInterrupt)) {
+                throw err;
+            }
+        }
     }
 
     _defaultHandleSpritePress(sprite) {
         alert("You pressed a sprite in the evolution chain");
     }
 
-    /**
-     * Generate an array of evolution objects
-     * [{
-     *     trigger: string,
-     *     triggerConditional: string,
-     *     spriteArray: {}
-     * }]
-     * @param data
-     * @private
-     */
-    async _buildEvolutionChain(evolutionData) {
-        try {
-            let evolutionChain = await this._buildEvolutionChainHelp(evolutionData, 0);
-            return evolutionChain;
-        } catch (err) {
-            throw err;
-            // TODO tidy this up
-        }
-    }
-
-    async _buildEvolutionChainHelp(evolution, order) {
-        try {
-            let evolutionChain = [];
-            let evolutionObject = await this._buildSpriteObject(evolution.species.name, order, evolution.evolution_details);
-            evolutionChain.push(evolutionObject);
-            if (evolution.evolves_to.length === 0) {
-                return evolutionChain;
-            } else {
-                for (let subEvolution of evolution.evolves_to) {
-                    let subEvolutionArr = await this._buildEvolutionChainHelp(subEvolution, order+1);
-                    evolutionChain.push(... subEvolutionArr);
-                }
-                return evolutionChain;
-            }
-        } catch (err) {
-            throw err;
-        }
-    }
-
-
-
-    _getEvolutionTriggerConditional(evolutionDetails) {
-        let keys = Object.keys(evolutionDetails);
-        let triggerConditionalArr = [];
-        for (let key of keys) {
-            if (key === "trigger") {
-                return triggerConditionalArr;
-            } else if (evolutionDetails[key] !== null && evolutionDetails[key] !== false && evolutionDetails[key] !== "") {
-                triggerConditionalArr.push({
-                    conditional: key,
-                    requirement: (typeof evolutionDetails[key] !== "object") ? evolutionDetails[key] : evolutionDetails[key].name
-                });
-            }
-        }
-        return null;
-    }
-
-    async _buildSpriteObject(species, order, evolutionDetails) {
-        let sprite = await this.state.dataManager.getSpriteUrl(species);
-        if (evolutionDetails.length === 0) {
-            return ({
-                name: species,
-                trigger: null,
-                triggerConditional: null,
-                sprite: sprite,
-                order: order
-            });
-        } else {
-            let trigger = evolutionDetails[0].trigger.name;
-            let triggerConditional = this._getEvolutionTriggerConditional(evolutionDetails[0]);
-            return ({
-                name: species,
-                trigger: trigger,
-                triggerConditional: triggerConditional,
-                sprite: sprite,
-                order: order
-            });
-        }
+    componentWillUnmount(): void {
+        this.state.dataManager.cancelPromise();
     }
 
 
@@ -141,10 +76,12 @@ export default class EvolutionChain extends React.Component {
      * sprite: {
      *     name: string,
      *     trigger: string,
-     *     triggerConditional: {
+     *     triggerConditional: [
+     *      {
      *         conditional: string,
      *         requirement: any
-     *     },
+     *      }
+     *     ],
      *     sprite: string,
      *     order: number
      * }

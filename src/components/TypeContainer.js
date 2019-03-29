@@ -15,33 +15,41 @@ import TouchableType from "./TouchableType";
  *
  */
 export default class TypeContainer extends React.Component  {
+    constructor (props) {
+        super (props);
+        this.state = {
+            types: this.props ? this.props.types : []
+        }
+    }
     render() {
-        if (this.props.types.length === 2) {
-            return(
+        if (this.state.types.length === 2) {
+            return (
                 <View style={linearBox.linear}>
                     <TouchableType dataSource={{
                         data: {
-                            type: this.props.types[0]
+                            type: this.state.types[0]
                         }
                     }}/>
                     <TouchableType dataSource={{
-                        data :{
-                            type: this.props.types[1]
+                        data: {
+                            type: this.state.types[1]
                         }
                     }}
                     />
                 </View>
             );
-        } else {
-            return(
+        } else if (this.state.types.length === 1) {
+            return (
                 <View style={linearBox.linear}>
-                    <TouchableType dataSource = {{
+                    <TouchableType dataSource={{
                         data: {
-                            type: this.props.types[0]
+                            type: this.state.types[0]
                         }
                     }}/>
                 </View>
             )
+        } else {
+            return (null);
         }
     }
 }
@@ -51,4 +59,4 @@ const linearBox = StyleSheet.create({
         flexDirection: "row",
         backgroundColor: "transparent"
     }
-})
+});

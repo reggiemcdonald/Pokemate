@@ -13,7 +13,7 @@ export default class DefenseStats extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            types: props.types,
+            types: props.types ? props.types : [],
             styleMain: this._generateStyle(props.styleMain),
             styleSub: this._generateSubStyle(props.styleSub)
         }
@@ -48,21 +48,24 @@ export default class DefenseStats extends React.Component {
         );
     }
 
+    /**
+     * Render the component
+     * @returns {*}
+     */
     render() {
         if (this.state.types.length > 0) {
             return (
-                <View style={[styles.defenseStats, this.state.styleMain]}>
-                    <View style={[this.state.styleSub, styles.defenseStatTextView]}>
-                        <Text style={styles.defenseStatText}>{this.props.label}</Text>
+                    <View style={[styles.defenseStats, this.state.styleMain]}>
+                        <View style={[this.state.styleSub, styles.defenseStatTextView]}>
+                            <Text style={styles.defenseStatText}>{this.props.label}</Text>
+                        </View>
+                        <FlatList
+                            data={this.state.types}
+                            keyExtractor={(value, index) => index}
+                            renderItem={({item}) => this._renderItem(item)}
+                            numColumns={3}
+                        />
                     </View>
-                    <FlatList
-                        data={this.state.types}
-                        keyExtractor={(value, index) => index}
-                        renderItem={({item}) => this._renderItem(item)}
-                        numColumns={3}
-                    />
-                </View>
-
             )
         } else {
             return(null);

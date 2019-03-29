@@ -3,12 +3,14 @@ import {
     View,
     SectionList,
     Text,
-    StyleSheet,
     TouchableOpacity,
     ActivityIndicator
 } from 'react-native';
 import PokeDataManager from "../library/networking/PokeDataManager";
 import styles from "../library/styles";
+import ErrorMessages from "../library/ErrorMessages";
+import PromiseInterrupt from "../library/errors/PromiseInterrupt";
+import ErrorBoundary from "./ErrorBoundary";
 /**
  * ****************************************************
  * A list view of all the pokemon that can be displayed
@@ -83,30 +85,46 @@ export default class PokemonMainList extends React.Component {
     }
 
     render() {
+        if (this.state.data.length === 0) {
+            return (
+                <View style={styles.containerCentered}>
+                    <ActivityIndicator size={"large"}/>
+                </View>
+            )
+        }
         return(
             // TODO
-            <View style={styles.containerLeftAligned}>
-                <SectionList sections={this.state.data}
-                             renderItem={({item}) => this.renderItem(item)}
-                             renderSectionHeader={({section}) => <Text style={styles.sectionHeader}>{section.header}</Text>}
-                             keyExtractor={(item, index) => index}
-                             ListEmptyComponent = {
-                                 () => <ActivityIndicator size={"large"}/>
-                             }
-                             initialNumToRender={1000}
-                             maxToRenderPerBatch={1000}
-                />
-            </View>
+            <ErrorBoundary>
+                <View style={styles.containerLeftAligned}>
+                    <SectionList sections={this.state.data}
+                                 renderItem={({item}) => this.renderItem(item)}
+                                 renderSectionHeader={({section}) => <Text style={styles.sectionHeader}>{section.header}</Text>}
+                                 keyExtractor={(item, index) => index}
+                                 initialNumToRender={1000}
+                                 maxToRenderPerBatch={1000}
+                    />
+                </View>
+            </ErrorBoundary>
         )
     }
 
 
     async componentDidMount() {
-        let pokemonList = await this.state.dataManager.getListOfPokemon();
-        pokemonList = this.makeListWithSectionHeaders(pokemonList);
-        this.setState({
-            data: pokemonList
-        });
+        try {
+            let pokemonList = await this.state.dataManager.getListOfPokemon();
+            pokemonList = this.makeListWithSectionHeaders(pokemonList);
+            this.setState({
+                data: pokemonList
+            });
+        } catch (err) {
+            if (!this.isPromiseInterrupt(err)) {
+                alert(ErrorMessages.PokemonMainListFillError);
+            }
+        }
+    }
+
+    componentWillUnmount(): void {
+        this.state.dataManager.cancelPromise();
     }
 
     /**
@@ -128,6 +146,15 @@ export default class PokemonMainList extends React.Component {
                 </Text>
             </TouchableOpacity>
         )
+    }
+
+    /**
+     * Returns true if err is an instance of promise interrupt
+     * @param err
+     * @returns {boolean}
+     */
+    isPromiseInterrupt(err) {
+         return (err instanceof PromiseInterrupt);
     }
 }
 
