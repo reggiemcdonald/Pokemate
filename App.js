@@ -13,6 +13,8 @@ import {
     Text,
     View,
     ActivityIndicator,
+    AsyncStorage,
+    Alert,
 } from 'react-native';
 import {
     createStackNavigator,
@@ -32,7 +34,8 @@ class HomeScreen extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            loading: true
+            loading: true,
+            pokemonData: {}
         }
     }
   static navigationOptions = {
@@ -58,13 +61,48 @@ class HomeScreen extends React.Component {
     );
   }
 
-  componentDidMount(): void {
-      setTimeout(()=>{
-          this.setState({loading: false})
-      }, 2000);
+  runFirstTimeSetup() {
+      // TODO: Implement
+      Alert.alert(
+          "Initial Setup",
+          "Downloading the Pokemon data will make the app run faster and allow for offline use." +
+          " Would you like to download it now?",
+          [
+              {text: "Yes", onPress: () => this.downloadData()},
+              {
+                  text: "Ask me later",
+                  style: 'cancel'
+              }
+          ],
+          {cancelable: false}
+      );
   }
-
+  downloadData() {
+      // TODO: Implement
+      console.log("Download data");
+  }
+  async componentDidMount(): void {
+      try {
+          let pokemonData = await AsyncStorage.getItem("pokemonData");
+          if (pokemonData !== null) {
+              this.setState(
+                  {
+                      loading: false,
+                      pokemonData: pokemonData
+                  }
+              );
+          } else {
+              this.runFirstTimeSetup();
+              this.setState(
+                  {loading: false}
+              )
+          }
+      } catch (err) {
+          alert(err.message);
+      }
+  }
 }
+
 
 const HomeStack = createStackNavigator(
     {
