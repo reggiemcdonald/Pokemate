@@ -1,0 +1,628 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ModalBaseStat: render Should render a novel base stats data structure without error 1`] = `
+<View>
+  <View>
+    <Text
+      testID="testIdName"
+    >
+      Defense
+    </Text>
+  </View>
+  <RCTScrollView
+    data={
+      Array [
+        Object {
+          "change": 1,
+          "name": "harden",
+        },
+        Object {
+          "change": 1,
+          "name": "withdraw",
+        },
+        Object {
+          "change": 1,
+          "name": "defense-curl",
+        },
+        Object {
+          "change": 2,
+          "name": "barrier",
+        },
+        Object {
+          "change": 2,
+          "name": "acid-armor",
+        },
+        Object {
+          "change": 1,
+          "name": "steel-wing",
+        },
+        Object {
+          "change": 1,
+          "name": "ancient-power",
+        },
+        Object {
+          "change": 1,
+          "name": "silver-wind",
+        },
+        Object {
+          "change": 1,
+          "name": "cosmic-power",
+        },
+        Object {
+          "change": 2,
+          "name": "iron-defense",
+        },
+        Object {
+          "change": 1,
+          "name": "bulk-up",
+        },
+        Object {
+          "change": 1,
+          "name": "defend-order",
+        },
+        Object {
+          "change": 1,
+          "name": "ominous-wind",
+        },
+        Object {
+          "change": 1,
+          "name": "coil",
+        },
+        Object {
+          "change": 3,
+          "name": "cotton-guard",
+        },
+        Object {
+          "change": 1,
+          "name": "flower-shield",
+        },
+        Object {
+          "change": 1,
+          "name": "diamond-storm",
+        },
+        Object {
+          "change": 1,
+          "name": "magnetic-flux",
+        },
+        Object {
+          "change": -1,
+          "name": "tail-whip",
+        },
+        Object {
+          "change": -1,
+          "name": "leer",
+        },
+        Object {
+          "change": -2,
+          "name": "screech",
+        },
+        Object {
+          "change": -1,
+          "name": "iron-tail",
+        },
+        Object {
+          "change": -1,
+          "name": "crunch",
+        },
+        Object {
+          "change": -1,
+          "name": "rock-smash",
+        },
+        Object {
+          "change": -1,
+          "name": "superpower",
+        },
+        Object {
+          "change": -1,
+          "name": "crush-claw",
+        },
+        Object {
+          "change": -1,
+          "name": "tickle",
+        },
+        Object {
+          "change": -1,
+          "name": "close-combat",
+        },
+        Object {
+          "change": -1,
+          "name": "razor-shell",
+        },
+        Object {
+          "change": -1,
+          "name": "v-create",
+        },
+      ]
+    }
+    disableVirtualization={false}
+    getItem={[Function]}
+    getItemCount={[Function]}
+    horizontal={false}
+    initialNumToRender={10}
+    keyExtractor={[Function]}
+    maxToRenderPerBatch={10}
+    numColumns={1}
+    onContentSizeChange={[Function]}
+    onEndReachedThreshold={2}
+    onLayout={[Function]}
+    onMomentumScrollEnd={[Function]}
+    onScroll={[Function]}
+    onScrollBeginDrag={[Function]}
+    onScrollEndDrag={[Function]}
+    renderItem={[Function]}
+    scrollEventThrottle={50}
+    stickyHeaderIndices={Array []}
+    testId="testIdMoves"
+    updateCellsBatchingPeriod={50}
+    viewabilityConfigCallbackPairs={Array []}
+    windowSize={21}
+  >
+    <View>
+      <View
+        onLayout={[Function]}
+        style={null}
+      >
+        <View>
+          <Text />
+        </View>
+      </View>
+      <View
+        onLayout={[Function]}
+        style={null}
+      >
+        <View>
+          <Text />
+        </View>
+      </View>
+      <View
+        onLayout={[Function]}
+        style={null}
+      >
+        <View>
+          <Text />
+        </View>
+      </View>
+      <View
+        onLayout={[Function]}
+        style={null}
+      >
+        <View>
+          <Text />
+        </View>
+      </View>
+      <View
+        onLayout={[Function]}
+        style={null}
+      >
+        <View>
+          <Text />
+        </View>
+      </View>
+      <View
+        onLayout={[Function]}
+        style={null}
+      >
+        <View>
+          <Text />
+        </View>
+      </View>
+      <View
+        onLayout={[Function]}
+        style={null}
+      >
+        <View>
+          <Text />
+        </View>
+      </View>
+      <View
+        onLayout={[Function]}
+        style={null}
+      >
+        <View>
+          <Text />
+        </View>
+      </View>
+      <View
+        onLayout={[Function]}
+        style={null}
+      >
+        <View>
+          <Text />
+        </View>
+      </View>
+      <View
+        onLayout={[Function]}
+        style={null}
+      >
+        <View>
+          <Text />
+        </View>
+      </View>
+      <View
+        style={
+          Object {
+            "height": 0,
+          }
+        }
+      />
+    </View>
+  </RCTScrollView>
+  <RCTScrollView
+    data={
+      Array [
+        Object {
+          "name": "bold",
+        },
+        Object {
+          "name": "impish",
+        },
+        Object {
+          "name": "lax",
+        },
+        Object {
+          "name": "relaxed",
+        },
+        Object {
+          "name": "lonely",
+        },
+        Object {
+          "name": "mild",
+        },
+        Object {
+          "name": "gentle",
+        },
+        Object {
+          "name": "hasty",
+        },
+      ]
+    }
+    disableVirtualization={false}
+    getItem={[Function]}
+    getItemCount={[Function]}
+    horizontal={false}
+    initialNumToRender={10}
+    keyExtractor={[Function]}
+    maxToRenderPerBatch={10}
+    numColumns={1}
+    onContentSizeChange={[Function]}
+    onEndReachedThreshold={2}
+    onLayout={[Function]}
+    onMomentumScrollEnd={[Function]}
+    onScroll={[Function]}
+    onScrollBeginDrag={[Function]}
+    onScrollEndDrag={[Function]}
+    renderItem={[Function]}
+    scrollEventThrottle={50}
+    stickyHeaderIndices={Array []}
+    testId="testIdNatures"
+    updateCellsBatchingPeriod={50}
+    viewabilityConfigCallbackPairs={Array []}
+    windowSize={21}
+  >
+    <View>
+      <View
+        onLayout={[Function]}
+        style={null}
+      >
+        <View>
+          <Text />
+        </View>
+      </View>
+      <View
+        onLayout={[Function]}
+        style={null}
+      >
+        <View>
+          <Text />
+        </View>
+      </View>
+      <View
+        onLayout={[Function]}
+        style={null}
+      >
+        <View>
+          <Text />
+        </View>
+      </View>
+      <View
+        onLayout={[Function]}
+        style={null}
+      >
+        <View>
+          <Text />
+        </View>
+      </View>
+      <View
+        onLayout={[Function]}
+        style={null}
+      >
+        <View>
+          <Text />
+        </View>
+      </View>
+      <View
+        onLayout={[Function]}
+        style={null}
+      >
+        <View>
+          <Text />
+        </View>
+      </View>
+      <View
+        onLayout={[Function]}
+        style={null}
+      >
+        <View>
+          <Text />
+        </View>
+      </View>
+      <View
+        onLayout={[Function]}
+        style={null}
+      >
+        <View>
+          <Text />
+        </View>
+      </View>
+    </View>
+  </RCTScrollView>
+  <RCTScrollView
+    data={
+      Array [
+        "https://pokeapi.co/api/v2/characteristic/3/",
+        "https://pokeapi.co/api/v2/characteristic/9/",
+        "https://pokeapi.co/api/v2/characteristic/15/",
+        "https://pokeapi.co/api/v2/characteristic/21/",
+        "https://pokeapi.co/api/v2/characteristic/27/",
+      ]
+    }
+    disableVirtualization={false}
+    getItem={[Function]}
+    getItemCount={[Function]}
+    horizontal={false}
+    initialNumToRender={10}
+    keyExtractor={[Function]}
+    maxToRenderPerBatch={10}
+    numColumns={1}
+    onContentSizeChange={[Function]}
+    onEndReachedThreshold={2}
+    onLayout={[Function]}
+    onMomentumScrollEnd={[Function]}
+    onScroll={[Function]}
+    onScrollBeginDrag={[Function]}
+    onScrollEndDrag={[Function]}
+    renderItem={[Function]}
+    scrollEventThrottle={50}
+    stickyHeaderIndices={Array []}
+    testId="testIdCharacteristics"
+    updateCellsBatchingPeriod={50}
+    viewabilityConfigCallbackPairs={Array []}
+    windowSize={21}
+  >
+    <View>
+      <View
+        onLayout={[Function]}
+        style={null}
+      >
+        <View>
+          <Text />
+        </View>
+      </View>
+      <View
+        onLayout={[Function]}
+        style={null}
+      >
+        <View>
+          <Text />
+        </View>
+      </View>
+      <View
+        onLayout={[Function]}
+        style={null}
+      >
+        <View>
+          <Text />
+        </View>
+      </View>
+      <View
+        onLayout={[Function]}
+        style={null}
+      >
+        <View>
+          <Text />
+        </View>
+      </View>
+      <View
+        onLayout={[Function]}
+        style={null}
+      >
+        <View>
+          <Text />
+        </View>
+      </View>
+    </View>
+  </RCTScrollView>
+</View>
+`;
+
+exports[`ModalBaseStat: render Should render without error when given a valid base stats data structure 1`] = `
+<View>
+  <View>
+    <Text
+      testID="testIdName"
+    >
+      HP
+    </Text>
+  </View>
+  <RCTScrollView
+    data={
+      Array [
+        Object {
+          "change": 1,
+          "name": "ancient-power",
+        },
+        Object {
+          "change": 1,
+          "name": "silver-wind",
+        },
+        Object {
+          "change": 1,
+          "name": "ominous-wind",
+        },
+      ]
+    }
+    disableVirtualization={false}
+    getItem={[Function]}
+    getItemCount={[Function]}
+    horizontal={false}
+    initialNumToRender={10}
+    keyExtractor={[Function]}
+    maxToRenderPerBatch={10}
+    numColumns={1}
+    onContentSizeChange={[Function]}
+    onEndReachedThreshold={2}
+    onLayout={[Function]}
+    onMomentumScrollEnd={[Function]}
+    onScroll={[Function]}
+    onScrollBeginDrag={[Function]}
+    onScrollEndDrag={[Function]}
+    renderItem={[Function]}
+    scrollEventThrottle={50}
+    stickyHeaderIndices={Array []}
+    testId="testIdMoves"
+    updateCellsBatchingPeriod={50}
+    viewabilityConfigCallbackPairs={Array []}
+    windowSize={21}
+  >
+    <View>
+      <View
+        onLayout={[Function]}
+        style={null}
+      >
+        <View>
+          <Text />
+        </View>
+      </View>
+      <View
+        onLayout={[Function]}
+        style={null}
+      >
+        <View>
+          <Text />
+        </View>
+      </View>
+      <View
+        onLayout={[Function]}
+        style={null}
+      >
+        <View>
+          <Text />
+        </View>
+      </View>
+    </View>
+  </RCTScrollView>
+  <RCTScrollView
+    data={Array []}
+    disableVirtualization={false}
+    getItem={[Function]}
+    getItemCount={[Function]}
+    horizontal={false}
+    initialNumToRender={10}
+    keyExtractor={[Function]}
+    maxToRenderPerBatch={10}
+    numColumns={1}
+    onContentSizeChange={[Function]}
+    onEndReachedThreshold={2}
+    onLayout={[Function]}
+    onMomentumScrollEnd={[Function]}
+    onScroll={[Function]}
+    onScrollBeginDrag={[Function]}
+    onScrollEndDrag={[Function]}
+    renderItem={[Function]}
+    scrollEventThrottle={50}
+    stickyHeaderIndices={Array []}
+    testId="testIdNatures"
+    updateCellsBatchingPeriod={50}
+    viewabilityConfigCallbackPairs={Array []}
+    windowSize={21}
+  >
+    <View />
+  </RCTScrollView>
+  <RCTScrollView
+    data={
+      Array [
+        "https://pokeapi.co/api/v2/characteristic/1/",
+        "https://pokeapi.co/api/v2/characteristic/7/",
+        "https://pokeapi.co/api/v2/characteristic/13/",
+        "https://pokeapi.co/api/v2/characteristic/19/",
+        "https://pokeapi.co/api/v2/characteristic/25/",
+      ]
+    }
+    disableVirtualization={false}
+    getItem={[Function]}
+    getItemCount={[Function]}
+    horizontal={false}
+    initialNumToRender={10}
+    keyExtractor={[Function]}
+    maxToRenderPerBatch={10}
+    numColumns={1}
+    onContentSizeChange={[Function]}
+    onEndReachedThreshold={2}
+    onLayout={[Function]}
+    onMomentumScrollEnd={[Function]}
+    onScroll={[Function]}
+    onScrollBeginDrag={[Function]}
+    onScrollEndDrag={[Function]}
+    renderItem={[Function]}
+    scrollEventThrottle={50}
+    stickyHeaderIndices={Array []}
+    testId="testIdCharacteristics"
+    updateCellsBatchingPeriod={50}
+    viewabilityConfigCallbackPairs={Array []}
+    windowSize={21}
+  >
+    <View>
+      <View
+        onLayout={[Function]}
+        style={null}
+      >
+        <View>
+          <Text />
+        </View>
+      </View>
+      <View
+        onLayout={[Function]}
+        style={null}
+      >
+        <View>
+          <Text />
+        </View>
+      </View>
+      <View
+        onLayout={[Function]}
+        style={null}
+      >
+        <View>
+          <Text />
+        </View>
+      </View>
+      <View
+        onLayout={[Function]}
+        style={null}
+      >
+        <View>
+          <Text />
+        </View>
+      </View>
+      <View
+        onLayout={[Function]}
+        style={null}
+      >
+        <View>
+          <Text />
+        </View>
+      </View>
+    </View>
+  </RCTScrollView>
+</View>
+`;
