@@ -17,6 +17,10 @@ export default class PokeDataManager {
         this.pokeData = {};
         this.orderedEvolutionTree = {};
         this.statData = {};
+        this.pokemonList = {
+            date: new Date().getMonth(),
+            list: []
+        };
         this._restoreData(existingData);
     }
 
@@ -31,6 +35,10 @@ export default class PokeDataManager {
             this.pokeData = existingData.pokeData ? existingData.pokeData : {};
             this.orderedEvolutionTree = existingData.orderedEvolutionTree ? existingData.orderedEvolutionTree : {};
             this.statData = existingData.statData ? existingData.statData : {};
+            this.pokemonList = existingData.pokemonList ? existingData.pokemonList : {
+                date: new Date().getMonth(),
+                list: []
+            };
         }
     }
 
@@ -47,6 +55,7 @@ export default class PokeDataManager {
             pokeData: this.pokeData,
             orderedEvolutionTree: this.orderedEvolutionTree,
             statData: this.statData,
+            pokemonList: this.pokemonList
         }
     }
 
@@ -80,9 +89,18 @@ export default class PokeDataManager {
      */
     async getListOfPokemon() {
          try {
-             this.checkForCancellation();
-             let pokemonList = await this.processor.getListOfPokemon();
-             return pokemonList;
+             if (this.pokemonList.date === new Date().getMonth() && this.pokemonList.list.length !== 0) {
+                 this.checkForCancellation();
+                 return this.pokemonList.list;
+             } else {
+                 this.checkForCancellation();
+                 let pokemonList = await this.processor.getListOfPokemon();
+                 this.pokemonList.date = new Date().getMonth();
+                 this.pokemonList.list = pokemonList;
+                 this.checkForCancellation();
+                 await this._saveToDisk();
+                 return pokemonList;
+             }
          } catch (err) {
              return err;
          }
@@ -243,7 +261,26 @@ export default class PokeDataManager {
      * @private
      */
     async _saveToDisk() {
-        await AsyncStorage.setItem(STORAGE_KEY, JSON.stringify(this.createHandoff()));
+        try {
+            this.checkForCancellation();
+            await AsyncStorage.setItem(STORAGE_KEY, JSON.stringify(this.createHandoff()));
+        } catch (err) {
+            throw err;
+        }
+    }
+
+    /**
+     * Reads save data from disk and restores this to the last saved state
+     * @returns {Promise<void>}
+     */
+    async readFromDisk() {
+        try {
+            this.checkForCancellation();
+            let data = await AsyncStorage.getItem(STORAGE_KEY);
+            this._restoreData(data);
+        } catch (err) {
+            throw err;
+        }
     }
 
     /**

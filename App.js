@@ -65,6 +65,8 @@ const RosterStack = createStackNavigator({
     Roster: Roster
 });
 
+const data = AsyncStorage.getItem(STORAGE_KEY);
+
 export default createAppContainer(createBottomTabNavigator(
     {
     Home: HomeStack,
@@ -85,10 +87,12 @@ export default createAppContainer(createBottomTabNavigator(
                 }
                 return <Ionicons name ={iconName} size={25} tintColor={tintColor}/>
             },
+            screenProps: data
         }),
         tabBarOptions: {
             activeTintColor: 'tomato',
-            inactiveTintColor: 'gray'
+            inactiveTintColor: 'gray',
         }
     },
 ));
+

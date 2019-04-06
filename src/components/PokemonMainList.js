@@ -90,6 +90,7 @@ export default class PokemonMainList extends React.Component {
             return (
                 <View style={styles.containerCentered}>
                     <ActivityIndicator size={"large"}/>
+                    <Text style={styles.placeholderText}>One Moment...</Text>
                 </View>
             )
         }
@@ -109,11 +110,14 @@ export default class PokemonMainList extends React.Component {
         )
     }
 
-
+    /**
+     * Load a data file and
+     * @returns {Promise<void>}
+     */
     async componentDidMount() {
         try {
-            let data = await AsyncStorage.getItem(STORAGE_KEY);
-            let manager = new PokeDataManager(JSON.parse(data));
+            let manager = new PokeDataManager();
+            await manager.readFromDisk();
             let pokemonList = await manager.getListOfPokemon();
             pokemonList = this.makeListWithSectionHeaders(pokemonList);
             this.setState({
