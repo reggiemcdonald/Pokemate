@@ -13,13 +13,14 @@ import PokeDataManager from "../library/networking/PokeDataManager";
 import ErrorBoundary from "./ErrorBoundary";
 import PromiseInterrupt from "../library/errors/PromiseInterrupt";
 import ErrorMessages from "../library/ErrorMessages";
+import BaseStats from "./BaseStats";
 
 /**
  * Container labels
  * @type {string}
  */
-const DOUBLE_DAMAGE_LABEL = "Double Damage From";
-const HALF_DAMAGE_LABEL = "Half Damage From";
+const DOUBLE_DAMAGE_LABEL = "Weak Against";
+const HALF_DAMAGE_LABEL = "Strong Against";
 const IMMUNE_TO = "Immune To";
 /**
  * ************************
@@ -64,9 +65,8 @@ export default class PokemonCharacterView extends React.Component{
                    {this._renderDefenseStat(weakAgainst, DOUBLE_DAMAGE_LABEL,
                         styles.defenseRed, styles.defenseStatTextViewRed)}
                    {this._renderDefenseStat(noEffect, IMMUNE_TO)}
-
+                   {this._renderBaseStats()}
                    {this._renderEvolutionChain()}
-
                </ScrollView>
             </View>
         )
@@ -88,6 +88,7 @@ export default class PokemonCharacterView extends React.Component{
             const name = navigation.getParam('name', {});
             // TODO: Transfer states of the pokedata managers
             let data = await this.state.processor.getPokemonDetails(name);
+            await this.state.processor.buildBaseStatTree();
             this.setState({
                 name: name,
                 data: data
@@ -199,6 +200,21 @@ export default class PokemonCharacterView extends React.Component{
             </ErrorBoundary>
         )
     }
+
+    /**
+     * Renders the base stats container
+     * @private
+     */
+    _renderBaseStats() {
+        return (
+            <BaseStats
+                data={this.state.data.baseStats}
+                processor={this.state.processor}
+            />
+        )
+    }
+
+
     /**
      * Returns true if the error is a promise interrupt
      * @param err

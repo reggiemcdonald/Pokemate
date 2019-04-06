@@ -87,3 +87,37 @@ describe("Data Manager: Promise Rejection", () => {
         expect(dataManager.getPokemonDetails("pikachu")).rejects.toThrow(PromiseInterrupt);
     });
 });
+
+describe("PokeDataManager: getBaseStats", () => {
+    let dataManager;
+
+    beforeAll(async () => {
+        dataManager = new PokeDataManager();
+        await dataManager.buildBaseStatTree();
+    });
+
+    it("Should be able to get the base stats for HP", async () => {
+        let result;
+        try {
+            result = dataManager.getBaseStat("hp");
+        } catch (err) {
+            result = err;
+        } finally {
+            expect(result).toEqual(ExpectedResults.baseStatsHp);
+        }
+    });
+
+    it("Should be able to get the base stats for defense", async () => {
+        let result;
+        try {
+            result = dataManager.getBaseStat("defense");
+        } catch (err) {
+            result = err;
+        } finally {
+            expect(result).toHaveProperty("affectingMoves");
+            expect(result).toHaveProperty("affectingNatures");
+            expect(result).toHaveProperty("characteristics");
+            expect(result).toHaveProperty("isBattleOnly");
+        }
+    })
+});

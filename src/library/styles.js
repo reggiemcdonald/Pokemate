@@ -78,7 +78,7 @@ const styles = StyleSheet.create({
     touchableAspect: {
         borderRadius: 20,
         height: 30,
-        width: 90,
+        width: 100,
         justifyContent: "center",
         alignItems: "center",
         margin: 5,
@@ -169,6 +169,47 @@ const styles = StyleSheet.create({
     },
     evolutionChainArrowText: {
         fontSize: 10
+    },
+    baseStatBar: {
+        flexDirection: "row",
+        alignItems:"flex-start",
+        paddingRight:10,
+        backgroundColor: "#ceeaff",
+        borderRadius: 10,
+        marginTop: 5
+    },
+    baseStatBarText: {
+        paddingTop: 10,
+        fontSize: 16,
+        fontWeight: "bold",
+        width: 35,
+        textAlign: "right"
+    },
+    baseStatProgressIndicator: {
+        transform:[
+            {scaleX:1.0},
+            {scaleY:7.0}
+        ],
+        height:30,
+        flex: 1,
+        marginLeft:5,
+        marginRight:5,
+        marginTop: 5
+    },
+    baseStatsColor: {
+        backgroundColor:"#b1e2ff",
+        borderRadius: 10,
+
+    },
+    baseStatsTextView: {
+        // borderTopRightRadius: 10,
+        // borderTopLeftRadius: 10,
+        backgroundColor: "#7c9eff"
+    },
+    baseStatsView: {
+        paddingLeft: 5,
+        paddingRight: 5,
+        paddingBottom: 5
     }
 
 });
@@ -194,6 +235,27 @@ const TypeColor = StyleSheet.create({
     dark: {backgroundColor: "#705849"},
     fairy: {backgroundColor: "#EC9AAC"}
 });
+const StatColor = StyleSheet.create({
+    default: {backgroundColor: "#cacbce"},
+    hp: {backgroundColor:"#BE312D"},
+    attack: {backgroundColor:"#EE803B"},
+    defense: {backgroundColor: "#F7CE43"},
+    "special-attack": {backgroundColor: "#6A92ED"},
+    "special-defense": {backgroundColor: "#7BC657"},
+    speed: {backgroundColor: "#F55B89"}
+})
+const BaseStatBarLow = {
+    progressTint: "#ff3333",
+    trackTint: "#ff9999"
+};
+const BaseStatBarMed = {
+    progressTint: "#ff751a",
+    trackTint: "#ffc299"
+};
+const BaseStatBarHigh = {
+    progressTint: "#33cc33",
+    trackTint: "#99e699"
+};
 
 export default styles;
-export{TypeColor, };
+export{TypeColor, StatColor, BaseStatBarHigh, BaseStatBarMed, BaseStatBarLow,};

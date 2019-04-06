@@ -5,6 +5,9 @@
  */
 import PokeDataProcessor from "./PokeDataProcessor";
 import PromiseInterrupt from "../errors/PromiseInterrupt";
+import {StatNameFormats} from "../StringResources";
+import InvalidValue from "../errors/InvalidValue";
+import {AsyncStorage} from "react-native";
 
 export default class PokeDataManager {
     constructor(existingData?) {
@@ -13,6 +16,7 @@ export default class PokeDataManager {
         this.processor = new PokeDataProcessor();
         this.pokeData = {};
         this.orderedEvolutionTree = {};
+        this.statData = {};
         this._restoreData(existingData);
     }
 
@@ -25,7 +29,8 @@ export default class PokeDataManager {
     _restoreData(existingData) {
         if (existingData) {
             this.pokeData = existingData.pokeData ? existingData.pokeData : {};
-            this.orderedEvolutionTree = existingData.orderedEvolutionTree ? existingData.orderedEvolutionTree : {}
+            this.orderedEvolutionTree = existingData.orderedEvolutionTree ? existingData.orderedEvolutionTree : {};
+            this.statData = existingData.statData ? existingData.statData : {};
         }
     }
 
@@ -33,12 +38,16 @@ export default class PokeDataManager {
      * Creates a JSON serializable object to handoff data between instances of PokeDataManager
      * return {
      *     pokeData: this.pokeData
+     *     orderedEvolutionTree: this.orderedEvolutionTree,
+     *     statData: this.statData
      * }
      */
     createHandoff() {
         // TODO: implement the handoff
         return {
-            pokeData: this.pokeData
+            pokeData: this.pokeData,
+            orderedEvolutionTree: this.orderedEvolutionTree,
+            statData: this.statData
         }
     }
 
@@ -181,6 +190,48 @@ export default class PokeDataManager {
                     order: order
                 });
             }
+        } catch (err) {
+            throw err;
+        }
+    }
+
+    /**
+     * Returns the information on the base stat statName
+     * @param statName
+     * @returns object
+     * {
+     *     affectingMoves: {moves},
+     *     affectingNatures: {natures},
+     *     characteristics: [characteristics],
+     *     isBattleOnly: boolean
+     * }
+     */
+    getBaseStat(statName) {
+        if (StatNameFormats.hasOwnProperty(statName)) {
+            this.checkForCancellation();
+            return this.statData[statName];
+        } else {
+            throw new InvalidValue(statName+" is not a valid base stat");
+        }
+    }
+
+
+    /**
+     * Generates the entire base stat tree if no other base stat tree has been generated
+     * @returns {Promise<void>}
+     */
+    async buildBaseStatTree() {
+        let baseStats = Object.keys(StatNameFormats);
+        let baseStatCollection = {};
+        try {
+            for (let baseStat of baseStats) {
+                this.checkForCancellation();
+                let generatedBaseStat = await this.processor.getBaseStatData(baseStat);
+                baseStatCollection[baseStat] = generatedBaseStat;
+            }
+            this.checkForCancellation();
+            this.statData = baseStatCollection;
+            return baseStatCollection;
         } catch (err) {
             throw err;
         }

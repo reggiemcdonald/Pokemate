@@ -1,0 +1,127 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Base Stat Bar Render BaseStatBar should render ErrorBoundary with invalid value 1`] = `
+<View
+  style={
+    Object {
+      "alignItems": "center",
+      "backgroundColor": "#F5FCFF",
+      "flex": 1,
+      "justifyContent": "center",
+    }
+  }
+>
+  <Text
+    allowFontScaling={false}
+    style={
+      Array [
+        Object {
+          "color": undefined,
+          "fontSize": 12,
+        },
+        undefined,
+        Object {
+          "fontFamily": "Ionicons",
+          "fontStyle": "normal",
+          "fontWeight": "normal",
+        },
+        Object {},
+      ]
+    }
+  >
+    
+  </Text>
+  <Text>
+    Oops! Something happened :(
+  </Text>
+</View>
+`;
+
+exports[`Base Stat Bar Render BaseStatBar should render without error when using default style 1`] = `
+<View
+  style={
+    Object {
+      "alignItems": "flex-start",
+      "backgroundColor": "#ceeaff",
+      "borderRadius": 10,
+      "flexDirection": "row",
+      "marginTop": 5,
+      "paddingRight": 10,
+    }
+  }
+>
+  <View
+    style={
+      Array [
+        Object {
+          "backgroundColor": "#BE312D",
+        },
+        Object {
+          "alignItems": "center",
+          "borderRadius": 20,
+          "height": 30,
+          "justifyContent": "center",
+          "margin": 5,
+          "width": 100,
+        },
+      ]
+    }
+  >
+    <Text
+      onPress={[Function]}
+      style={
+        Object {
+          "color": "white",
+          "fontSize": 16,
+          "fontWeight": "bold",
+          "marginLeft": 15,
+          "marginRight": 15,
+        }
+      }
+    >
+      HP
+    </Text>
+  </View>
+  <RCTProgressView
+    progress={0.17647058823529413}
+    progressTintColor="#ff751a"
+    style={
+      Array [
+        Object {
+          "height": 2,
+        },
+        Object {
+          "flex": 1,
+          "height": 30,
+          "marginLeft": 5,
+          "marginRight": 5,
+          "marginTop": 5,
+          "transform": Array [
+            Object {
+              "scaleX": 1,
+            },
+            Object {
+              "scaleY": 7,
+            },
+          ],
+        },
+      ]
+    }
+    trackTintColor="#ffc299"
+  />
+  <Text
+    style={
+      Object {
+        "fontSize": 16,
+        "fontWeight": "bold",
+        "paddingTop": 10,
+        "textAlign": "right",
+        "width": 35,
+      }
+    }
+    testID="statValue"
+  >
+    45
+  </Text>
+</View>
+`;

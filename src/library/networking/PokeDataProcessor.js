@@ -17,6 +17,7 @@ export default class PokeDataProcessor {
      *  - Types the pokemon has strong defense against
      *  - Types that cant damage this pokemon
      *  - Evolution Chain
+     *  - BaseStats
      */
     constructor() {
         this.pokedex = new Pokedex({
@@ -48,7 +49,7 @@ export default class PokeDataProcessor {
             this.isPromiseCanceled();
             let evolutionChain = await this._getEvolutionChain(speciesData);
             let varieties = this._getNonDefaultVarieties(speciesData);
-
+            let baseStats = this._structureBaseStats(defaultVarietyData.stats);
             return {
                 name: pokemonName,
                 id: id,
@@ -58,7 +59,8 @@ export default class PokeDataProcessor {
                 weaknesses: damageRelations.weaknesses,
                 noEffect: damageRelations.noEffect,
                 varieties: varieties,
-                evolutionChain: evolutionChain
+                evolutionChain: evolutionChain,
+                baseStats: baseStats
             };
         } catch (err) {
             return err;
@@ -207,6 +209,27 @@ export default class PokeDataProcessor {
         }
     }
 
+    /**
+     * Put the base stats into an easily accessible structure
+     * @param rawStats
+     * @returns {{"special-attack": {}, defense: {}, attack: {}, hp: {}, "special-defense": {}, speed: {}}}
+     * @private
+     */
+    _structureBaseStats(rawStats) {
+        let baseStats = {
+            hp: {},
+            attack: {},
+            defense: {},
+            "special-attack": {},
+            "special-defense": {},
+            speed: {}
+        };
+        for (let stat of rawStats) {
+            baseStats[stat.stat.name] = stat;
+        }
+        return baseStats;
+    }
+
     async getSpriteUrl(name) {
         try {
             this.isPromiseCanceled();
@@ -218,6 +241,78 @@ export default class PokeDataProcessor {
         } catch (err) {
             throw err;
         }
+    }
+
+    /**
+     * Returns the information for base stat statName in a useable form
+     * @param statName
+     * @returns {
+     *    {
+     *      characteristics: Array,
+     *      affectingMoves: {negative: object[], positive: object[]},
+     *      affectingNatures: {negative: string[], positive: string[]},
+     *      isBattleOnly: boolean
+     *    }
+     * }
+     */
+    async getBaseStatData(statName) {
+        try {
+            this.isPromiseCanceled();
+            let statData = await this.pokedex.getStatByName(statName);
+            let statObject = {
+                name: statName
+            };
+            statObject = this._composeAffectingMoves(statData.affecting_moves, statObject);
+            statObject = this._composeAffectingNatures(statData.affecting_natures, statObject);
+            statObject.characteristics = [];
+            for (let element of statData.characteristics) {
+                statObject.characteristics.push(element.url);
+            }
+            statObject.isBattleOnly = statData.is_battle_only;
+            this.isPromiseCanceled();
+            return statObject;
+        } catch (err) {
+            // TODO: error handling
+            throw err;
+        }
+    }
+
+    _composeAffectingMoves(statData, statDataObject) {
+        statDataObject.affectingMoves = {
+            positive: [],
+            negative: []
+        };
+        for (let element of statData.increase) {
+            statDataObject.affectingMoves.positive.push({
+                name: element.move.name,
+                change: element.change
+            });
+        }
+        for (let element of statData.decrease) {
+            statDataObject.affectingMoves.negative.push({
+                name: element.move.name,
+                change: element.change
+            });
+        }
+        return statDataObject;
+    }
+
+    _composeAffectingNatures(statData, statDataObject) {
+        statDataObject.affectingNatures = {
+            positive: [],
+            negative: []
+        };
+        for (let element of statData.increase) {
+            statDataObject.affectingNatures.positive.push({
+                name: element.name
+            });
+        }
+        for (let element of statData.decrease) {
+            statDataObject.affectingNatures.negative.push({
+                name: element.name
+            });
+        }
+        return statDataObject;
     }
 
     cancelPromise() {

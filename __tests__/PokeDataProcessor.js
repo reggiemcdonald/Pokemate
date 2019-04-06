@@ -36,6 +36,7 @@ describe("Should be able to generate the data needed for a pokemon component", (
         expect(bulbasaur.varieties.length).toEqual(expectedResults.mockBulbasaurDataStructure.varieties.length);
         expect(bulbasaur.varieties).toEqual(expect.arrayContaining(expectedResults.mockBulbasaurDataStructure.varieties));
         expect(bulbasaur.evolutionChain).toEqual(expectedResults.mockBulbasaurDataStructure.evolutionChain);
+        expect(bulbasaur.baseStats).toEqual(expectedResults.mockBulbasaurDataStructure.baseStats);
 
     });
     it("Should be able to get the data for a pokemon that has a no effect", async function () {
@@ -82,3 +83,21 @@ describe("PokeDataProcessor: getSpirteUrl", ()=> {
         done();
     });
 });
+
+describe("PokeDataProcessor: getBaseStatData", () => {
+    let pokeData;
+    beforeEach(() => {
+        pokeData = new PokeDataProcessor();
+    });
+
+    it("Should be able to get the base stats of HP", async () => {
+        let result;
+        try {
+            result = await pokeData.getBaseStatData("hp");
+        } catch (err) {
+            result = err;
+        } finally {
+            expect(result).toEqual(expectedResults.baseStatsHp);
+        }
+    })
+})
