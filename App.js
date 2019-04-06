@@ -12,6 +12,7 @@ import {
     StyleSheet,
     Text,
     View,
+    ActivityIndicator,
 } from 'react-native';
 import {
     createStackNavigator,
@@ -28,18 +29,39 @@ import Ionicons from "react-native-vector-icons/Ionicons";
 
 type Props = {};
 class HomeScreen extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            loading: true
+        }
+    }
   static navigationOptions = {
       title: "Pokemate",
       headerStyle: {
           backgroundColor: "#F5FCFF"
       }
   };
+
   render() {
+      if (this.state.loading) {
+          return (
+              <View style={styles.containerCentered}>
+                  <ActivityIndicator size={"large"}/>
+                  <Text style={styles.placeholderText}>Please Wait</Text>
+              </View>
+          )
+      }
     return (
         <View style={styles.containerCentered}>
             <Text style={styles.placeholderText}>Welcome to Pokemate!</Text>
         </View>
     );
+  }
+
+  componentDidMount(): void {
+      setTimeout(()=>{
+          this.setState({loading: false})
+      }, 2000);
   }
 
 }

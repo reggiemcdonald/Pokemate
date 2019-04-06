@@ -13,15 +13,14 @@ import PokeDataManager from "../library/networking/PokeDataManager";
 import ErrorBoundary from "./ErrorBoundary";
 import PromiseInterrupt from "../library/errors/PromiseInterrupt";
 import ErrorMessages from "../library/ErrorMessages";
-import BaseStatBar from "./BaseStatBar";
 import BaseStats from "./BaseStats";
 
 /**
  * Container labels
  * @type {string}
  */
-const DOUBLE_DAMAGE_LABEL = "Double Damage From";
-const HALF_DAMAGE_LABEL = "Half Damage From";
+const DOUBLE_DAMAGE_LABEL = "Weak Against";
+const HALF_DAMAGE_LABEL = "Strong Against";
 const IMMUNE_TO = "Immune To";
 /**
  * ************************
@@ -215,13 +214,6 @@ export default class PokemonCharacterView extends React.Component{
         )
     }
 
-    /**
-     * Open the modal when the base stat is pressed?
-     * @param baseStat
-     */
-    handleBaseStatTouchPress(baseStat) {
-        // TODO: Get this working. Should this be here?
-    }
 
     /**
      * Returns true if the error is a promise interrupt

@@ -7,6 +7,7 @@ import PokeDataProcessor from "./PokeDataProcessor";
 import PromiseInterrupt from "../errors/PromiseInterrupt";
 import {StatNameFormats} from "../StringResources";
 import InvalidValue from "../errors/InvalidValue";
+import {AsyncStorage} from "react-native";
 
 export default class PokeDataManager {
     constructor(existingData?) {
