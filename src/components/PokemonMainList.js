@@ -4,13 +4,15 @@ import {
     SectionList,
     Text,
     TouchableOpacity,
-    ActivityIndicator
+    ActivityIndicator,
+    AsyncStorage
 } from 'react-native';
 import PokeDataManager from "../library/networking/PokeDataManager";
 import styles from "../library/styles";
 import ErrorMessages from "../library/ErrorMessages";
 import PromiseInterrupt from "../library/errors/PromiseInterrupt";
 import ErrorBoundary from "./ErrorBoundary";
+import {STORAGE_KEY} from "../library/StringResources";
 /**
  * ****************************************************
  * A list view of all the pokemon that can be displayed
@@ -22,7 +24,6 @@ export default class PokemonMainList extends React.Component {
         super(props);
         this.state = {
             data: [],
-            dataManager: new PokeDataManager()
         }
     }
 
@@ -111,10 +112,13 @@ export default class PokemonMainList extends React.Component {
 
     async componentDidMount() {
         try {
-            let pokemonList = await this.state.dataManager.getListOfPokemon();
+            let data = await AsyncStorage.getItem(STORAGE_KEY);
+            let manager = new PokeDataManager(JSON.parse(data));
+            let pokemonList = await manager.getListOfPokemon();
             pokemonList = this.makeListWithSectionHeaders(pokemonList);
             this.setState({
-                data: pokemonList
+                data: pokemonList,
+                dataManager: manager
             });
         } catch (err) {
             if (!this.isPromiseInterrupt(err)) {
@@ -134,7 +138,8 @@ export default class PokemonMainList extends React.Component {
      handlePress(clicked) {
         const {navigation} = this.props;
         navigation.navigate("CharacterView", {
-            name: clicked
+            name: clicked,
+            data: this.state.dataManager.createHandoff()
         });
     }
 

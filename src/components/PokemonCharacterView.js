@@ -33,7 +33,6 @@ export default class PokemonCharacterView extends React.Component{
     constructor(props) {
         super(props);
         this.state = {
-            processor: new PokeDataManager()
         }
     }
 
@@ -86,12 +85,15 @@ export default class PokemonCharacterView extends React.Component{
         const {navigation} = this.props;
         try {
             const name = navigation.getParam('name', {});
+            let loadedData = navigation.getParam('data',null);
+            let manager = new PokeDataManager(loadedData);
             // TODO: Transfer states of the pokedata managers
-            let data = await this.state.processor.getPokemonDetails(name);
-            await this.state.processor.buildBaseStatTree();
+            let data = await manager.getPokemonDetails(name);
+            await manager.buildBaseStatTree();
             this.setState({
                 name: name,
-                data: data
+                data: data,
+                processor: manager
             });
         } catch (err) {
             if (!this.isPromiseInterrupt(err)) {

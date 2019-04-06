@@ -33,3 +33,5 @@ export const baseStatDescriptions = {
     "special-defense": spDefense,
     speed: speed,
 };
+
+export const STORAGE_KEY = "cached-data";

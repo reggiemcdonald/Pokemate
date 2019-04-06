@@ -16,6 +16,7 @@ import {
     AsyncStorage,
     Alert,
 } from 'react-native';
+import {STORAGE_KEY} from "./src/library/StringResources";
 import {
     createStackNavigator,
     createBottomTabNavigator,
@@ -31,13 +32,6 @@ import Ionicons from "react-native-vector-icons/Ionicons";
 
 type Props = {};
 class HomeScreen extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            loading: true,
-            pokemonData: {}
-        }
-    }
   static navigationOptions = {
       title: "Pokemate",
       headerStyle: {
@@ -46,14 +40,6 @@ class HomeScreen extends React.Component {
   };
 
   render() {
-      if (this.state.loading) {
-          return (
-              <View style={styles.containerCentered}>
-                  <ActivityIndicator size={"large"}/>
-                  <Text style={styles.placeholderText}>Please Wait</Text>
-              </View>
-          )
-      }
     return (
         <View style={styles.containerCentered}>
             <Text style={styles.placeholderText}>Welcome to Pokemate!</Text>
@@ -61,46 +47,6 @@ class HomeScreen extends React.Component {
     );
   }
 
-  runFirstTimeSetup() {
-      // TODO: Implement
-      Alert.alert(
-          "Initial Setup",
-          "Downloading the Pokemon data will make the app run faster and allow for offline use." +
-          " Would you like to download it now?",
-          [
-              {text: "Yes", onPress: () => this.downloadData()},
-              {
-                  text: "Ask me later",
-                  style: 'cancel'
-              }
-          ],
-          {cancelable: false}
-      );
-  }
-  downloadData() {
-      // TODO: Implement
-      console.log("Download data");
-  }
-  async componentDidMount(): void {
-      try {
-          let pokemonData = await AsyncStorage.getItem("pokemonData");
-          if (pokemonData !== null) {
-              this.setState(
-                  {
-                      loading: false,
-                      pokemonData: pokemonData
-                  }
-              );
-          } else {
-              this.runFirstTimeSetup();
-              this.setState(
-                  {loading: false}
-              )
-          }
-      } catch (err) {
-          alert(err.message);
-      }
-  }
 }
 
 

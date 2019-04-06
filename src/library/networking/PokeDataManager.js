@@ -5,7 +5,7 @@
  */
 import PokeDataProcessor from "./PokeDataProcessor";
 import PromiseInterrupt from "../errors/PromiseInterrupt";
-import {StatNameFormats} from "../StringResources";
+import {StatNameFormats, STORAGE_KEY} from "../StringResources";
 import InvalidValue from "../errors/InvalidValue";
 import {AsyncStorage} from "react-native";
 
@@ -43,11 +43,10 @@ export default class PokeDataManager {
      * }
      */
     createHandoff() {
-        // TODO: implement the handoff
         return {
             pokeData: this.pokeData,
             orderedEvolutionTree: this.orderedEvolutionTree,
-            statData: this.statData
+            statData: this.statData,
         }
     }
 
@@ -67,6 +66,7 @@ export default class PokeDataManager {
                 let pokemon = await this.processor.formDefaultSpeciesData(name);
                 this.pokeData[name] = pokemon;
                 this.checkForCancellation();
+                await this._saveToDisk();
                 return pokemon;
             }
         } catch (err) {
@@ -121,6 +121,7 @@ export default class PokeDataManager {
                 let evolutionChain = await this._buildEvolutionChainHelp(evolutionData, 0);
                 this.checkForCancellation();
                 this.orderedEvolutionTree[evolutionData.species.name] = evolutionChain;
+                await this._saveToDisk();
                 return evolutionChain;
             }
         } catch (err) {
@@ -235,6 +236,14 @@ export default class PokeDataManager {
         } catch (err) {
             throw err;
         }
+    }
+
+    /**
+     * Writes the pokemon data to disk
+     * @private
+     */
+    async _saveToDisk() {
+        await AsyncStorage.setItem(STORAGE_KEY, JSON.stringify(this.createHandoff()));
     }
 
     /**
