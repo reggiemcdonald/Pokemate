@@ -3,6 +3,8 @@
 ---
 All information is from the [PokeApi](https://pokeapi.co)
 
+To run the app with the iPhone simulator, you need a Mac computer with Xcode installed. Follow the steps below:
+
 `git clone`
 
 `yarn install`
