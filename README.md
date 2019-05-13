@@ -11,6 +11,6 @@ To run the app with the iPhone simulator, you need a Mac computer with Xcode ins
 
 `react-native run-ios [--simulator="<iphone model>"]`
 
-Check out the demo below! More to come!!
+Check out the (low quality :disappointed_relieved:) demo below! More to come!!
 
 <img src="https://github.com/reggiemcdonald/Pokemate/blob/master/demo.gif" width="300" height="536"/>
