@@ -8,6 +8,8 @@ import {
 
 export default class RosterIcon extends React.Component {
     render() {
+        let uri = this.props.uri;
+        let name = this.props.name;
         return (
             <View style = {RosterIconStyles.iconView}>
                 <Image style = {RosterIconStyles.image}

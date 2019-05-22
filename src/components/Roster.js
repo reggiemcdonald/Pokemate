@@ -1,9 +1,9 @@
 import React from "react";
 import {
     View,
-    Text
+    Text,
+    StyleSheet
 } from "react-native";
-import styles from "../library/styles";
 import {navigation} from "react-navigation";
 import RosterIcon from "./RosterIcon";
 
@@ -18,17 +18,23 @@ export default class Roster extends React.Component {
     };
     render() {
         return (
-            <View>
-                <Text>Placeholder text</Text>
-                <RosterIcon props = {
-                    {
-                        uri: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/25.png",
-                        name: "Pikachu"
-                    }
-                }
+            <View style = {RosterStyleSheet.iconRibbon}>
+                <RosterIcon
+                    name = {"Pikachu"}
+                    uri = {"https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/25.png"}
                 />
                 <RosterIcon
+                    name = {"Bulbasaur"}
+                    uri = {"https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/1.png"}
+                />
+
             </View>
         );
     }
 }
+
+const RosterStyleSheet = StyleSheet.create({
+    iconRibbon: {
+        flexDirection: "row"
+    }
+})
