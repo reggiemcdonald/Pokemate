@@ -8,13 +8,13 @@ import {
 
 export default class RosterIcon extends React.Component {
     render() {
-        let uri = this.props.uri;
-        let name = this.props.name;
         return (
             <View style = {RosterIconStyles.iconView}>
-                <Image style = {RosterIconStyles.image}
-                    source={{uri: this.props.uri}}
-                />
+                <View style={RosterIconStyles.imageContainer}>
+                    <Image style = {RosterIconStyles.image}
+                        source={{uri: this.props.uri}}
+                    />
+                </View>
                 <Text style={RosterIconStyles.text}>{this.props.name}</Text>
             </View>
         )
@@ -25,14 +25,30 @@ const RosterIconStyles = StyleSheet.create(
     {
         iconView: {
             alignContent: "center",
+            justifyContent: "center",
         },
         image : {
-            width: 100,
-            height: 100
+            width: 75,
+            height: 75,
+            transform: [
+                {
+                    scaleX: 1.5
+                },
+                {
+                    scaleY: 1.5
+                }
+            ]
         },
         text: {
             margin: 0,
-            padding: 0
+            padding: 0,
+            textAlign: "center"
+        },
+        imageContainer: {
+            borderColor: "#c6c6c6",
+            borderRadius: 75/2,
+            borderWidth:1,
+            overflow: "hidden"
         }
     }
 );
