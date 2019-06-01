@@ -25,14 +25,14 @@ import Roster from "./src/components/Roster";
 import styles from "./src/library/styles";
 import Ionicons from "react-native-vector-icons/Ionicons";
 
-//
 
 type Props = {};
 class HomeScreen extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            loading: true
+            loading: true,
+            realm: null
         }
     }
   static navigationOptions = {
@@ -59,9 +59,7 @@ class HomeScreen extends React.Component {
   }
 
   componentDidMount(): void {
-      setTimeout(()=>{
-          this.setState({loading: false})
-      }, 2000);
+      this.setState({loading: false});
   }
 
 }

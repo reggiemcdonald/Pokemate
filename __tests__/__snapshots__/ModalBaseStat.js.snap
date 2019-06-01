@@ -1,0 +1,2397 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ModalBaseStat: render Should render a novel base stats data structure without error 1`] = `
+<View
+  style={
+    Object {
+      "flex": 1,
+    }
+  }
+>
+  <View
+    style={
+      Object {
+        "alignItems": "flex-start",
+        "borderBottomColor": "#c4c4c4",
+        "borderBottomWidth": 1,
+        "borderStyle": "solid",
+        "flexDirection": "row",
+        "marginTop": 30,
+        "paddingLeft": 10,
+        "paddingRight": 10,
+      }
+    }
+  >
+    <Text
+      style={
+        Array [
+          Object {
+            "fontSize": 30,
+            "fontWeight": "bold",
+          },
+          Object {
+            "flex": 1,
+          },
+        ]
+      }
+      testID="testIdName"
+    >
+      Defense
+    </Text>
+    <View
+      accessible={true}
+      isTVSelectable={true}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
+      style={
+        Object {
+          "opacity": 1,
+        }
+      }
+    >
+      <Text
+        style={
+          Object {
+            "color": "#007aff",
+            "fontSize": 18,
+          }
+        }
+      >
+        Close
+      </Text>
+    </View>
+  </View>
+  <View
+    style={
+      Object {
+        "padding": 5,
+      }
+    }
+  >
+    <Text
+      style={
+        Object {
+          "fontSize": 16,
+          "fontStyle": "italic",
+          "margin": 5,
+        }
+      }
+    >
+      Defense plays a role in determining the amount of damage sustained by a Pokemon following a physical attack.
+    </Text>
+    <Text
+      style={
+        Object {
+          "color": "#929292",
+          "fontSize": 10,
+          "textAlign": "right",
+        }
+      }
+    >
+      Adapted from Bulbapedia
+    </Text>
+    <View
+      style={
+        Object {
+          "alignItems": "flex-start",
+          "flexDirection": "row",
+        }
+      }
+    >
+      <View
+        style={
+          Object {
+            "flex": 1,
+            "marginBottom": 10,
+            "marginLeft": 5,
+            "marginRight": 5,
+          }
+        }
+      >
+        <Text
+          style={
+            Object {
+              "fontSize": 16,
+              "fontWeight": "bold",
+              "marginTop": 10,
+              "textAlign": "center",
+            }
+          }
+        >
+          Moves: Positive
+        </Text>
+        <RCTScrollView
+          data={
+            Array [
+              Object {
+                "change": 2,
+                "name": "acid-armor",
+              },
+              Object {
+                "change": 1,
+                "name": "ancient-power",
+              },
+              Object {
+                "change": 2,
+                "name": "barrier",
+              },
+              Object {
+                "change": 1,
+                "name": "bulk-up",
+              },
+              Object {
+                "change": 1,
+                "name": "coil",
+              },
+              Object {
+                "change": 1,
+                "name": "cosmic-power",
+              },
+              Object {
+                "change": 3,
+                "name": "cotton-guard",
+              },
+              Object {
+                "change": 1,
+                "name": "defend-order",
+              },
+              Object {
+                "change": 1,
+                "name": "defense-curl",
+              },
+              Object {
+                "change": 1,
+                "name": "diamond-storm",
+              },
+              Object {
+                "change": 1,
+                "name": "flower-shield",
+              },
+              Object {
+                "change": 1,
+                "name": "harden",
+              },
+              Object {
+                "change": 2,
+                "name": "iron-defense",
+              },
+              Object {
+                "change": 1,
+                "name": "magnetic-flux",
+              },
+              Object {
+                "change": 1,
+                "name": "ominous-wind",
+              },
+              Object {
+                "change": 1,
+                "name": "silver-wind",
+              },
+              Object {
+                "change": 1,
+                "name": "steel-wing",
+              },
+              Object {
+                "change": 1,
+                "name": "withdraw",
+              },
+            ]
+          }
+          disableVirtualization={false}
+          getItem={[Function]}
+          getItemCount={[Function]}
+          horizontal={false}
+          initialNumToRender={15}
+          keyExtractor={[Function]}
+          maxToRenderPerBatch={10}
+          numColumns={1}
+          onContentSizeChange={[Function]}
+          onEndReachedThreshold={2}
+          onLayout={[Function]}
+          onMomentumScrollEnd={[Function]}
+          onScroll={[Function]}
+          onScrollBeginDrag={[Function]}
+          onScrollEndDrag={[Function]}
+          renderItem={[Function]}
+          scrollEventThrottle={50}
+          stickyHeaderIndices={Array []}
+          style={
+            Object {
+              "borderColor": "black",
+              "borderRadius": 10,
+              "borderWidth": 2,
+              "maxHeight": 300,
+            }
+          }
+          testId="testIdMovesPositive,"
+          updateCellsBatchingPeriod={50}
+          viewabilityConfigCallbackPairs={Array []}
+          windowSize={21}
+        >
+          <View>
+            <View
+              onLayout={[Function]}
+              style={null}
+            >
+              <View
+                style={
+                  Array [
+                    Object {
+                      "alignItems": "flex-start",
+                      "flexDirection": "row",
+                    },
+                    Object {
+                      "backgroundColor": "#ffffff",
+                    },
+                  ]
+                }
+              >
+                <Text
+                  style={
+                    Array [
+                      Object {
+                        "flex": 1,
+                      },
+                      Object {
+                        "fontSize": 16,
+                        "marginLeft": 5,
+                        "marginRight": 5,
+                        "marginTop": 5,
+                      },
+                    ]
+                  }
+                >
+                  Acid Armor
+                </Text>
+                <Text
+                  style={
+                    Object {
+                      "fontSize": 16,
+                      "marginLeft": 5,
+                      "marginRight": 5,
+                      "marginTop": 5,
+                    }
+                  }
+                >
+                  +2
+                </Text>
+              </View>
+            </View>
+            <View
+              onLayout={[Function]}
+              style={null}
+            >
+              <View
+                style={
+                  Array [
+                    Object {
+                      "alignItems": "flex-start",
+                      "flexDirection": "row",
+                    },
+                    Object {
+                      "backgroundColor": "#e6f2ff",
+                    },
+                  ]
+                }
+              >
+                <Text
+                  style={
+                    Array [
+                      Object {
+                        "flex": 1,
+                      },
+                      Object {
+                        "fontSize": 16,
+                        "marginLeft": 5,
+                        "marginRight": 5,
+                        "marginTop": 5,
+                      },
+                    ]
+                  }
+                >
+                  Ancient Power
+                </Text>
+                <Text
+                  style={
+                    Object {
+                      "fontSize": 16,
+                      "marginLeft": 5,
+                      "marginRight": 5,
+                      "marginTop": 5,
+                    }
+                  }
+                >
+                  +1
+                </Text>
+              </View>
+            </View>
+            <View
+              onLayout={[Function]}
+              style={null}
+            >
+              <View
+                style={
+                  Array [
+                    Object {
+                      "alignItems": "flex-start",
+                      "flexDirection": "row",
+                    },
+                    Object {
+                      "backgroundColor": "#ffffff",
+                    },
+                  ]
+                }
+              >
+                <Text
+                  style={
+                    Array [
+                      Object {
+                        "flex": 1,
+                      },
+                      Object {
+                        "fontSize": 16,
+                        "marginLeft": 5,
+                        "marginRight": 5,
+                        "marginTop": 5,
+                      },
+                    ]
+                  }
+                >
+                  Barrier
+                </Text>
+                <Text
+                  style={
+                    Object {
+                      "fontSize": 16,
+                      "marginLeft": 5,
+                      "marginRight": 5,
+                      "marginTop": 5,
+                    }
+                  }
+                >
+                  +2
+                </Text>
+              </View>
+            </View>
+            <View
+              onLayout={[Function]}
+              style={null}
+            >
+              <View
+                style={
+                  Array [
+                    Object {
+                      "alignItems": "flex-start",
+                      "flexDirection": "row",
+                    },
+                    Object {
+                      "backgroundColor": "#e6f2ff",
+                    },
+                  ]
+                }
+              >
+                <Text
+                  style={
+                    Array [
+                      Object {
+                        "flex": 1,
+                      },
+                      Object {
+                        "fontSize": 16,
+                        "marginLeft": 5,
+                        "marginRight": 5,
+                        "marginTop": 5,
+                      },
+                    ]
+                  }
+                >
+                  Bulk Up
+                </Text>
+                <Text
+                  style={
+                    Object {
+                      "fontSize": 16,
+                      "marginLeft": 5,
+                      "marginRight": 5,
+                      "marginTop": 5,
+                    }
+                  }
+                >
+                  +1
+                </Text>
+              </View>
+            </View>
+            <View
+              onLayout={[Function]}
+              style={null}
+            >
+              <View
+                style={
+                  Array [
+                    Object {
+                      "alignItems": "flex-start",
+                      "flexDirection": "row",
+                    },
+                    Object {
+                      "backgroundColor": "#ffffff",
+                    },
+                  ]
+                }
+              >
+                <Text
+                  style={
+                    Array [
+                      Object {
+                        "flex": 1,
+                      },
+                      Object {
+                        "fontSize": 16,
+                        "marginLeft": 5,
+                        "marginRight": 5,
+                        "marginTop": 5,
+                      },
+                    ]
+                  }
+                >
+                  Coil
+                </Text>
+                <Text
+                  style={
+                    Object {
+                      "fontSize": 16,
+                      "marginLeft": 5,
+                      "marginRight": 5,
+                      "marginTop": 5,
+                    }
+                  }
+                >
+                  +1
+                </Text>
+              </View>
+            </View>
+            <View
+              onLayout={[Function]}
+              style={null}
+            >
+              <View
+                style={
+                  Array [
+                    Object {
+                      "alignItems": "flex-start",
+                      "flexDirection": "row",
+                    },
+                    Object {
+                      "backgroundColor": "#e6f2ff",
+                    },
+                  ]
+                }
+              >
+                <Text
+                  style={
+                    Array [
+                      Object {
+                        "flex": 1,
+                      },
+                      Object {
+                        "fontSize": 16,
+                        "marginLeft": 5,
+                        "marginRight": 5,
+                        "marginTop": 5,
+                      },
+                    ]
+                  }
+                >
+                  Cosmic Power
+                </Text>
+                <Text
+                  style={
+                    Object {
+                      "fontSize": 16,
+                      "marginLeft": 5,
+                      "marginRight": 5,
+                      "marginTop": 5,
+                    }
+                  }
+                >
+                  +1
+                </Text>
+              </View>
+            </View>
+            <View
+              onLayout={[Function]}
+              style={null}
+            >
+              <View
+                style={
+                  Array [
+                    Object {
+                      "alignItems": "flex-start",
+                      "flexDirection": "row",
+                    },
+                    Object {
+                      "backgroundColor": "#ffffff",
+                    },
+                  ]
+                }
+              >
+                <Text
+                  style={
+                    Array [
+                      Object {
+                        "flex": 1,
+                      },
+                      Object {
+                        "fontSize": 16,
+                        "marginLeft": 5,
+                        "marginRight": 5,
+                        "marginTop": 5,
+                      },
+                    ]
+                  }
+                >
+                  Cotton Guard
+                </Text>
+                <Text
+                  style={
+                    Object {
+                      "fontSize": 16,
+                      "marginLeft": 5,
+                      "marginRight": 5,
+                      "marginTop": 5,
+                    }
+                  }
+                >
+                  +3
+                </Text>
+              </View>
+            </View>
+            <View
+              onLayout={[Function]}
+              style={null}
+            >
+              <View
+                style={
+                  Array [
+                    Object {
+                      "alignItems": "flex-start",
+                      "flexDirection": "row",
+                    },
+                    Object {
+                      "backgroundColor": "#e6f2ff",
+                    },
+                  ]
+                }
+              >
+                <Text
+                  style={
+                    Array [
+                      Object {
+                        "flex": 1,
+                      },
+                      Object {
+                        "fontSize": 16,
+                        "marginLeft": 5,
+                        "marginRight": 5,
+                        "marginTop": 5,
+                      },
+                    ]
+                  }
+                >
+                  Defend Order
+                </Text>
+                <Text
+                  style={
+                    Object {
+                      "fontSize": 16,
+                      "marginLeft": 5,
+                      "marginRight": 5,
+                      "marginTop": 5,
+                    }
+                  }
+                >
+                  +1
+                </Text>
+              </View>
+            </View>
+            <View
+              onLayout={[Function]}
+              style={null}
+            >
+              <View
+                style={
+                  Array [
+                    Object {
+                      "alignItems": "flex-start",
+                      "flexDirection": "row",
+                    },
+                    Object {
+                      "backgroundColor": "#ffffff",
+                    },
+                  ]
+                }
+              >
+                <Text
+                  style={
+                    Array [
+                      Object {
+                        "flex": 1,
+                      },
+                      Object {
+                        "fontSize": 16,
+                        "marginLeft": 5,
+                        "marginRight": 5,
+                        "marginTop": 5,
+                      },
+                    ]
+                  }
+                >
+                  Defense Curl
+                </Text>
+                <Text
+                  style={
+                    Object {
+                      "fontSize": 16,
+                      "marginLeft": 5,
+                      "marginRight": 5,
+                      "marginTop": 5,
+                    }
+                  }
+                >
+                  +1
+                </Text>
+              </View>
+            </View>
+            <View
+              onLayout={[Function]}
+              style={null}
+            >
+              <View
+                style={
+                  Array [
+                    Object {
+                      "alignItems": "flex-start",
+                      "flexDirection": "row",
+                    },
+                    Object {
+                      "backgroundColor": "#e6f2ff",
+                    },
+                  ]
+                }
+              >
+                <Text
+                  style={
+                    Array [
+                      Object {
+                        "flex": 1,
+                      },
+                      Object {
+                        "fontSize": 16,
+                        "marginLeft": 5,
+                        "marginRight": 5,
+                        "marginTop": 5,
+                      },
+                    ]
+                  }
+                >
+                  Diamond Storm
+                </Text>
+                <Text
+                  style={
+                    Object {
+                      "fontSize": 16,
+                      "marginLeft": 5,
+                      "marginRight": 5,
+                      "marginTop": 5,
+                    }
+                  }
+                >
+                  +1
+                </Text>
+              </View>
+            </View>
+            <View
+              onLayout={[Function]}
+              style={null}
+            >
+              <View
+                style={
+                  Array [
+                    Object {
+                      "alignItems": "flex-start",
+                      "flexDirection": "row",
+                    },
+                    Object {
+                      "backgroundColor": "#ffffff",
+                    },
+                  ]
+                }
+              >
+                <Text
+                  style={
+                    Array [
+                      Object {
+                        "flex": 1,
+                      },
+                      Object {
+                        "fontSize": 16,
+                        "marginLeft": 5,
+                        "marginRight": 5,
+                        "marginTop": 5,
+                      },
+                    ]
+                  }
+                >
+                  Flower Shield
+                </Text>
+                <Text
+                  style={
+                    Object {
+                      "fontSize": 16,
+                      "marginLeft": 5,
+                      "marginRight": 5,
+                      "marginTop": 5,
+                    }
+                  }
+                >
+                  +1
+                </Text>
+              </View>
+            </View>
+            <View
+              onLayout={[Function]}
+              style={null}
+            >
+              <View
+                style={
+                  Array [
+                    Object {
+                      "alignItems": "flex-start",
+                      "flexDirection": "row",
+                    },
+                    Object {
+                      "backgroundColor": "#e6f2ff",
+                    },
+                  ]
+                }
+              >
+                <Text
+                  style={
+                    Array [
+                      Object {
+                        "flex": 1,
+                      },
+                      Object {
+                        "fontSize": 16,
+                        "marginLeft": 5,
+                        "marginRight": 5,
+                        "marginTop": 5,
+                      },
+                    ]
+                  }
+                >
+                  Harden
+                </Text>
+                <Text
+                  style={
+                    Object {
+                      "fontSize": 16,
+                      "marginLeft": 5,
+                      "marginRight": 5,
+                      "marginTop": 5,
+                    }
+                  }
+                >
+                  +1
+                </Text>
+              </View>
+            </View>
+            <View
+              onLayout={[Function]}
+              style={null}
+            >
+              <View
+                style={
+                  Array [
+                    Object {
+                      "alignItems": "flex-start",
+                      "flexDirection": "row",
+                    },
+                    Object {
+                      "backgroundColor": "#ffffff",
+                    },
+                  ]
+                }
+              >
+                <Text
+                  style={
+                    Array [
+                      Object {
+                        "flex": 1,
+                      },
+                      Object {
+                        "fontSize": 16,
+                        "marginLeft": 5,
+                        "marginRight": 5,
+                        "marginTop": 5,
+                      },
+                    ]
+                  }
+                >
+                  Iron Defense
+                </Text>
+                <Text
+                  style={
+                    Object {
+                      "fontSize": 16,
+                      "marginLeft": 5,
+                      "marginRight": 5,
+                      "marginTop": 5,
+                    }
+                  }
+                >
+                  +2
+                </Text>
+              </View>
+            </View>
+            <View
+              onLayout={[Function]}
+              style={null}
+            >
+              <View
+                style={
+                  Array [
+                    Object {
+                      "alignItems": "flex-start",
+                      "flexDirection": "row",
+                    },
+                    Object {
+                      "backgroundColor": "#e6f2ff",
+                    },
+                  ]
+                }
+              >
+                <Text
+                  style={
+                    Array [
+                      Object {
+                        "flex": 1,
+                      },
+                      Object {
+                        "fontSize": 16,
+                        "marginLeft": 5,
+                        "marginRight": 5,
+                        "marginTop": 5,
+                      },
+                    ]
+                  }
+                >
+                  Magnetic Flux
+                </Text>
+                <Text
+                  style={
+                    Object {
+                      "fontSize": 16,
+                      "marginLeft": 5,
+                      "marginRight": 5,
+                      "marginTop": 5,
+                    }
+                  }
+                >
+                  +1
+                </Text>
+              </View>
+            </View>
+            <View
+              onLayout={[Function]}
+              style={null}
+            >
+              <View
+                style={
+                  Array [
+                    Object {
+                      "alignItems": "flex-start",
+                      "flexDirection": "row",
+                    },
+                    Object {
+                      "backgroundColor": "#ffffff",
+                    },
+                  ]
+                }
+              >
+                <Text
+                  style={
+                    Array [
+                      Object {
+                        "flex": 1,
+                      },
+                      Object {
+                        "fontSize": 16,
+                        "marginLeft": 5,
+                        "marginRight": 5,
+                        "marginTop": 5,
+                      },
+                    ]
+                  }
+                >
+                  Ominous Wind
+                </Text>
+                <Text
+                  style={
+                    Object {
+                      "fontSize": 16,
+                      "marginLeft": 5,
+                      "marginRight": 5,
+                      "marginTop": 5,
+                    }
+                  }
+                >
+                  +1
+                </Text>
+              </View>
+            </View>
+            <View
+              style={
+                Object {
+                  "height": 0,
+                }
+              }
+            />
+          </View>
+        </RCTScrollView>
+      </View>
+      <View
+        style={
+          Object {
+            "flex": 1,
+            "marginBottom": 10,
+            "marginLeft": 5,
+            "marginRight": 5,
+          }
+        }
+      >
+        <Text
+          style={
+            Object {
+              "fontSize": 16,
+              "fontWeight": "bold",
+              "marginTop": 10,
+              "textAlign": "center",
+            }
+          }
+        >
+          Moves: Negative
+        </Text>
+        <RCTScrollView
+          data={
+            Array [
+              Object {
+                "change": -1,
+                "name": "close-combat",
+              },
+              Object {
+                "change": -1,
+                "name": "crunch",
+              },
+              Object {
+                "change": -1,
+                "name": "crush-claw",
+              },
+              Object {
+                "change": -1,
+                "name": "iron-tail",
+              },
+              Object {
+                "change": -1,
+                "name": "leer",
+              },
+              Object {
+                "change": -1,
+                "name": "razor-shell",
+              },
+              Object {
+                "change": -1,
+                "name": "rock-smash",
+              },
+              Object {
+                "change": -2,
+                "name": "screech",
+              },
+              Object {
+                "change": -1,
+                "name": "superpower",
+              },
+              Object {
+                "change": -1,
+                "name": "tail-whip",
+              },
+              Object {
+                "change": -1,
+                "name": "tickle",
+              },
+              Object {
+                "change": -1,
+                "name": "v-create",
+              },
+            ]
+          }
+          disableVirtualization={false}
+          getItem={[Function]}
+          getItemCount={[Function]}
+          horizontal={false}
+          initialNumToRender={15}
+          keyExtractor={[Function]}
+          maxToRenderPerBatch={10}
+          numColumns={1}
+          onContentSizeChange={[Function]}
+          onEndReachedThreshold={2}
+          onLayout={[Function]}
+          onMomentumScrollEnd={[Function]}
+          onScroll={[Function]}
+          onScrollBeginDrag={[Function]}
+          onScrollEndDrag={[Function]}
+          renderItem={[Function]}
+          scrollEventThrottle={50}
+          stickyHeaderIndices={Array []}
+          style={
+            Object {
+              "borderColor": "black",
+              "borderRadius": 10,
+              "borderWidth": 2,
+              "maxHeight": 300,
+            }
+          }
+          testId="testIdMovesNegative"
+          updateCellsBatchingPeriod={50}
+          viewabilityConfigCallbackPairs={Array []}
+          windowSize={21}
+        >
+          <View>
+            <View
+              onLayout={[Function]}
+              style={null}
+            >
+              <View
+                style={
+                  Array [
+                    Object {
+                      "alignItems": "flex-start",
+                      "flexDirection": "row",
+                    },
+                    Object {
+                      "backgroundColor": "#ffffff",
+                    },
+                  ]
+                }
+              >
+                <Text
+                  style={
+                    Array [
+                      Object {
+                        "flex": 1,
+                      },
+                      Object {
+                        "fontSize": 16,
+                        "marginLeft": 5,
+                        "marginRight": 5,
+                        "marginTop": 5,
+                      },
+                    ]
+                  }
+                >
+                  Close Combat
+                </Text>
+                <Text
+                  style={
+                    Object {
+                      "fontSize": 16,
+                      "marginLeft": 5,
+                      "marginRight": 5,
+                      "marginTop": 5,
+                    }
+                  }
+                >
+                  -1
+                </Text>
+              </View>
+            </View>
+            <View
+              onLayout={[Function]}
+              style={null}
+            >
+              <View
+                style={
+                  Array [
+                    Object {
+                      "alignItems": "flex-start",
+                      "flexDirection": "row",
+                    },
+                    Object {
+                      "backgroundColor": "#e6f2ff",
+                    },
+                  ]
+                }
+              >
+                <Text
+                  style={
+                    Array [
+                      Object {
+                        "flex": 1,
+                      },
+                      Object {
+                        "fontSize": 16,
+                        "marginLeft": 5,
+                        "marginRight": 5,
+                        "marginTop": 5,
+                      },
+                    ]
+                  }
+                >
+                  Crunch
+                </Text>
+                <Text
+                  style={
+                    Object {
+                      "fontSize": 16,
+                      "marginLeft": 5,
+                      "marginRight": 5,
+                      "marginTop": 5,
+                    }
+                  }
+                >
+                  -1
+                </Text>
+              </View>
+            </View>
+            <View
+              onLayout={[Function]}
+              style={null}
+            >
+              <View
+                style={
+                  Array [
+                    Object {
+                      "alignItems": "flex-start",
+                      "flexDirection": "row",
+                    },
+                    Object {
+                      "backgroundColor": "#ffffff",
+                    },
+                  ]
+                }
+              >
+                <Text
+                  style={
+                    Array [
+                      Object {
+                        "flex": 1,
+                      },
+                      Object {
+                        "fontSize": 16,
+                        "marginLeft": 5,
+                        "marginRight": 5,
+                        "marginTop": 5,
+                      },
+                    ]
+                  }
+                >
+                  Crush Claw
+                </Text>
+                <Text
+                  style={
+                    Object {
+                      "fontSize": 16,
+                      "marginLeft": 5,
+                      "marginRight": 5,
+                      "marginTop": 5,
+                    }
+                  }
+                >
+                  -1
+                </Text>
+              </View>
+            </View>
+            <View
+              onLayout={[Function]}
+              style={null}
+            >
+              <View
+                style={
+                  Array [
+                    Object {
+                      "alignItems": "flex-start",
+                      "flexDirection": "row",
+                    },
+                    Object {
+                      "backgroundColor": "#e6f2ff",
+                    },
+                  ]
+                }
+              >
+                <Text
+                  style={
+                    Array [
+                      Object {
+                        "flex": 1,
+                      },
+                      Object {
+                        "fontSize": 16,
+                        "marginLeft": 5,
+                        "marginRight": 5,
+                        "marginTop": 5,
+                      },
+                    ]
+                  }
+                >
+                  Iron Tail
+                </Text>
+                <Text
+                  style={
+                    Object {
+                      "fontSize": 16,
+                      "marginLeft": 5,
+                      "marginRight": 5,
+                      "marginTop": 5,
+                    }
+                  }
+                >
+                  -1
+                </Text>
+              </View>
+            </View>
+            <View
+              onLayout={[Function]}
+              style={null}
+            >
+              <View
+                style={
+                  Array [
+                    Object {
+                      "alignItems": "flex-start",
+                      "flexDirection": "row",
+                    },
+                    Object {
+                      "backgroundColor": "#ffffff",
+                    },
+                  ]
+                }
+              >
+                <Text
+                  style={
+                    Array [
+                      Object {
+                        "flex": 1,
+                      },
+                      Object {
+                        "fontSize": 16,
+                        "marginLeft": 5,
+                        "marginRight": 5,
+                        "marginTop": 5,
+                      },
+                    ]
+                  }
+                >
+                  Leer
+                </Text>
+                <Text
+                  style={
+                    Object {
+                      "fontSize": 16,
+                      "marginLeft": 5,
+                      "marginRight": 5,
+                      "marginTop": 5,
+                    }
+                  }
+                >
+                  -1
+                </Text>
+              </View>
+            </View>
+            <View
+              onLayout={[Function]}
+              style={null}
+            >
+              <View
+                style={
+                  Array [
+                    Object {
+                      "alignItems": "flex-start",
+                      "flexDirection": "row",
+                    },
+                    Object {
+                      "backgroundColor": "#e6f2ff",
+                    },
+                  ]
+                }
+              >
+                <Text
+                  style={
+                    Array [
+                      Object {
+                        "flex": 1,
+                      },
+                      Object {
+                        "fontSize": 16,
+                        "marginLeft": 5,
+                        "marginRight": 5,
+                        "marginTop": 5,
+                      },
+                    ]
+                  }
+                >
+                  Razor Shell
+                </Text>
+                <Text
+                  style={
+                    Object {
+                      "fontSize": 16,
+                      "marginLeft": 5,
+                      "marginRight": 5,
+                      "marginTop": 5,
+                    }
+                  }
+                >
+                  -1
+                </Text>
+              </View>
+            </View>
+            <View
+              onLayout={[Function]}
+              style={null}
+            >
+              <View
+                style={
+                  Array [
+                    Object {
+                      "alignItems": "flex-start",
+                      "flexDirection": "row",
+                    },
+                    Object {
+                      "backgroundColor": "#ffffff",
+                    },
+                  ]
+                }
+              >
+                <Text
+                  style={
+                    Array [
+                      Object {
+                        "flex": 1,
+                      },
+                      Object {
+                        "fontSize": 16,
+                        "marginLeft": 5,
+                        "marginRight": 5,
+                        "marginTop": 5,
+                      },
+                    ]
+                  }
+                >
+                  Rock Smash
+                </Text>
+                <Text
+                  style={
+                    Object {
+                      "fontSize": 16,
+                      "marginLeft": 5,
+                      "marginRight": 5,
+                      "marginTop": 5,
+                    }
+                  }
+                >
+                  -1
+                </Text>
+              </View>
+            </View>
+            <View
+              onLayout={[Function]}
+              style={null}
+            >
+              <View
+                style={
+                  Array [
+                    Object {
+                      "alignItems": "flex-start",
+                      "flexDirection": "row",
+                    },
+                    Object {
+                      "backgroundColor": "#e6f2ff",
+                    },
+                  ]
+                }
+              >
+                <Text
+                  style={
+                    Array [
+                      Object {
+                        "flex": 1,
+                      },
+                      Object {
+                        "fontSize": 16,
+                        "marginLeft": 5,
+                        "marginRight": 5,
+                        "marginTop": 5,
+                      },
+                    ]
+                  }
+                >
+                  Screech
+                </Text>
+                <Text
+                  style={
+                    Object {
+                      "fontSize": 16,
+                      "marginLeft": 5,
+                      "marginRight": 5,
+                      "marginTop": 5,
+                    }
+                  }
+                >
+                  -2
+                </Text>
+              </View>
+            </View>
+            <View
+              onLayout={[Function]}
+              style={null}
+            >
+              <View
+                style={
+                  Array [
+                    Object {
+                      "alignItems": "flex-start",
+                      "flexDirection": "row",
+                    },
+                    Object {
+                      "backgroundColor": "#ffffff",
+                    },
+                  ]
+                }
+              >
+                <Text
+                  style={
+                    Array [
+                      Object {
+                        "flex": 1,
+                      },
+                      Object {
+                        "fontSize": 16,
+                        "marginLeft": 5,
+                        "marginRight": 5,
+                        "marginTop": 5,
+                      },
+                    ]
+                  }
+                >
+                  Superpower
+                </Text>
+                <Text
+                  style={
+                    Object {
+                      "fontSize": 16,
+                      "marginLeft": 5,
+                      "marginRight": 5,
+                      "marginTop": 5,
+                    }
+                  }
+                >
+                  -1
+                </Text>
+              </View>
+            </View>
+            <View
+              onLayout={[Function]}
+              style={null}
+            >
+              <View
+                style={
+                  Array [
+                    Object {
+                      "alignItems": "flex-start",
+                      "flexDirection": "row",
+                    },
+                    Object {
+                      "backgroundColor": "#e6f2ff",
+                    },
+                  ]
+                }
+              >
+                <Text
+                  style={
+                    Array [
+                      Object {
+                        "flex": 1,
+                      },
+                      Object {
+                        "fontSize": 16,
+                        "marginLeft": 5,
+                        "marginRight": 5,
+                        "marginTop": 5,
+                      },
+                    ]
+                  }
+                >
+                  Tail Whip
+                </Text>
+                <Text
+                  style={
+                    Object {
+                      "fontSize": 16,
+                      "marginLeft": 5,
+                      "marginRight": 5,
+                      "marginTop": 5,
+                    }
+                  }
+                >
+                  -1
+                </Text>
+              </View>
+            </View>
+            <View
+              onLayout={[Function]}
+              style={null}
+            >
+              <View
+                style={
+                  Array [
+                    Object {
+                      "alignItems": "flex-start",
+                      "flexDirection": "row",
+                    },
+                    Object {
+                      "backgroundColor": "#ffffff",
+                    },
+                  ]
+                }
+              >
+                <Text
+                  style={
+                    Array [
+                      Object {
+                        "flex": 1,
+                      },
+                      Object {
+                        "fontSize": 16,
+                        "marginLeft": 5,
+                        "marginRight": 5,
+                        "marginTop": 5,
+                      },
+                    ]
+                  }
+                >
+                  Tickle
+                </Text>
+                <Text
+                  style={
+                    Object {
+                      "fontSize": 16,
+                      "marginLeft": 5,
+                      "marginRight": 5,
+                      "marginTop": 5,
+                    }
+                  }
+                >
+                  -1
+                </Text>
+              </View>
+            </View>
+            <View
+              onLayout={[Function]}
+              style={null}
+            >
+              <View
+                style={
+                  Array [
+                    Object {
+                      "alignItems": "flex-start",
+                      "flexDirection": "row",
+                    },
+                    Object {
+                      "backgroundColor": "#e6f2ff",
+                    },
+                  ]
+                }
+              >
+                <Text
+                  style={
+                    Array [
+                      Object {
+                        "flex": 1,
+                      },
+                      Object {
+                        "fontSize": 16,
+                        "marginLeft": 5,
+                        "marginRight": 5,
+                        "marginTop": 5,
+                      },
+                    ]
+                  }
+                >
+                  V Create
+                </Text>
+                <Text
+                  style={
+                    Object {
+                      "fontSize": 16,
+                      "marginLeft": 5,
+                      "marginRight": 5,
+                      "marginTop": 5,
+                    }
+                  }
+                >
+                  -1
+                </Text>
+              </View>
+            </View>
+          </View>
+        </RCTScrollView>
+      </View>
+    </View>
+    <View
+      style={
+        Object {
+          "alignItems": "flex-start",
+          "flexDirection": "row",
+        }
+      }
+    >
+      <View
+        style={
+          Object {
+            "flex": 1,
+            "marginBottom": 10,
+            "marginLeft": 5,
+            "marginRight": 5,
+          }
+        }
+      >
+        <Text
+          style={
+            Object {
+              "fontSize": 16,
+              "fontWeight": "bold",
+              "marginTop": 10,
+              "textAlign": "center",
+            }
+          }
+        >
+          Natures: Positive
+        </Text>
+        <RCTScrollView
+          data={
+            Array [
+              Object {
+                "name": "bold",
+              },
+              Object {
+                "name": "impish",
+              },
+              Object {
+                "name": "lax",
+              },
+              Object {
+                "name": "relaxed",
+              },
+            ]
+          }
+          disableVirtualization={false}
+          getItem={[Function]}
+          getItemCount={[Function]}
+          horizontal={false}
+          initialNumToRender={15}
+          keyExtractor={[Function]}
+          maxToRenderPerBatch={10}
+          numColumns={1}
+          onContentSizeChange={[Function]}
+          onEndReachedThreshold={2}
+          onLayout={[Function]}
+          onMomentumScrollEnd={[Function]}
+          onScroll={[Function]}
+          onScrollBeginDrag={[Function]}
+          onScrollEndDrag={[Function]}
+          renderItem={[Function]}
+          scrollEventThrottle={50}
+          stickyHeaderIndices={Array []}
+          style={
+            Object {
+              "borderColor": "black",
+              "borderRadius": 10,
+              "borderWidth": 2,
+              "maxHeight": 300,
+            }
+          }
+          testId="testIdNaturesPositive"
+          updateCellsBatchingPeriod={50}
+          viewabilityConfigCallbackPairs={Array []}
+          windowSize={21}
+        >
+          <View>
+            <View
+              onLayout={[Function]}
+              style={null}
+            >
+              <View
+                style={
+                  Array [
+                    Object {
+                      "alignItems": "flex-start",
+                      "flexDirection": "row",
+                    },
+                    Object {
+                      "backgroundColor": "#ffffff",
+                    },
+                  ]
+                }
+              >
+                <Text
+                  style={
+                    Object {
+                      "fontSize": 16,
+                      "marginLeft": 5,
+                      "marginRight": 5,
+                      "marginTop": 5,
+                    }
+                  }
+                >
+                  Bold
+                </Text>
+              </View>
+            </View>
+            <View
+              onLayout={[Function]}
+              style={null}
+            >
+              <View
+                style={
+                  Array [
+                    Object {
+                      "alignItems": "flex-start",
+                      "flexDirection": "row",
+                    },
+                    Object {
+                      "backgroundColor": "#e6f2ff",
+                    },
+                  ]
+                }
+              >
+                <Text
+                  style={
+                    Object {
+                      "fontSize": 16,
+                      "marginLeft": 5,
+                      "marginRight": 5,
+                      "marginTop": 5,
+                    }
+                  }
+                >
+                  Impish
+                </Text>
+              </View>
+            </View>
+            <View
+              onLayout={[Function]}
+              style={null}
+            >
+              <View
+                style={
+                  Array [
+                    Object {
+                      "alignItems": "flex-start",
+                      "flexDirection": "row",
+                    },
+                    Object {
+                      "backgroundColor": "#ffffff",
+                    },
+                  ]
+                }
+              >
+                <Text
+                  style={
+                    Object {
+                      "fontSize": 16,
+                      "marginLeft": 5,
+                      "marginRight": 5,
+                      "marginTop": 5,
+                    }
+                  }
+                >
+                  Lax
+                </Text>
+              </View>
+            </View>
+            <View
+              onLayout={[Function]}
+              style={null}
+            >
+              <View
+                style={
+                  Array [
+                    Object {
+                      "alignItems": "flex-start",
+                      "flexDirection": "row",
+                    },
+                    Object {
+                      "backgroundColor": "#e6f2ff",
+                    },
+                  ]
+                }
+              >
+                <Text
+                  style={
+                    Object {
+                      "fontSize": 16,
+                      "marginLeft": 5,
+                      "marginRight": 5,
+                      "marginTop": 5,
+                    }
+                  }
+                >
+                  Relaxed
+                </Text>
+              </View>
+            </View>
+          </View>
+        </RCTScrollView>
+      </View>
+      <View
+        style={
+          Object {
+            "flex": 1,
+            "marginBottom": 10,
+            "marginLeft": 5,
+            "marginRight": 5,
+          }
+        }
+      >
+        <Text
+          style={
+            Object {
+              "fontSize": 16,
+              "fontWeight": "bold",
+              "marginTop": 10,
+              "textAlign": "center",
+            }
+          }
+        >
+          Natures: Negative
+        </Text>
+        <RCTScrollView
+          data={
+            Array [
+              Object {
+                "name": "gentle",
+              },
+              Object {
+                "name": "hasty",
+              },
+              Object {
+                "name": "lonely",
+              },
+              Object {
+                "name": "mild",
+              },
+            ]
+          }
+          disableVirtualization={false}
+          getItem={[Function]}
+          getItemCount={[Function]}
+          horizontal={false}
+          initialNumToRender={15}
+          keyExtractor={[Function]}
+          maxToRenderPerBatch={10}
+          numColumns={1}
+          onContentSizeChange={[Function]}
+          onEndReachedThreshold={2}
+          onLayout={[Function]}
+          onMomentumScrollEnd={[Function]}
+          onScroll={[Function]}
+          onScrollBeginDrag={[Function]}
+          onScrollEndDrag={[Function]}
+          renderItem={[Function]}
+          scrollEventThrottle={50}
+          stickyHeaderIndices={Array []}
+          style={
+            Object {
+              "borderColor": "black",
+              "borderRadius": 10,
+              "borderWidth": 2,
+              "maxHeight": 300,
+            }
+          }
+          testId="testIdNaturesNegative"
+          updateCellsBatchingPeriod={50}
+          viewabilityConfigCallbackPairs={Array []}
+          windowSize={21}
+        >
+          <View>
+            <View
+              onLayout={[Function]}
+              style={null}
+            >
+              <View
+                style={
+                  Array [
+                    Object {
+                      "alignItems": "flex-start",
+                      "flexDirection": "row",
+                    },
+                    Object {
+                      "backgroundColor": "#ffffff",
+                    },
+                  ]
+                }
+              >
+                <Text
+                  style={
+                    Object {
+                      "fontSize": 16,
+                      "marginLeft": 5,
+                      "marginRight": 5,
+                      "marginTop": 5,
+                    }
+                  }
+                >
+                  Gentle
+                </Text>
+              </View>
+            </View>
+            <View
+              onLayout={[Function]}
+              style={null}
+            >
+              <View
+                style={
+                  Array [
+                    Object {
+                      "alignItems": "flex-start",
+                      "flexDirection": "row",
+                    },
+                    Object {
+                      "backgroundColor": "#e6f2ff",
+                    },
+                  ]
+                }
+              >
+                <Text
+                  style={
+                    Object {
+                      "fontSize": 16,
+                      "marginLeft": 5,
+                      "marginRight": 5,
+                      "marginTop": 5,
+                    }
+                  }
+                >
+                  Hasty
+                </Text>
+              </View>
+            </View>
+            <View
+              onLayout={[Function]}
+              style={null}
+            >
+              <View
+                style={
+                  Array [
+                    Object {
+                      "alignItems": "flex-start",
+                      "flexDirection": "row",
+                    },
+                    Object {
+                      "backgroundColor": "#ffffff",
+                    },
+                  ]
+                }
+              >
+                <Text
+                  style={
+                    Object {
+                      "fontSize": 16,
+                      "marginLeft": 5,
+                      "marginRight": 5,
+                      "marginTop": 5,
+                    }
+                  }
+                >
+                  Lonely
+                </Text>
+              </View>
+            </View>
+            <View
+              onLayout={[Function]}
+              style={null}
+            >
+              <View
+                style={
+                  Array [
+                    Object {
+                      "alignItems": "flex-start",
+                      "flexDirection": "row",
+                    },
+                    Object {
+                      "backgroundColor": "#e6f2ff",
+                    },
+                  ]
+                }
+              >
+                <Text
+                  style={
+                    Object {
+                      "fontSize": 16,
+                      "marginLeft": 5,
+                      "marginRight": 5,
+                      "marginTop": 5,
+                    }
+                  }
+                >
+                  Mild
+                </Text>
+              </View>
+            </View>
+          </View>
+        </RCTScrollView>
+      </View>
+    </View>
+  </View>
+</View>
+`;
+
+exports[`ModalBaseStat: render Should render without error when given a valid base stats data structure 1`] = `
+<View
+  style={
+    Object {
+      "flex": 1,
+    }
+  }
+>
+  <View
+    style={
+      Object {
+        "alignItems": "flex-start",
+        "borderBottomColor": "#c4c4c4",
+        "borderBottomWidth": 1,
+        "borderStyle": "solid",
+        "flexDirection": "row",
+        "marginTop": 30,
+        "paddingLeft": 10,
+        "paddingRight": 10,
+      }
+    }
+  >
+    <Text
+      style={
+        Array [
+          Object {
+            "fontSize": 30,
+            "fontWeight": "bold",
+          },
+          Object {
+            "flex": 1,
+          },
+        ]
+      }
+      testID="testIdName"
+    >
+      HP
+    </Text>
+    <View
+      accessible={true}
+      isTVSelectable={true}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
+      style={
+        Object {
+          "opacity": 1,
+        }
+      }
+    >
+      <Text
+        style={
+          Object {
+            "color": "#007aff",
+            "fontSize": 18,
+          }
+        }
+      >
+        Close
+      </Text>
+    </View>
+  </View>
+  <View
+    style={
+      Object {
+        "padding": 5,
+      }
+    }
+  >
+    <Text
+      style={
+        Object {
+          "fontSize": 16,
+          "fontStyle": "italic",
+          "margin": 5,
+        }
+      }
+    >
+      Hit Points (HP) determine how much damage a Pokemon can sustain before fainting. During a battle, Hit Points are shown as a green bar on the screen.
+    </Text>
+    <Text
+      style={
+        Object {
+          "color": "#929292",
+          "fontSize": 10,
+          "textAlign": "right",
+        }
+      }
+    >
+      Adapted from Bulbapedia
+    </Text>
+    <View
+      style={
+        Object {
+          "alignItems": "flex-start",
+          "flexDirection": "row",
+        }
+      }
+    >
+      <View
+        style={
+          Object {
+            "flex": 1,
+            "marginBottom": 10,
+            "marginLeft": 5,
+            "marginRight": 5,
+          }
+        }
+      >
+        <Text
+          style={
+            Object {
+              "fontSize": 16,
+              "fontWeight": "bold",
+              "marginTop": 10,
+              "textAlign": "center",
+            }
+          }
+        >
+          Moves: Positive
+        </Text>
+        <RCTScrollView
+          data={
+            Array [
+              Object {
+                "change": 1,
+                "name": "ancient-power",
+              },
+              Object {
+                "change": 1,
+                "name": "ominous-wind",
+              },
+              Object {
+                "change": 1,
+                "name": "silver-wind",
+              },
+            ]
+          }
+          disableVirtualization={false}
+          getItem={[Function]}
+          getItemCount={[Function]}
+          horizontal={false}
+          initialNumToRender={15}
+          keyExtractor={[Function]}
+          maxToRenderPerBatch={10}
+          numColumns={1}
+          onContentSizeChange={[Function]}
+          onEndReachedThreshold={2}
+          onLayout={[Function]}
+          onMomentumScrollEnd={[Function]}
+          onScroll={[Function]}
+          onScrollBeginDrag={[Function]}
+          onScrollEndDrag={[Function]}
+          renderItem={[Function]}
+          scrollEventThrottle={50}
+          stickyHeaderIndices={Array []}
+          style={
+            Object {
+              "borderColor": "black",
+              "borderRadius": 10,
+              "borderWidth": 2,
+              "maxHeight": 300,
+            }
+          }
+          testId="testIdMovesPositive,"
+          updateCellsBatchingPeriod={50}
+          viewabilityConfigCallbackPairs={Array []}
+          windowSize={21}
+        >
+          <View>
+            <View
+              onLayout={[Function]}
+              style={null}
+            >
+              <View
+                style={
+                  Array [
+                    Object {
+                      "alignItems": "flex-start",
+                      "flexDirection": "row",
+                    },
+                    Object {
+                      "backgroundColor": "#ffffff",
+                    },
+                  ]
+                }
+              >
+                <Text
+                  style={
+                    Array [
+                      Object {
+                        "flex": 1,
+                      },
+                      Object {
+                        "fontSize": 16,
+                        "marginLeft": 5,
+                        "marginRight": 5,
+                        "marginTop": 5,
+                      },
+                    ]
+                  }
+                >
+                  Ancient Power
+                </Text>
+                <Text
+                  style={
+                    Object {
+                      "fontSize": 16,
+                      "marginLeft": 5,
+                      "marginRight": 5,
+                      "marginTop": 5,
+                    }
+                  }
+                >
+                  +1
+                </Text>
+              </View>
+            </View>
+            <View
+              onLayout={[Function]}
+              style={null}
+            >
+              <View
+                style={
+                  Array [
+                    Object {
+                      "alignItems": "flex-start",
+                      "flexDirection": "row",
+                    },
+                    Object {
+                      "backgroundColor": "#e6f2ff",
+                    },
+                  ]
+                }
+              >
+                <Text
+                  style={
+                    Array [
+                      Object {
+                        "flex": 1,
+                      },
+                      Object {
+                        "fontSize": 16,
+                        "marginLeft": 5,
+                        "marginRight": 5,
+                        "marginTop": 5,
+                      },
+                    ]
+                  }
+                >
+                  Ominous Wind
+                </Text>
+                <Text
+                  style={
+                    Object {
+                      "fontSize": 16,
+                      "marginLeft": 5,
+                      "marginRight": 5,
+                      "marginTop": 5,
+                    }
+                  }
+                >
+                  +1
+                </Text>
+              </View>
+            </View>
+            <View
+              onLayout={[Function]}
+              style={null}
+            >
+              <View
+                style={
+                  Array [
+                    Object {
+                      "alignItems": "flex-start",
+                      "flexDirection": "row",
+                    },
+                    Object {
+                      "backgroundColor": "#ffffff",
+                    },
+                  ]
+                }
+              >
+                <Text
+                  style={
+                    Array [
+                      Object {
+                        "flex": 1,
+                      },
+                      Object {
+                        "fontSize": 16,
+                        "marginLeft": 5,
+                        "marginRight": 5,
+                        "marginTop": 5,
+                      },
+                    ]
+                  }
+                >
+                  Silver Wind
+                </Text>
+                <Text
+                  style={
+                    Object {
+                      "fontSize": 16,
+                      "marginLeft": 5,
+                      "marginRight": 5,
+                      "marginTop": 5,
+                    }
+                  }
+                >
+                  +1
+                </Text>
+              </View>
+            </View>
+          </View>
+        </RCTScrollView>
+      </View>
+      <View />
+    </View>
+    <View
+      style={
+        Object {
+          "alignItems": "flex-start",
+          "flexDirection": "row",
+        }
+      }
+    >
+      <View />
+      <View />
+    </View>
+  </View>
+</View>
+`;
